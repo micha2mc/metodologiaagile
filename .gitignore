@@ -1,0 +1,10 @@
+# Ignorar archivos de configuración específicos de NetBeans
+nbproject/
+nb-configuration.xml
+
+# Ignorar archivos generados por Maven
+target/
+
+# Ignorar otros archivos específicos del sistema operativo
+.DS_Store
+Thumbs.db
