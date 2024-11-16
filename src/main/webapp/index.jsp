@@ -26,18 +26,7 @@
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-outligth dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Usuario Conectado
-                    </button>
-                    <div class="dropdown-menu text-center">
-                        <a class="dropdown-item" href="#">
-                            <img src="img/usuario.png" alt="60" width="60"/>
-                        </a>
-                        <a class="dropdown-item" href="#">Usuario</a>
-                        <a class="dropdown-item" href="#">usuario@gmail.com</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Salir</a>
-                    </div>
+                    <a class="btn btn-outline-ligth" href="view/Registro.jsp">LogIn</a>
                 </div>
             </nav>
             <!-- Close Header -->

@@ -13,29 +13,20 @@
         <title>Formulario Registro</title>
     </head>
     <body>
-    <!-- Header -->
-                <nav class="navbar navbar-expand-lg navbar-light shadow">
-                    <div class="container d-flex justify-content-between align-items-center">
-                        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                            <div class="flex-fill">
-                                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../index.jsp">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="noticias.jsp">Noticias</a>
-                                    </li>
-                                    
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../index.jsp"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </nav>
-                <!-- Close Header -->
+<!-- Header -->
+            <nav class="navbar navbar-expand-lg navbar-light shadow bg-info">
+                <div class="collpse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="../index.jsp">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="noticias.jsp">Noticias</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Close Header -->
         <div class="container mt-4 col-lg-4">
             <div class="card col-sm-10">
                 <div class="card-body">

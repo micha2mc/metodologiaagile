@@ -159,8 +159,8 @@ ALTER TABLE `piloto_has_votacion` ADD CONSTRAINT `piloto_has_votacion_fk1` FOREI
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
--- INSERT INTO `circuitsdb`.`users` (username, password, email, enable) VALUES ('Admin', '12345', 'admin@gmail.com', 1);
--- INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (1, 1);
+INSERT INTO `circuitsdb`.`users` (username, email, password) VALUES ('Admin', 'admin@gmail.com', '12345');
+INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (1, 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
