@@ -14,21 +14,30 @@
     </head>
     <body>
             <!-- Header -->
-            <nav class="navbar navbar-expand-lg navbar-light shadow">
-                <div class="container d-flex justify-content-between align-items-center">
-                    <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                        <div class="flex-fill">
-                            <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="index.html">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Registro</a>
-                                </li>
-                            </ul>
-                        </div>
+            <nav class="navbar navbar-expand-lg navbar-light shadow bg-info">
+                <div class="collpse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="view/noticias.jsp">Noticias</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outligth dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Usuario Conectado
+                    </button>
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">
+                            <img src="img/usuario.png" alt="60" width="60"/>
+                        </a>
+                        <a class="dropdown-item" href="#">Usuario</a>
+                        <a class="dropdown-item" href="#">usuario@gmail.com</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Salir</a>
                     </div>
-
                 </div>
             </nav>
             <!-- Close Header -->
