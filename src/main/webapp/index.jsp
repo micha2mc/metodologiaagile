@@ -73,18 +73,18 @@
                         <div class="container">
                             <div class="row p-5">
                                 <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                                    <img class="img-fluid" src="./assets/img/banner_img_01.jpg" alt="">
+                                    
+                                    <img class="img-fluid" src="https://www.infobae.com/resizer/v2/WUF57RGJUQY6N73TYBHDV3EJY4.jpg?auth=be09878b0b4d5881080b2eb130b489190035b11b162b4e490967938e619503ad&smart=true&width=992&height=661&quality=85" alt="500" width="500"/>
                                 </div>
                                 <div class="col-lg-6 mb-0 d-flex align-items-center">
                                     <div class="text-align-left align-self-center">
-                                        <h1 class="h1 text-success"><b>NOticia</b> 1</h1>
-                                        <h3 class="h2">Tiny and Perfect eCommerce Template</h3>
+                                        <h1 class="h1 text-success"><b>La decisión de Mercedes con Lewis Hamilton que golpea a Ferrari en la Fórmula 1</b></h1>
+                                        <h3 class="h2">En Inglaterra remarcan que son bajas las posibilidades de que el piloto de 39 años pueda decir presente en los test de postemporada con la escudería italiana.</h3>
                                         <p>
-                                            Zay Shop is an eCommerce HTML5 CSS template with latest version of Bootstrap 5 (beta 1).
-                                            This template is 100% free provided by <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website.
-                                            Image credits go to <a rel="sponsored" class="text-success" href="https://stories.freepik.com/" target="_blank">Freepik Stories</a>,
-                                            <a rel="sponsored" class="text-success" href="https://unsplash.com/" target="_blank">Unsplash</a> and
-                                            <a rel="sponsored" class="text-success" href="https://icons8.com/" target="_blank">Icons 8</a>.
+                                            La Fórmula 1 tendrá fuertes cambios en la conformación de las duplas de pilotos que lucirá cada 
+                                            escudería a partir de 2025. La incertidumbre por el futuro de Franco Colapinto ocurre en un marco 
+                                            con varios focos, como la salida de Lewis Hamilton de Mercedes para desembarcar en Ferrari y, 
+                                            a su vez, la contratación de Carlos Sainz dentro de la estructura de Williams.
                                         </p>
                                     </div>
                                 </div>
@@ -95,15 +95,16 @@
                         <div class="container">
                             <div class="row p-5">
                                 <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                                    <img class="img-fluid" src="./assets/img/banner_img_02.jpg" alt="">
+                                    <img class="img-fluid" src="https://padelmagazine.fr/wp-content/uploads/2023/02/Carlos-Sainz-JR-Ferrari.jpg" alt="500" width="500">
                                 </div>
                                 <div class="col-lg-6 mb-0 d-flex align-items-center">
                                     <div class="text-align-left">
-                                        <h1 class="h1">NOticia 2</h1>
-                                        <h3 class="h2">Aliquip ex ea commodo consequat</h3>
+                                        <h1 class="h1">Carlos Sainz ya tiene fecha para su estreno con Williams: será antes de la pretemporada del año 2025</h1>
+                                        <h3 class="h2">Carlos Sainz abandona Ferrari para convertirse en nuevo piloto de Williams a partir del año 2025.</h3>
                                         <p>
-                                            You are permitted to use this Zay CSS template for your commercial websites.
-                                            You are <strong>not permitted</strong> to re-distribute the template ZIP file in any kind of template collection websites.
+                                            El español Carlos Sainz se unirá al equipo Williams en el test final de temporada en el circuito de Yas Marina de 
+                                            Abu Dabi (Emiratos Árabes Unidos) en su primer contacto con su nueva escudería con el propósito de empezar a 
+                                            preparar la próxima temporada.
                                         </p>
                                     </div>
                                 </div>
@@ -114,15 +115,17 @@
                         <div class="container">
                             <div class="row p-5">
                                 <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                                    <img class="img-fluid" src="./assets/img/banner_img_03.jpg" alt="">
+                                    <img class="img-fluid" src="https://hips.hearstapps.com/hmg-prod/images/franco-colapinto-of-argentina-and-williams-walks-through-news-photo-1731668832.jpg?crop=0.645xw:0.643xh;0.172xw,0.00923xh&resize=1200:*" alt="500">
                                 </div>
                                 <div class="col-lg-6 mb-0 d-flex align-items-center">
                                     <div class="text-align-left">
-                                        <h1 class="h1">Noticia 3</h1>
-                                        <h3 class="h2">Ullamco laboris nisi ut </h3>
+                                        <h1 class="h1">Franco Colapinto sobre su futuro en la F1: "No me importa si es Verstappen o Zhou, quiero vencerlos"</h1>
+                                        <h3 class="h2">Colapinto sigue ganando protagonismo en la F1 mientras evalúa opciones para 2025.</h3>
                                         <p>
-                                            We bring you 100% free CSS templates for your websites.
-                                            If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.
+                                            Franco Colapinto, una de las promesas emergentes de la Fórmula 1, lanzó un comentario que ha generado 
+                                            revuelo al insinuar que Zhou Guanyu podría ser el peor piloto en la parrilla actual. Las declaraciones 
+                                            surgieron durante una entrevista con su patrocinador Quilmes, donde el piloto argentino destacó su 
+                                            ambición de superar a cualquier compañero de equipo, sin importar su nivel.
                                         </p>
                                     </div>
                                 </div>
