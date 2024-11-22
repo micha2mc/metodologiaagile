@@ -26,7 +26,7 @@
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <a class="btn btn-outline-ligth" href="view/Registro.jsp">LogIn</a>
+                    <a class="btn btn-outline-ligth" href="view/registro.jsp">LogIn</a>
                 </div>
             </nav>
             <!-- Close Header -->

@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Authorities {
     private int nid;
-    private String userName;
-    private String email;
-    private String password;
-    private Authorities authorities;
-
+    private String authority;
 }
