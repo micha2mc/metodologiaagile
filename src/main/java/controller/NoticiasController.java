@@ -26,16 +26,16 @@ public class NoticiasController extends HttpServlet {
 
     private NoticiaDAO noticiaDAO = new NoticiaDAO();
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String noticiaNid = request.getParameter("noticia");
+
         if (StringUtils.isNotBlank(noticiaNid)) {
             request.setAttribute("noticia", noticiaDAO.getNoticiaById(Integer.valueOf(noticiaNid)));
             request.getRequestDispatcher("/view/noticias/noticia.jsp").forward(request, response);
         } else {
             //Las noticias actuales en primer lugar
-            List<Noticia> listNews = noticiaDAO.getTodasNoticias()
-                    .stream().sorted(Comparator.comparing(Noticia::getNid).reversed())
-                    .collect(Collectors.toList());
+            List<Noticia> listNews = noticiaDAO.getTodasNoticias();
             request.setAttribute("listaNoticias", listNews);
             request.getRequestDispatcher("/view/noticias/noticias.jsp").forward(request, response);
         }
@@ -43,12 +43,14 @@ public class NoticiasController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

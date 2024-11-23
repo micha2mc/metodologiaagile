@@ -1,13 +1,16 @@
 package model;
 
 import config.ConnectionDB;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NoticiaDAO {
 
@@ -26,13 +29,14 @@ public class NoticiaDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                noticias.add(getNoticia());
+                noticias.add(getNoticia(Boolean.TRUE));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return noticias;
+        return noticias.stream().sorted(Comparator.comparing(Noticia::getNid).reversed())
+                .collect(Collectors.toList());
     }
 
 
@@ -48,7 +52,7 @@ public class NoticiaDAO {
             preparedStatement.setInt(1, nid);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                noticia = getNoticia();
+                noticia = getNoticia(Boolean.FALSE);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -58,12 +62,13 @@ public class NoticiaDAO {
     }
 
 
-    private Noticia getNoticia() throws SQLException {
+    private Noticia getNoticia(boolean isListNews) throws SQLException {
         return Noticia.builder()
                 .nid(resultSet.getInt("nid"))
                 .titulo(resultSet.getString("titulo"))
                 .imagen(resultSet.getString("imagen"))
-                .texto(resultSet.getString("texto"))
+                .texto(isListNews ? StringUtils.join("", resultSet.getString("texto").substring(0, 255), "...") :
+                        resultSet.getString("texto"))
                 .fecha(resultSet.getDate("fecha").toLocalDate())
                 .build();
     }
