@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : Noticias
     Created on : 17 nov 2024, 09:42:17
     Author     : Home
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <title>Interfaz Noticias</title>
+        <title>Zona de Administración</title>
         <style>
 
             * {
@@ -151,43 +151,32 @@
 
 
         <div class="main">
-
-
-
             <div class="header">
                 <h1>NOTICIAS</h1>
             </div>
+            <form class="form-sign" action="NoticiaController" method="POST">
+                <div class="main1">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="texto">Texto</label>
+                        <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto"></textarea>
+                    </div>
 
-            <div class="main1">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input type="text" id="id" placeholder="Buscar por ID">
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" id="foto">
+                    </div>
+                    <div class="buttons">
+                        <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button>
+                        <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                        <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input type="text" id="titulo" placeholder="Ingrese el título">
-                </div>
-
-                <div class="form-group">
-                    <label for="texto">Texto</label>
-                    <textarea id="texto" rows="5" placeholder="Ingrese el texto"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="foto">Foto</label>
-                    <input type="file" id="foto">
-                </div>
-
-
-
-
-                <div class="buttons">
-                    <button style="background-color: yellowgreen;">Create</button>
-                    <button style="background-color:yellow; color:black ;">Update</button>
-                    <button style="background-color:red;">Delete</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

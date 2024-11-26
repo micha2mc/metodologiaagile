@@ -21,7 +21,7 @@ public class Controller extends HttpServlet {
         String accion = request.getParameter("accion");
 
         switch (accion) {
-            case "Admin" -> request.getRequestDispatcher("view/admin.jsp").forward(request, response);
+            case "Admin" -> request.getRequestDispatcher("view/administracion/admin.jsp").forward(request, response);
             case "Respon" -> request.getRequestDispatcher("view/responsable.jsp").forward(request, response);
             default -> throw new RuntimeException("Error");
         }

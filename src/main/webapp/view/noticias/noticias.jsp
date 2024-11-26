@@ -22,7 +22,7 @@
                             <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="NoticiasController">Noticias</a>
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="NoticiaController">Noticias</a>
                         </li>
                     </ul>
                 </div>
@@ -36,7 +36,7 @@
             <div class="row d-flex align-items-center justify-content-center" style="height: 100vh;">
                 <div class="col-md-6 my-1">
                     <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                        <a href="NoticiasController?noticia=${temporalesNoticias.nid}" class="card shadow-lg" style="text-decoration:none;">
+                        <a href="NoticiaController?noticia=${temporalesNoticias.nid}" class="card shadow-lg" style="text-decoration:none;">
                         <img th:src="@{'/images/uploads/'+ ${pelicula.image}}" th:alt="*{title}" class="card-img-top">
                         <div class="card-body">
                             <h2 class="card-title fs-6">${temporalesNoticias.titulo}</h2>

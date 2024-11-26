@@ -21,7 +21,7 @@
                             <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="../index.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="noticias.jsp">Noticias</a>
+                            <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="../NoticiaController">Noticias</a>
                         </li>
                     </ul>
                 </div>
