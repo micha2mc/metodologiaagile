@@ -68,13 +68,13 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="container">
-                                <div class="row p-5">
+                                <div class="row p-5 align-items-start">
                                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
 
                                         <img class="img-fluid" src="https://www.infobae.com/resizer/v2/WUF57RGJUQY6N73TYBHDV3EJY4.jpg?auth=be09878b0b4d5881080b2eb130b489190035b11b162b4e490967938e619503ad&smart=true&width=992&height=661&quality=85" alt="500" width="500"/>
                                     </div>
-                                    <div class="col-lg-6 mb-0 d-flex align-items-center">
-                                        <div class="text-align-left align-self-center">
+                                    <div class="col-lg-6 mb-0 d-flex align-items-start">
+                                        <div class="text-align-left align-self-start">
                                             <h1 class="h2 text-success"><b>La decisión de Mercedes con Lewis Hamilton que golpea a Ferrari en la Fórmula 1</b></h1>
                                             <h4 class="h4">En Inglaterra remarcan que son bajas las posibilidades de que el piloto de 39 años pueda decir presente en los test de postemporada con la escudería italiana.</h3>
                                             <p>
@@ -90,12 +90,12 @@
                         </div>
                         <div class="carousel-item">
                             <div class="container">
-                                <div class="row p-5">
-                                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                <div class="row p-5 align-items-start">
+                                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last align-items-start">
                                         <img class="img-fluid" src="https://padelmagazine.fr/wp-content/uploads/2023/02/Carlos-Sainz-JR-Ferrari.jpg" alt="500" width="500">
                                     </div>
                                     <div class="col-lg-6 mb-0 d-flex align-items-center">
-                                        <div class="text-align-left">
+                                        <div class="text-align-left align-self-start">
                                             <h1 class="h2 text-success">Carlos Sainz ya tiene fecha para su estreno con Williams: será antes de la pretemporada del año 2025</h1>
                                             <h4>Carlos Sainz abandona Ferrari para convertirse en nuevo piloto de Williams a partir del año 2025.</h4>
                                             <p>
@@ -110,12 +110,12 @@
                         </div>
                         <div class="carousel-item">
                             <div class="container">
-                                <div class="row p-5">
+                                <div class="row p-5 align-items-start">
                                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
                                         <img class="img-fluid" src="https://hips.hearstapps.com/hmg-prod/images/franco-colapinto-of-argentina-and-williams-walks-through-news-photo-1731668832.jpg?crop=0.645xw:0.643xh;0.172xw,0.00923xh&resize=1200:*" alt="500">
                                     </div>
-                                    <div class="col-lg-6 mb-0 d-flex align-items-center">
-                                        <div class="text-align-left">
+                                    <div class="col-lg-6 mb-0 d-flex align-items-start">
+                                        <div class="text-align-left align-self-start">
                                             <h1 class="h2 text-success">Franco Colapinto sobre su futuro en la F1: "No me importa si es Verstappen o Zhou, quiero vencerlos"</h1>
                                             <h4>Colapinto sigue ganando protagonismo en la F1 mientras evalúa opciones para 2025.</h4>
                                             <p>

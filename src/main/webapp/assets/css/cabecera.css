@@ -7,6 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    overflow: hidden; /* Elimina cualquier scroll */
 }
 
 .container {
@@ -24,6 +25,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: sticky;
+    height: fit-content;
+    border-top-left-radius: 70px;
 
 }
 
@@ -47,7 +51,6 @@ body {
 
 
 .main {
-    background-color: #f8f9fa;
     width: 100%;
     padding: 0px;
     display: flex;
@@ -68,7 +71,7 @@ body {
     text-align: center;
 
     margin-bottom: 5px;
-    border-bottom-right-radius: 100px;
+    border-bottom-right-radius: 70px;
     flex-direction: column;
     height: 70px;
 }
