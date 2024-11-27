@@ -75,8 +75,8 @@
                                     </div>
                                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                                         <div class="text-align-left align-self-center">
-                                            <h1 class="h1 text-success"><b>La decisión de Mercedes con Lewis Hamilton que golpea a Ferrari en la Fórmula 1</b></h1>
-                                            <h3 class="h2">En Inglaterra remarcan que son bajas las posibilidades de que el piloto de 39 años pueda decir presente en los test de postemporada con la escudería italiana.</h3>
+                                            <h1 class="h2 text-success"><b>La decisión de Mercedes con Lewis Hamilton que golpea a Ferrari en la Fórmula 1</b></h1>
+                                            <h4 class="h4">En Inglaterra remarcan que son bajas las posibilidades de que el piloto de 39 años pueda decir presente en los test de postemporada con la escudería italiana.</h3>
                                             <p>
                                                 La Fórmula 1 tendrá fuertes cambios en la conformación de las duplas de pilotos que lucirá cada
                                                 escudería a partir de 2025. La incertidumbre por el futuro de Franco Colapinto ocurre en un marco
@@ -96,8 +96,8 @@
                                     </div>
                                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                                         <div class="text-align-left">
-                                            <h1 class="h1">Carlos Sainz ya tiene fecha para su estreno con Williams: será antes de la pretemporada del año 2025</h1>
-                                            <h3 class="h2">Carlos Sainz abandona Ferrari para convertirse en nuevo piloto de Williams a partir del año 2025.</h3>
+                                            <h1 class="h2 text-success">Carlos Sainz ya tiene fecha para su estreno con Williams: será antes de la pretemporada del año 2025</h1>
+                                            <h4>Carlos Sainz abandona Ferrari para convertirse en nuevo piloto de Williams a partir del año 2025.</h4>
                                             <p>
                                                 El español Carlos Sainz se unirá al equipo Williams en el test final de temporada en el circuito de Yas Marina de
                                                 Abu Dabi (Emiratos Árabes Unidos) en su primer contacto con su nueva escudería con el propósito de empezar a
@@ -116,8 +116,8 @@
                                     </div>
                                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                                         <div class="text-align-left">
-                                            <h1 class="h1">Franco Colapinto sobre su futuro en la F1: "No me importa si es Verstappen o Zhou, quiero vencerlos"</h1>
-                                            <h3 class="h2">Colapinto sigue ganando protagonismo en la F1 mientras evalúa opciones para 2025.</h3>
+                                            <h1 class="h2 text-success">Franco Colapinto sobre su futuro en la F1: "No me importa si es Verstappen o Zhou, quiero vencerlos"</h1>
+                                            <h4>Colapinto sigue ganando protagonismo en la F1 mientras evalúa opciones para 2025.</h4>
                                             <p>
                                                 Franco Colapinto, una de las promesas emergentes de la Fórmula 1, lanzó un comentario que ha generado
                                                 revuelo al insinuar que Zhou Guanyu podría ser el peor piloto en la parrilla actual. Las declaraciones
