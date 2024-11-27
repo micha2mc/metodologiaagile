@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.NoticiaDAO;
 
 import java.io.IOException;
 
@@ -16,19 +15,16 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
 
-        /*switch (accion){
-            case "Principal":
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                break;
-            default:
-                throw new RuntimeException("Error");
-        }*/
+        switch (accion) {
+            case "Admin" -> request.getRequestDispatcher("view/administracion/admin.jsp").forward(request, response);
+            case "Respon" -> request.getRequestDispatcher("view/responsable.jsp").forward(request, response);
+            default -> throw new RuntimeException("Error");
+        }
 
     }
 

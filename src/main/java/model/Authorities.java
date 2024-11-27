@@ -5,16 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Noticia {
+public class Authorities {
     private int nid;
-    private String titulo;
-    private String imagen;
-    private String texto;
-    private LocalDate fecha;
+    private String authority;
 }

@@ -8,31 +8,40 @@ import java.sql.ResultSet;
 
 public class UserDAO {
     ConnectionDB connectionDB = new ConnectionDB();
-    Connection connection;
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
+
 
     public User validar(final String userName, final String email) {
-        User user = new User();
-        String sql = "SELECT * FROM users WHERE USERNAME = ? AND EMAIL = ?";
 
+        String sql = """
+                SELECT u.nid AS nid_u, username, email, a.nid AS nid_a, authority FROM users u
+                JOIN users_has_authorities ua ON u.nid = ua.id_user_fk
+                JOIN authorities a ON ua.id_authorities_fk = a.nid WHERE u.USERNAME = ? AND u.EMAIL = ?
+                """;
 
-        try {
-            connection = connectionDB.ConnectionDB();
-            preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, email);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                user.setNid(resultSet.getInt("nid"));
-                user.setUserName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    Authorities authorities = Authorities.builder()
+                            .nid(resultSet.getInt("nid_a"))
+                            .authority(resultSet.getString("authority"))
+                            .build();
+                    return User.builder()
+                            .nid(resultSet.getInt("nid_u"))
+                            .userName(resultSet.getString("username"))
+                            .email(resultSet.getString("email"))
+                            .authorities(authorities)
+                            .build();
+                }
 
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return user;
+        return null;
     }
 }

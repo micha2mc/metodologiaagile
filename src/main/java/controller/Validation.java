@@ -12,9 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import model.User;
 import model.UserDAO;
-import org.apache.commons.lang3.StringUtils;
+import utils.RolEnum;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author micha
@@ -25,23 +26,17 @@ public class Validation extends HttpServlet {
 
     private UserDAO userDAO = new UserDAO();
 
-    protected void processRequest(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
         if (accion.equalsIgnoreCase("Introducir")) {
-            String userName = request.getParameter("txtuser");
-            String email = request.getParameter("txtemail");
-            //System.out.println("Yesssssssssssssss");
-            User user = userDAO.validar(userName, email);
-            if (StringUtils.isNotBlank(user.getUserName())) {
-                request.getRequestDispatcher("Controller?accion=Principal").forward(request, response);
-            } else {
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
-        }else{
+            sesionIniciada(request, response);
+        } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,6 +53,22 @@ public class Validation extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
+
+    private void sesionIniciada(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+        String userName = request.getParameter("txtuser");
+        String email = request.getParameter("txtemail");
+        User user = userDAO.validar(userName, email);
+        if (Objects.nonNull(user)) {
+            if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
+                request.getRequestDispatcher("Controller?accion=Admin").forward(request, response);
+            } else {
+                request.getRequestDispatcher("Controller?accion=Respon").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    }
 
 }
