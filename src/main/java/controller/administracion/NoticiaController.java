@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.administracion.NoticiaDAO;
+import model.administracion.dao.NoticiaDAO;
 import model.administracion.NoticiaModel;
 import org.apache.commons.lang3.StringUtils;
 

@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model.administracion;
+package model.administracion.dao;
 
 import config.ConnectionDB;
+import model.administracion.NoticiaModel;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.*;
