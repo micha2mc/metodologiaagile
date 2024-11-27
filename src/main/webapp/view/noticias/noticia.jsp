@@ -12,41 +12,50 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>${noticia.titulo}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
-                        <!-- Header -->
-        <nav class="navbar navbar-expand-lg navbar-light shadow bg-info">
-            <div class="collpse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="NoticiaController">Noticias</a>
-                    </li>
-                </ul>
+        <div class="container">
+            <div class="sidebar">
+                <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
+                     alt="F1 Logo">
             </div>
-        </nav>
-            <!-- Close Header -->
-
-        <div layout:fragment="content">
-            
-            <div class="row d-flex align-items-center justify-content-center">
-                <div class="col-md-9 my-1">
-                    
-                    <a class="card shadow-lg" style="text-decoration:none;">
-                        
-                        <div class="card-body">
-                            <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                                <img  src="https://www.infobae.com/resizer/v2/WUF57RGJUQY6N73TYBHDV3EJY4.jpg?auth=be09878b0b4d5881080b2eb130b489190035b11b162b4e490967938e619503ad&smart=true&width=992&height=661&quality=85" alt="500" width="500"/>
-                            </div>
-                            <h1 class="h1 text-success"><b>${noticia.titulo}</b></h1>
-                            <p class="text-muted small">${noticia.texto}</p>
+            <div class="main">
+                <div class="header">
+                           <!-- Header -->
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="collpse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="NoticiaController">Noticias</a>
+                                </li>
+                            </ul>
                         </div>
-                    </a>
+                    </nav>
+                <!-- Close Header -->
                 </div>
+                <div class="overflow-md-scroll" style="overflow-x: hidden;">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col-md-9 my-1">
+                            <a class="card shadow-lg" style="text-decoration:none;">
+                                <div class="card-body">
+                                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                        <img  src="https://www.infobae.com/resizer/v2/WUF57RGJUQY6N73TYBHDV3EJY4.jpg?auth=be09878b0b4d5881080b2eb130b489190035b11b162b4e490967938e619503ad&smart=true&width=992&height=661&quality=85" alt="500" width="500"/>
+                                    </div>
+                                    <h1 class="h1 text-success"><b>${noticia.titulo}</b></h1>
+                                    <p class="text-muted small">${noticia.texto}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>   
             </div>
         </div>
+
+        
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body>

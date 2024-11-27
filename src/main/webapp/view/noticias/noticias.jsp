@@ -37,8 +37,8 @@
                     </nav>
                 <!-- Close Header -->
                 </div>
-                <div style="overflow-y: auto;overflow-x: hidden;">
-                    <div class="row d-flex align-items-center justify-content-center" style="height: 100vh;">
+                <div class="overflow-md-scroll" style="overflow-x: hidden;">
+                    <div class="row d-flex align-items-start justify-content-center" style="height: 100vh;">
                         <div class="col-md-6 my-1">
                             <c:forEach var="temporalesNoticias" items="${listaNoticias}">
                                 <a href="NoticiaController?noticia=${temporalesNoticias.nid}" class="card shadow-lg" style="text-decoration:none;">

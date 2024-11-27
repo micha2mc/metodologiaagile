@@ -34,7 +34,10 @@
                             </ul>
                         </div>
                         <div>
-                            <a class="btn btn-outline-ligth" href="view/registro.jsp">LogIn</a>
+                            
+                            <a style="margin-right: 50px; border: none" class="btn btn-outline-ligth" href="view/registro.jsp">
+                                
+                                <img src="img/usuario.png" alt="45" width="45"/></a>
                         </div>
                     </nav>
                 <!-- Close Header -->
