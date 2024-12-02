@@ -30,7 +30,7 @@ public class Validation extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
-        if (accion.equalsIgnoreCase("Introducir")) {
+        if (accion.equalsIgnoreCase("conectar")) {
             sesionIniciada(request, response);
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -62,6 +62,7 @@ public class Validation extends HttpServlet {
         User user = userDAO.validar(userName, email);
         if (Objects.nonNull(user)) {
             if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
+                request.setAttribute("usuario", user);
                 request.getRequestDispatcher("Controller?accion=Admin").forward(request, response);
             } else {
                 request.getRequestDispatcher("Controller?accion=Respon").forward(request, response);

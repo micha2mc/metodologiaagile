@@ -28,37 +28,58 @@
         </div>
         <div class="main">
             <div class="header">
-                <h1>NOTICIAS</h1>
-            </div>
-                <div class="main1">
-                <form class="form-sign" action="NoticiaController" method="POST">
-                    
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
-                            <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la noticia">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="collpse navbar-collapse" id="navbarNav">
+                        <div class="dropdown ms-auto">
+                            <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                ${usuario.getUserName()}
+                            </button>
+                            <div class="dropdown-menu text-center">
+                                <a class="dropdown-item" href="#">
+                                    <img src="img/usuario.png" alt="60" width="60"/>
+                                </a>
+                                <a class="dropdown-item" href="#">${usuario.getUserName()}</a>
+                                <a class="dropdown-item" href="#">${usuario.getEmail()}</a>
+                                <div class="dropdown-divider"></div>
+                                <form action="Validation" method="POST">
+                                    <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                                </form>
+                                
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="texto">Texto</label>
-                            <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="foto">Foto</label>
-                            <input type="file" id="foto">
-                        </div>
-                        <div class="buttons">
-                            <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button>
-                            <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
-                            <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>
-                        </div>
-                    
-                </form>
                     </div>
+                </nav>
+
+            </div>
+            <div class="main1">
+                <form class="form-sign" action="NoticiaController" method="POST">
+
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la noticia">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="texto">Texto</label>
+                        <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" id="foto">
+                    </div>
+                    <div class="buttons">
+                        <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button>
+                        <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                        <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>

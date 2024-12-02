@@ -58,7 +58,7 @@
                                         <input type="password" name="txtpass" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" name="accion" value="Introducir" class="btn btn-primary btn-block">
+                                        <input type="submit" name="accion" value="Conectar" class="btn btn-primary btn-block">
                                     </div>
                                 </form>  
                             </div>
