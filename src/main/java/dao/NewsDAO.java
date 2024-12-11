@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model.administracion.dao;
+package dao;
 
 import config.ConnectionDB;
-import model.administracion.NoticiaModel;
+import model.News;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.*;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * @author Home
  */
-public class NoticiaDAO {
+public class NewsDAO {
 
 
     ConnectionDB connectionDB = new ConnectionDB();
@@ -26,28 +26,28 @@ public class NoticiaDAO {
     ResultSet resultSet;
 
 
-    public List<NoticiaModel> getTodasNoticias() {
-        List<NoticiaModel> noticiaModels = new ArrayList<>();
+    public List<News> getTodasNoticias() {
+        List<News> news = new ArrayList<>();
         String sql = "SELECT * FROM noticias";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                noticiaModels.add(getNoticia(Boolean.TRUE));
+                news.add(getNoticia(Boolean.TRUE));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return noticiaModels.stream().sorted(Comparator.comparing(NoticiaModel::getNid).reversed())
+        return news.stream().sorted(Comparator.comparing(News::getNid).reversed())
                 .collect(Collectors.toList());
     }
 
 
-    public NoticiaModel getNoticiaById(final Integer nid) {
+    public News getNoticiaById(final Integer nid) {
 
-        NoticiaModel noticiaModel = new NoticiaModel();
+        News news = new News();
         String sql = "SELECT * FROM noticias WHERE nid = ?";
 
 
@@ -56,16 +56,16 @@ public class NoticiaDAO {
             preparedStatement.setInt(1, nid);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                noticiaModel = getNoticia(Boolean.FALSE);
+                news = getNoticia(Boolean.FALSE);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return noticiaModel;
+        return news;
     }
 
-    public void crearNoticia(NoticiaModel noticia) throws SQLException {
+    public void crearNoticia(News noticia) throws SQLException {
 
         String sql = "INSERT INTO noticias ( titulo, imagen, texto, fecha ) VALUES(?,?,?,?)";
 
@@ -100,8 +100,8 @@ public class NoticiaDAO {
     }*/
 
 
-    private NoticiaModel getNoticia(boolean isListNews) throws SQLException {
-        return NoticiaModel.builder()
+    private News getNoticia(boolean isListNews) throws SQLException {
+        return News.builder()
                 .nid(resultSet.getInt("nid"))
                 .titulo(resultSet.getString("titulo"))
                 .imagen(resultSet.getString("imagen"))

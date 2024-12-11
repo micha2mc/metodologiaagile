@@ -1,6 +1,8 @@
-package model;
+package dao;
 
 import config.ConnectionDB;
+import model.Authorities;
+import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

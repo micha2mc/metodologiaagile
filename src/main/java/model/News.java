@@ -1,4 +1,4 @@
-package model.administracion;
+package model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NoticiaModel {
+public class News {
     private int nid;
     private String titulo;
     private String imagen;

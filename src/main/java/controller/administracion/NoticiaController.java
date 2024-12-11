@@ -9,8 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.administracion.dao.NoticiaDAO;
-import model.administracion.NoticiaModel;
+import dao.NewsDAO;
+import model.News;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.List;
 public class NoticiaController extends HttpServlet {
 
     private static final String UPLOAD_DIRECTORY = "src/main/webapp/img";
-    private final NoticiaDAO noticiaDAO = new NoticiaDAO();
+    private final NewsDAO noticiaDAO = new NewsDAO();
 
 
     protected void processRequest(final HttpServletRequest request, final HttpServletResponse response)
@@ -55,7 +55,7 @@ public class NoticiaController extends HttpServlet {
             request.getRequestDispatcher("/view/noticias/noticia.jsp").forward(request, response);
         } else {
             //Las noticias actuales en primer lugar
-            List<NoticiaModel> listNews = noticiaDAO.getTodasNoticias();
+            List<News> listNews = noticiaDAO.getTodasNoticias();
             request.setAttribute("listaNoticias", listNews);
             request.getRequestDispatcher("/view/noticias/noticias.jsp").forward(request, response);
         }
@@ -118,7 +118,7 @@ public class NoticiaController extends HttpServlet {
         }*/
 
         LocalDate fecha = LocalDate.now();
-        NoticiaModel newNoticia = NoticiaModel.builder()
+        News newNoticia = News.builder()
                 .titulo(titulo)
                 .texto(texto)
                 .fecha(fecha)

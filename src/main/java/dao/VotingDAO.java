@@ -1,6 +1,7 @@
-package model;
+package dao;
 
 import config.ConnectionDB;
+import model.Voting;
 
 import java.sql.*;
 import java.util.ArrayList;

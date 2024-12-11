@@ -1,6 +1,7 @@
-package model;
+package dao;
 
 import config.ConnectionDB;
+import model.Team;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

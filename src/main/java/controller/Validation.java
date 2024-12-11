@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import model.User;
-import model.UserDAO;
+import dao.UserDAO;
 import utils.RolEnum;
 
 import java.io.IOException;
