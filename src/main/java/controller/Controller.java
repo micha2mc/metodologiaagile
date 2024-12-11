@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.User;
 
 import java.io.IOException;
 
@@ -19,9 +20,13 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
 
         String accion = request.getParameter("accion");
+        User usuario = (User) request.getAttribute("usuario");
 
         switch (accion) {
-            case "Admin" -> request.getRequestDispatcher("view/administracion/admin.jsp").forward(request, response);
+            case "Admin" -> {
+                request.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("view/administracion/admin.jsp").forward(request, response);
+            }
             case "Respon" -> request.getRequestDispatcher("view/responsable.jsp").forward(request, response);
             default -> throw new RuntimeException("Error");
         }

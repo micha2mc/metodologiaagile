@@ -21,7 +21,7 @@
             </div>
             <div class="main">
                 <div class="header">
-                           <!-- Header -->
+                    <!-- Header -->
                     <nav class="navbar navbar-expand-lg">
                         <div class="collpse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
@@ -35,12 +35,14 @@
                         </div>
                         <div>
                             
-                            <a style="margin-right: 50px; border: none" class="btn btn-outline-ligth" href="view/registro.jsp">
-                                
-                                <img src="img/usuario.png" alt="45" width="45"/></a>
+                            <a style="border: none" class="dropdown-item" href="view/registro.jsp">
+                                conectar
+                            </a>
                         </div>
+
+
                     </nav>
-                <!-- Close Header -->
+                    <!-- Close Header -->
                 </div>
                 <!-- Modal -->
                 <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -80,12 +82,12 @@
                                         <div class="text-align-left align-self-start">
                                             <h1 class="h2 text-success"><b>La decisión de Mercedes con Lewis Hamilton que golpea a Ferrari en la Fórmula 1</b></h1>
                                             <h4 class="h4">En Inglaterra remarcan que son bajas las posibilidades de que el piloto de 39 años pueda decir presente en los test de postemporada con la escudería italiana.</h3>
-                                            <p>
-                                                La Fórmula 1 tendrá fuertes cambios en la conformación de las duplas de pilotos que lucirá cada
-                                                escudería a partir de 2025. La incertidumbre por el futuro de Franco Colapinto ocurre en un marco
-                                                con varios focos, como la salida de Lewis Hamilton de Mercedes para desembarcar en Ferrari y,
-                                                a su vez, la contratación de Carlos Sainz dentro de la estructura de Williams.
-                                            </p>
+                                                <p>
+                                                    La Fórmula 1 tendrá fuertes cambios en la conformación de las duplas de pilotos que lucirá cada
+                                                    escudería a partir de 2025. La incertidumbre por el futuro de Franco Colapinto ocurre en un marco
+                                                    con varios focos, como la salida de Lewis Hamilton de Mercedes para desembarcar en Ferrari y,
+                                                    a su vez, la contratación de Carlos Sainz dentro de la estructura de Williams.
+                                                </p>
                                         </div>
                                     </div>
                                 </div>
@@ -140,34 +142,34 @@
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 </div>
-       <!-- End Banner Hero -->
+                <!-- End Banner Hero -->
             </div>
         </div>
 
 
-       
 
 
-       <!-- Start Categories of The Month 
-       <section class="container py-5">
-           <div class="row text-center pt-3">
-               <div class="col-lg-6 m-auto">
-                   <h1 class="h1">Zona de Votaciones</h1>
-                   <p class="text-center"><a class="btn btn-success">Votar</a></p>
-               </div>
-           </div>
 
-       </section>-->
-       <!-- End Categories of The Month -->
-       <!-- Start Footer 
-       <footer class="bg-dark" id="tempaltemo_footer">
-           <div class="container">
-               <div class="row text-center">
-                   <h2 class="h2 text-success pb-3 border-light logo">Circuit Management</h2>
-               </div>
-           </div>
-
-       </footer>-->
+        <!-- Start Categories of The Month 
+        <section class="container py-5">
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Zona de Votaciones</h1>
+                    <p class="text-center"><a class="btn btn-success">Votar</a></p>
+                </div>
+            </div>
+ 
+        </section>-->
+        <!-- End Categories of The Month -->
+        <!-- Start Footer 
+        <footer class="bg-dark" id="tempaltemo_footer">
+            <div class="container">
+                <div class="row text-center">
+                    <h2 class="h2 text-success pb-3 border-light logo">Circuit Management</h2>
+                </div>
+            </div>
+ 
+        </footer>-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body>
