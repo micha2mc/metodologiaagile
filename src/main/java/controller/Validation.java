@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import model.User;
-import dao.UserDAO;
 import utils.RolEnum;
 
 import java.io.IOException;
@@ -62,9 +62,9 @@ public class Validation extends HttpServlet {
         User user = userDAO.validar(userName, email);
         if (Objects.nonNull(user)) {
             if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
-                request.getRequestDispatcher("view/admin/manageAdmin.jsp").forward(request, response);
+                request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
-                request.getRequestDispatcher("view/team/manageTeam.jsp").forward(request, response);
+                request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
             }
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
