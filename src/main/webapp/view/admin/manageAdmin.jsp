@@ -21,7 +21,7 @@
             <div class="d-flex flex-column justify-content-center align-items-center" >
                 <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                      alt="F1 Logo">
-                <a class="btn btn-outline-ligth text-center" href="NoticiaController">Noticias</a>
+                <a class="btn btn-outline-ligth text-center" href="PublicController">Noticias</a>
                 <a class="btn btn-outline-ligth text-center" href="#">Votación</a>
                 <a class="btn btn-outline-ligth text-center" href="#">Usuarios</a>
             </div>
@@ -52,7 +52,7 @@
 
             </div>
             <div class="main1">
-                <form class="form-sign" action="NoticiaController" method="POST">
+                <form class="form-sign" action="AdminController" method="POST">
 
                     <div class="form-group">
                         <label for="titulo">Título</label>
