@@ -1,6 +1,6 @@
 <%-- 
-    Document   : responsable
-    Created on : 23 nov 2024, 0:45:15
+    Document   : manageNews
+    Created on : 11 dic 2024, 23:28:32
     Author     : micha
 --%>
 
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Pagina Responsable de Equipo</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>

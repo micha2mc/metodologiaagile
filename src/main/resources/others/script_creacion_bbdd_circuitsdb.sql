@@ -163,7 +163,9 @@ INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
 INSERT INTO `circuitsdb`.`users` (username, email, password) VALUES ('Admin', 'admin@gmail.com', '12345');
+INSERT INTO `circuitsdb`.`users` (username, email, password) VALUES ('Team', 'team@gmail.com', '12345');
 INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (1, 1);
+INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (2, 2);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
