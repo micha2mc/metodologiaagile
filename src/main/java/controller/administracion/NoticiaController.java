@@ -41,25 +41,13 @@ public class NoticiaController extends HttpServlet {
                 default -> throw new RuntimeException("Error");
             }
         } else {
-            presentarNoticias(request, response);
+
         }
 
 
     }
 
-    private void presentarNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String noticiaNid = request.getParameter("noticia");
 
-        if (StringUtils.isNotBlank(noticiaNid)) {
-            request.setAttribute("noticia", noticiaDAO.getNoticiaById(Integer.valueOf(noticiaNid)));
-            request.getRequestDispatcher("/view/noticias/noticia.jsp").forward(request, response);
-        } else {
-            //Las noticias actuales en primer lugar
-            List<News> listNews = noticiaDAO.getTodasNoticias();
-            request.setAttribute("listaNoticias", listNews);
-            request.getRequestDispatcher("/view/noticias/noticias.jsp").forward(request, response);
-        }
-    }
 
 
     @Override

@@ -27,7 +27,7 @@ public class Controller extends HttpServlet {
                 request.setAttribute("usuario", usuario);
                 request.getRequestDispatcher("view/administracion/admin.jsp").forward(request, response);
             }
-            case "Respon" -> request.getRequestDispatcher("view/responsable.jsp").forward(request, response);
+            case "Respon" -> request.getRequestDispatcher("view/manageTeam.jsp").forward(request, response);
             default -> throw new RuntimeException("Error");
         }
 

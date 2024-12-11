@@ -62,10 +62,9 @@ public class Validation extends HttpServlet {
         User user = userDAO.validar(userName, email);
         if (Objects.nonNull(user)) {
             if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
-                request.setAttribute("usuario", user);
-                request.getRequestDispatcher("Controller?accion=Admin").forward(request, response);
+                request.getRequestDispatcher("view/admin/manageAdmin.jsp").forward(request, response);
             } else {
-                request.getRequestDispatcher("Controller?accion=Respon").forward(request, response);
+                request.getRequestDispatcher("view/team/manageTeam.jsp").forward(request, response);
             }
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
