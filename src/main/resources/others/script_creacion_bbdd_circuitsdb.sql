@@ -16,6 +16,7 @@ CREATE TABLE `users` (
 	`username` varchar(50) NOT NULL,
 	`email` varchar(50) NOT NULL,
 	`password` varchar(50) NOT NULL,
+	`valid` BOOLEAN DEFAULT FALSE,
 	PRIMARY KEY (`nid`),
 	UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE
 ) ENGINE = InnoDB;
