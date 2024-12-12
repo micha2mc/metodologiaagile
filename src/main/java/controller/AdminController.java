@@ -18,6 +18,12 @@ import java.time.LocalDate;
 
 /**
  * @author micha
+ * Administrador/es
+ * Requiere registro y validación manual por parte de un administrador.
+ * Podrá crear circuitos.
+ * Podrá crear noticias.
+ * Podrá crear votaciones.
+ * Puede ver los detalles de cada equipo, con el fin de obtener datos de grafismo para el equipo de producción que retransmite la carrera.
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
 public class AdminController extends HttpServlet {

@@ -14,6 +14,13 @@ import java.io.IOException;
 
 /**
  * @author micha
+ * Responsable/s de equipo.
+ * Requiere registro. Deberá ser validado manualmente por parte de un administrador.
+ * Podrá dar de alta un equipo y agregar usuarios como corresponsables del equipo.
+ * No puede ver los detalles de otro equipo.
+ * Podrá dar de alta pilotos.
+ * Podrá crear coches.
+ * Podrá hacer uso de la herramienta de calculadora con un determinado coche sobre un determinado circuito.
  */
 @WebServlet(name = "TeamController", urlPatterns = {"/TeamController"})
 public class TeamController extends HttpServlet {

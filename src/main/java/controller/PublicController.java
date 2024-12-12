@@ -19,6 +19,9 @@ import java.util.List;
 
 /**
  * @author micha
+ * Aficionado/s.
+ * No requiere registro.
+ * Acceso libre a las secciones que no requieren iniciar sesión.
  */
 @WebServlet(name = "PublicController", urlPatterns = {"/PublicController"})
 public class PublicController extends HttpServlet {
