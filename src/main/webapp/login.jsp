@@ -49,14 +49,12 @@
                                     <div class="form-group mb-3">
                                         <input type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
                                     </div>
-
                                     <!-- Contraseña -->
                                     <div class="form-group mb-3">
                                         <input type="password" name="txtpass" placeholder="Contraseña" class="form-control" required>
                                     </div>
                                     <div class="d-grid">
                                         <button type="submit" name="accion" value="conectar" class="btn btn-danger btn-block">ENTRA</button>
-                                        <!--<input type="submit" name="accion" value="ENTRA" class="btn btn-danger">-->
                                     </div>
                                 </form>
                             </div>

@@ -23,7 +23,7 @@
                      alt="F1 Logo">
                 <a class="btn btn-outline-ligth text-center" href="PublicController">Noticias</a>
                 <a class="btn btn-outline-ligth text-center" href="#">Votación</a>
-                <a class="btn btn-outline-ligth text-center" href="#">Usuarios</a>
+                <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Usuarios</a>
             </div>
         </div>
         <div class="main">

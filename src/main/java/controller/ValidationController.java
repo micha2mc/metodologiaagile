@@ -35,7 +35,7 @@ public class ValidationController extends HttpServlet {
         }
     }
 
-    private void registrarUsuarios(final HttpServletRequest request, final HttpServletResponse response) {
+    private void registrarUsuarios(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         User user = User.builder()
                 .userName(request.getParameter("nombre"))
                 .email(request.getParameter("email"))
@@ -47,6 +47,7 @@ public class ValidationController extends HttpServlet {
         } else {
             request.setAttribute("mensaje", "Error");
         }
+        request.getRequestDispatcher("registro.jsp").forward(request, response);
 
     }
 
