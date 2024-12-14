@@ -72,13 +72,6 @@ public class AdminController extends HttpServlet {
             response.getWriter().println("Error: Los campos 'título' y 'texto' son obligatorios.");
             return;
         }
-        /*String permalink = generarPermalink(titulo);
-
-        String imagePath = cargarImagen(request, response);
-        if (imagePath == null) {
-            response.getWriter().println("Error: No se pudo cargar la imagen.");
-            return;
-        }*/
 
         LocalDate fecha = LocalDate.now();
         News newNoticia = News.builder()

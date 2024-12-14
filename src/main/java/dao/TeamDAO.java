@@ -34,8 +34,6 @@ public class TeamDAO {
 
     public Team findById(final int id) {
 
-        List<Team> listTeam = new ArrayList<>();
-
         String query = """
                 SELECT * FROM equipo WHERE nid = ?
                 """;
