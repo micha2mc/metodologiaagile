@@ -21,7 +21,7 @@
             </div>
             <div class="main">
                 <div class="header">
-                           <!-- Header -->
+                    <!-- Header -->
                     <nav class="navbar navbar-expand-lg">
                         <div class="collpse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
@@ -34,41 +34,40 @@
                             </ul>
                         </div>
                     </nav>
-                <!-- Close Header -->
+                    <!-- Close Header -->
                 </div>
-                <div class="d-flex justify-content-center align-items-center v-100">
-                    <div class="mt-4 col-lg-4">
-                        <div class="card col-sm-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header text-center bg-danger text-white">
+                                <h3>Conéctate</h3>
+                                <label>Introduce</label>
+                            </div>
                             <div class="card-body">
-                                <form class="form-sign" action="Validation" method="POST">
-                                    <div class="form-group  text-center" >
-                                        <h3>Login</h3>
-                                        <label>Bienvenidos</label>
+                                <form action="Validation" method="POST">
+                                    <!-- Correo electronico -->
+                                    <div class="form-group mb-3">
+                                        <input type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Usuario</label>
-                                        <input type="text" name="txtuser" class="form-control">
+                                    <!-- Contraseña -->
+                                    <div class="form-group mb-3">
+                                        <input type="password" name="txtpass" placeholder="Contraseña" class="form-control" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label>email</label>
-                                        <input type="text" name="txtemail" class="form-control">
+                                    <div class="d-grid">
+                                        <button type="submit" name="accion" value="conectar" class="btn btn-danger btn-block">ENTRA</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" name="txtpass" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" name="accion" value="Conectar" class="btn btn-primary btn-block">
-                                    </div>
-                                </form>  
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <p class="align-center text-center color-primary margin-bottom-m">Si no tienes todavía, <a href="registro.jsp">crea tu cuenta</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body>
