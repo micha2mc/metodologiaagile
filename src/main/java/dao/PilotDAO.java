@@ -83,7 +83,19 @@ public class PilotDAO {
                 String twitter = resultSet.getString("twitter");
                 int id_equipo = resultSet.getInt("id_equipo");
 
-                pilots.add(new Pilot(id, nombre, apellidos, siglas, dorsal, imagen, pais, twitter, id_equipo));
+                Pilot pilot = Pilot.builder()
+                        .nid(id)
+                        .nombre(nombre)
+                        .apellidos(apellidos)
+                        .siglas(siglas)
+                        .dorsal(dorsal)
+                        .imagen(imagen)
+                        .pais(pais)
+                        .twitter(twitter)
+                        .idEquipo(id_equipo)
+                        .build();
+
+                pilots.add(pilot);
             }
 
         } catch (SQLException e) {
@@ -94,29 +106,30 @@ public class PilotDAO {
     }
 
     public Pilot getPilotById(int id) throws SQLException {
-        Pilot pilot_id = new Pilot();
+        Pilot pilot = null;
         try (Connection connection = connectionBD.ConnectionDB(); PreparedStatement statement = connection.prepareStatement(get_Pilot_ById_SQL)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                pilot_id = new Pilot(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("apellidos"),
-                        resultSet.getString("siglas"),
-                        resultSet.getInt("dorsal"),
-                        resultSet.getString("imagen"),
-                        resultSet.getString("pais"),
-                        resultSet.getString("twitter"),
-                        resultSet.getInt("id_equipo")
-                );
-
+                pilot = Pilot.builder()
+                        .nid(resultSet.getInt("id"))
+                        .nombre(resultSet.getString("nombre"))
+                        .apellidos(resultSet.getString("apellidos"))
+                        .siglas(resultSet.getString("siglas"))
+                        .dorsal(resultSet.getInt("dorsal"))
+                        .imagen(resultSet.getString("imagen"))
+                        .pais(resultSet.getString("pais"))
+                        .twitter(resultSet.getString("twitter"))
+                        .idEquipo(resultSet.getInt("id_equipo"))
+                        .build();
+            
+      
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return pilot_id;
+        return pilot;
     }
 
     public boolean updatePilot(int id, Pilot pilot) throws SQLException {

@@ -65,7 +65,17 @@ public class CarDAO {
                 int ers_curvas_medias = resultSet.getInt("ers_curvas_medias");
                 int ers_curvas_rapidas = resultSet.getInt("ers_curvas_rapidas");
                 int consumo = resultSet.getInt("consumo");
-                carList.add(new Car(id, nombre, codigo, ers_curvas_lentas, ers_curvas_medias, ers_curvas_rapidas, consumo));
+
+                Car car = Car.builder()
+                        .nid(id)
+                        .nombre(nombre)
+                        .codigo(codigo)
+                        .ers_curvas_lentas(ers_curvas_lentas)
+                        .ers_curvas_medias(ers_curvas_medias)
+                        .ers_curvas_rapidas(ers_curvas_rapidas)
+                        .consumo(consumo)
+                        .build();
+                carList.add(car);
             }
 
         } catch (SQLException e) {
@@ -83,15 +93,16 @@ public class CarDAO {
 
             if (resultSet.next()) {
 
-                car = new Car(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre"),
-                        resultSet.getString("codigo"),
-                        resultSet.getInt("ers_curvas_lentas"),
-                        resultSet.getInt("ers_curvas_medias"),
-                        resultSet.getInt("ers_curvas_rapidas"),
-                        resultSet.getInt("consumo")
-                );
+                car = Car.builder()
+                        .nid(resultSet.getInt("id"))
+                        .nombre(resultSet.getString("nombre"))
+                        .codigo(resultSet.getString("codigo"))
+                        .ers_curvas_lentas(resultSet.getInt("ers_curvas_lentas"))
+                        .ers_curvas_medias(resultSet.getInt("ers_curvas_medias"))
+                        .ers_curvas_rapidas(resultSet.getInt("ers_curvas_rapidas"))
+                        .consumo(resultSet.getInt("consumo"))
+                        .build();
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
