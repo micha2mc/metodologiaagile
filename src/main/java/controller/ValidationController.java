@@ -1,5 +1,6 @@
 package controller;
 
+import dao.NewsDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,10 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import model.News;
 import model.User;
 import utils.RolEnum;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,6 +24,7 @@ import java.util.Objects;
 public class ValidationController extends HttpServlet {
 
     private UserDAO userDAO = new UserDAO();
+    private final NewsDAO noticiaDAO = new NewsDAO();
 
     protected void processRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
@@ -76,6 +80,8 @@ public class ValidationController extends HttpServlet {
         User user = userDAO.validar(pass, email);
         if (Objects.nonNull(user) && Boolean.TRUE.equals(user.isValid())) {
             if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
+                List<News> listNews = noticiaDAO.getTodasNoticias();
+                request.setAttribute("listaNoticias", listNews);
                 request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);

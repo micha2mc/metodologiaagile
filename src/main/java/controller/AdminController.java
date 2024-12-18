@@ -15,6 +15,7 @@ import model.News;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author micha
@@ -34,13 +35,16 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action");
+
+        request.getRequestDispatcher("/view/admin/manageNews.jsp").forward(request, response);
+
+        /*String action = request.getParameter("action");
         switch (action) {
             case "create" -> crearNoticia(request, response);
             case "update" -> response.getWriter().write("Actuali: ");
             case "delete" -> response.getWriter().write("Elimi: ");
             default -> throw new RuntimeException("Error");
-        }
+        }*/
 
     }
 
