@@ -1,7 +1,7 @@
-<%--
-    Document   : Noticias
-    Created on : 17 nov 2024, 09:42:17
-    Author     : Home
+<%-- 
+    Document   : newsForm
+    Created on : 20 dic 2024, 22:45:18
+    Author     : micha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,11 +12,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>Zona de Administración</title>
+        <title>Nueva Noticia</title>
         <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
-</head>
-<body>
+    <body>
     <div class="container">
         <div class="sidebar">
             <div class="d-flex flex-column justify-content-center align-items-center" >
@@ -45,52 +44,36 @@
                                 <form action="Validation" method="POST">
                                     <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </nav>
             </div>
             <div class="main1">
-                <div>
-                    <a class="btn btn-primary mb-3" href="newsForm.jsp">Añadir Noticia</a><br>
-                </div>
-                <table class="table table-hover">
-                    <tbody>
-                        <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                            <tr>
-                                <td style="width:150px;">
-                                    <a th:href="@{'/images/uploads/'+ ${actor.image}}" data-fancybox>
-                                        <img th:src="@{'/images/uploads/'+ ${actor.image}}" alt="" class="img-thumbnail w-100">
-                                    </a>
-                                </td>
-                                <td>
-                                    <table class="table table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-start" th:text="*{name}">${temporalesNoticias.titulo}</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start" th:text="*{genre}">${temporalesNoticias.texto}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">
-                                                    <a class="btn btn-success">Editar</a>
-                                                    <a class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                <form class="form-sign" action="AdminController" method="POST">
+
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la noticia">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="texto">Texto</label>
+                        <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" id="foto">
+                    </div>
+                    <div class="buttons">
+                        <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button>
+                        <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                        <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
