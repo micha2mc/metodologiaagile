@@ -1,7 +1,7 @@
-<%--
-    Document   : Noticias
-    Created on : 17 nov 2024, 09:42:17
-    Author     : Home
+<%-- 
+    Document   : newsForm
+    Created on : 20 dic 2024, 22:45:18
+    Author     : micha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>Zona de Administración</title>
+        <title>Validación Usuarios</title>
         <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
@@ -23,7 +23,7 @@
                          alt="F1 Logo">
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuarios">Mant. Usuarios</a>
+                    <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
                 </div>
             </div>
             <div class="main">
@@ -44,29 +44,40 @@
                                     <form action="Validation" method="POST">
                                         <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                     </nav>
                 </div>
-                <div class="main1" style="overflow-x: hidden;">
-                    <!--<div>
-                        <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                    </div>-->
-                    <table class="table table-hover">
-                        <tbody>
-                            <c:forEach var="temporalesUser" items="${listaUsuarios}">
-                                <tr>
-                                    <td>${temporalesUser.userName}</td>
-                                    <td>${temporalesUser.userName}</td>
-                                    <td class="text-start">
-                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
-                                        <a href="AdminController?pagina=noticia&noticia=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a></td>
-                                    
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                <div class="main1">
+                    <form class="form-sign" action="../../AdminController" method="POST">
+
+                        <input type="hidden" name="pagina" value="noticia">
+                        <div class="form-group">
+                            <label for="userName">Nombre</label>
+                            <input type="text" id="userName" name="userName" value="${usuarioDB.userName}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Correo Electronico</label>
+                            <input type="text" id="email" name="email" value="${usuarioDB.email}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Seleccione Role:</label>
+                            <select id="category" name="category" class="form-control">
+                                <c:forEach var="role" items="${roles}">
+                                    <option value="${role.nid}">${role.authority}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="buttons">
+                            <button type = "submit" name="action" value="validar" style="background-color: yellowgreen;">Validar</button>
+                            <!--<button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                            <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>-->
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>

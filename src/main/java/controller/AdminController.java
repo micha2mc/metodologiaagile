@@ -4,13 +4,18 @@
  */
 package controller;
 
+import dao.AuthoritiesDAO;
 import dao.NewsDAO;
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Authorities;
 import model.News;
+import model.User;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,22 +35,84 @@ import java.util.List;
 public class AdminController extends HttpServlet {
 
     private final NewsDAO noticiaDAO = new NewsDAO();
+    private final UserDAO userDAO = new UserDAO();
+    private  final AuthoritiesDAO authoritiesDAO = new AuthoritiesDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
 
-        request.getRequestDispatcher("/view/admin/manageNews.jsp").forward(request, response);
+        String pagina = request.getParameter("pagina");
 
-        /*String action = request.getParameter("action");
-        switch (action) {
-            case "create" -> crearNoticia(request, response);
-            case "update" -> response.getWriter().write("Actuali: ");
-            case "delete" -> response.getWriter().write("Elimi: ");
-            default -> throw new RuntimeException("Error");
+        if ("noticia".equalsIgnoreCase(pagina)) {
+
+            gestionNoticias(request, response);
+
+
+        } else if ("votacion".equalsIgnoreCase(pagina)) {
+            gestionVotaciones(request, response);
+
+        } else {
+            gestionUsuarios(request, response);
+        }
+
+
+    }
+
+    private void gestionUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "validar" -> validarUsuario(request, response);
+                case "delete" -> eliminarNoticia(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+        /*if("inicial".equalsIgnoreCase(estado)){
+
+        }else {
+
         }*/
+        request.setAttribute("listaUsuarios", userDAO.getUserForAdmin());
+        request.getRequestDispatcher("/view/admin/manageUsers.jsp").forward(request, response);
+        
+    }
 
+    private void validarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String usuarioNid = request.getParameter("usuario");
+        List<Authorities> allRoles = authoritiesDAO.getAllRoles();
+        if(StringUtils.isNotBlank(request.getParameter("estado"))){
+            User user = userDAO.findById(Integer.parseInt(usuarioNid));
+            //
+            request.setAttribute("usuarioDB", user);
+            request.setAttribute("roles", allRoles);
+            request.getRequestDispatcher("/view/admin/usersForm.jsp").forward(request, response);
+        }
+
+    }
+
+    private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private void gestionNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "create" -> crearNoticia(request, response);
+                case "update" -> response.getWriter().write("Actuali: ");
+                case "delete" -> eliminarNoticia(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+        request.setAttribute("listaNoticias", noticiaDAO.getTodasNoticias());
+        request.getRequestDispatcher("/view/admin/manageNews.jsp").forward(request, response);
+    }
+
+    private void eliminarNoticia(HttpServletRequest request) {
+        String noticiaNid = request.getParameter("noticia");
+        noticiaDAO.deleteNew(Integer.parseInt(noticiaNid));
     }
 
 
@@ -86,7 +153,7 @@ public class AdminController extends HttpServlet {
                 .build();
         try {
             noticiaDAO.crearNoticia(newNoticia);
-            response.sendRedirect("view/common/creada.jsp");
+            //response.sendRedirect("view/common/creada.jsp");
         } catch (SQLException e) {
             response.sendRedirect("view/common/nocreada.jsp");
         }

@@ -32,14 +32,15 @@ public class TeamDAO {
         return listTeam;
     }
 
-    public Team findById(final int id) {
+    public Team findById(final int nid) {
 
         String query = """
                 SELECT * FROM equipo WHERE nid = ?
                 """;
         try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             preparedStatement.setInt(1, nid);
+             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return getTeam(resultSet);
             }

@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
+
     ConnectionDB connectionDB = new ConnectionDB();
+    Connection connection = connectionDB.ConnectionDB();
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
 
 
     public User validar(final String pass, final String email) {
@@ -24,8 +28,8 @@ public class UserDAO {
                 JOIN authorities a ON ua.id_authorities_fk = a.nid WHERE u.PASSWORD = ? AND u.EMAIL = ?
                 """;
 
-        try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, pass);
             preparedStatement.setString(2, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -61,8 +65,8 @@ public class UserDAO {
                 VALUES(?, ?, ?);
                 """;
 
-        try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try {
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
@@ -81,9 +85,9 @@ public class UserDAO {
                 FROM circuitsdb.users
                 WHERE valid=FALSE;
                 """;
-        try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 listUser.add(getSingleUser(resultSet));
             }
@@ -103,13 +107,14 @@ public class UserDAO {
         String insertRelationship = """
                 INSERT INTO users_has_authorities (id_user_fk, id_authorities_fk) VALUES (?, ?)
                 """;
-        try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(queryUpdateUser)) {
+        try {
+            preparedStatement = connection.prepareStatement(queryUpdateUser);
             preparedStatement.setBoolean(1, Boolean.TRUE);
             preparedStatement.setInt(2, user.getNid());
             preparedStatement.executeUpdate();
             //relacion entre user y Authority existe?
-            try (PreparedStatement preStRelation = connection.prepareStatement(queryRelationship)) {
+            try {
+                PreparedStatement preStRelation = connection.prepareStatement(queryRelationship);
                 preStRelation.setInt(1, user.getNid());
                 preStRelation.setInt(2, idAuthority);
                 // Si la relación no existe, la insertamos
@@ -120,12 +125,35 @@ public class UserDAO {
                     preStRelationInsert.executeUpdate();
 
                 }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    public User findById(final int nid) {
+
+        String query = """
+                SELECT * FROM circuitsdb.users WHERE nid = ?
+                """;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, nid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return getSingleUser(resultSet);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return null;
+    }
+
 
     private User getSingleUser(final ResultSet resultSet) throws SQLException {
         return User.builder()

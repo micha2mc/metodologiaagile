@@ -84,6 +84,21 @@ public class NewsDAO {
 
     }
 
+    public void deleteNew(final int nid) {
+        String query = """
+                DELETE FROM circuitsdb.noticias
+                WHERE nid= ?;
+                """;
+
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, nid);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*public boolean eliminarNoticia(String permalink) throws SQLException {
 
         String sql = "DELETE FROM noticia WHERE permalink=? ";
@@ -110,6 +125,8 @@ public class NewsDAO {
                 .fecha(resultSet.getDate("fecha").toLocalDate())
                 .build();
     }
+
+
 
    /* public boolean actualizarnoticia(NoticiaModelo noticia) throws SQLException {
 
