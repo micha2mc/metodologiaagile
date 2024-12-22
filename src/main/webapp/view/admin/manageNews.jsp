@@ -79,7 +79,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-start">
-                                                        <a  class="btn btn-success">Editar</a>
+                                                        <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
                                                         <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>

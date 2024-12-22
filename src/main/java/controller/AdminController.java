@@ -67,7 +67,6 @@ public class AdminController extends HttpServlet {
                 default -> throw new RuntimeException("Error");
             }
         }
-        List<User> todos = userDAO.getAllUsers();
         request.setAttribute("listaUsuarios", userDAO.getAllUsers());
         request.getRequestDispatcher("/view/admin/manageUsers.jsp").forward(request, response);
 
@@ -100,13 +99,31 @@ public class AdminController extends HttpServlet {
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
                 case "create" -> crearNoticia(request, response);
-                case "update" -> response.getWriter().write("Actuali: ");
+                case "update" -> actualizarNoticia(request, response);
                 case "delete" -> eliminarNoticia(request);
                 default -> throw new RuntimeException("Error");
             }
         }
         request.setAttribute("listaNoticias", noticiaDAO.getTodasNoticias());
         request.getRequestDispatcher("/view/admin/manageNews.jsp").forward(request, response);
+    }
+
+    private void actualizarNoticia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String noticiaNid = request.getParameter("noticia");
+        News noticiaBBDD = noticiaDAO.getNoticiaById(Integer.parseInt(noticiaNid));
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+
+            request.setAttribute("noticiaObtenida", noticiaBBDD);
+            request.setAttribute("actualizar", Boolean.TRUE);
+            request.getRequestDispatcher("/view/admin/newsForm.jsp").forward(request, response);
+        } else {
+            noticiaBBDD.setTitulo(request.getParameter("titulo"));
+            noticiaBBDD.setTexto(request.getParameter("texto"));
+            noticiaBBDD.setImagen(request.getParameter("foto"));
+            noticiaBBDD.setFecha(LocalDate.now());
+            noticiaDAO.updateNews(noticiaBBDD);
+        }
+
     }
 
     private void eliminarNoticia(HttpServletRequest request) {

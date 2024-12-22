@@ -19,22 +19,17 @@ import java.util.stream.Collectors;
  */
 public class NewsDAO {
 
-
     ConnectionDB connectionDB = new ConnectionDB();
-    Connection connection = connectionDB.ConnectionDB();
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
-
 
     public List<News> getTodasNoticias() {
         List<News> news = new ArrayList<>();
         String sql = "SELECT * FROM noticias";
 
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                news.add(getNoticia(Boolean.TRUE));
+                news.add(getNoticia(Boolean.TRUE, resultSet));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -50,18 +45,16 @@ public class NewsDAO {
         News news = new News();
         String sql = "SELECT * FROM noticias WHERE nid = ?";
 
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, nid);
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                news = getNoticia(Boolean.FALSE);
+                news = getNoticia(Boolean.FALSE, resultSet);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         return news;
     }
 
@@ -69,7 +62,8 @@ public class NewsDAO {
 
         String sql = "INSERT INTO noticias ( titulo, imagen, texto, fecha ) VALUES(?,?,?,?)";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, noticia.getTitulo());
             statement.setString(2, noticia.getImagen());
@@ -99,23 +93,30 @@ public class NewsDAO {
         }
     }
 
-    /*public boolean eliminarNoticia(String permalink) throws SQLException {
 
-        String sql = "DELETE FROM noticia WHERE permalink=? ";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, permalink);
-
-            int filasafectadas = statement.executeUpdate();
-            return filasafectadas > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+    /* U => Actualizar noticias
+     */
+    public void updateNews(final News noticiaBBDD) {
+        String query = """
+                UPDATE circuitsdb.noticias
+                SET titulo=?, imagen=?, texto=?, fecha=?
+                WHERE nid=?;
+                """;
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, noticiaBBDD.getTitulo());
+            preparedStatement.setString(2, noticiaBBDD.getImagen());
+            preparedStatement.setString(3, noticiaBBDD.getTexto());
+            preparedStatement.setDate(4, Date.valueOf(noticiaBBDD.getFecha()));
+            preparedStatement.setInt(5, noticiaBBDD.getNid());
+            preparedStatement.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-    }*/
+    }
 
 
-    private News getNoticia(boolean isListNews) throws SQLException {
+    private News getNoticia(boolean isListNews, ResultSet resultSet) throws SQLException {
         return News.builder()
                 .nid(resultSet.getInt("nid"))
                 .titulo(resultSet.getString("titulo"))
@@ -126,25 +127,4 @@ public class NewsDAO {
                 .build();
     }
 
-
-
-   /* public boolean actualizarnoticia(NoticiaModelo noticia) throws SQLException {
-
-        String sql = "UPDATE noticia SET permalink=?,titulo=?,imagen=?,texto=?,fecha=? WHERE id=?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, noticia.getPermalink());
-            statement.setString(2, noticia.getTitulo());
-            statement.setBytes(3, noticia.getImagen());
-            statement.setString(4, noticia.getTexto());
-            statement.setString(5, noticia.getFecha());
-            statement.setInt(6, noticia.getId());
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-
-        }
-    }*/
 }

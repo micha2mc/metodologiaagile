@@ -13,7 +13,15 @@
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <title>Nueva Noticia</title>
-        <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">
+        <c:choose>
+            <c:when test="${actualizar}">
+                <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
+            </c:when>
+            <c:otherwise>
+                <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">  
+            </c:otherwise>
+        </c:choose>
+
     </head>
     <body>
         <div class="container">
@@ -21,7 +29,15 @@
                 <div class="d-flex flex-column justify-content-center align-items-center" >
                     <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                          alt="F1 Logo">
-                    <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>
+                    <c:choose>
+                        <c:when test="${actualizar}">
+                            <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
+                        </c:otherwise>
+                    </c:choose>
+
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
                     <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
                 </div>
@@ -51,17 +67,27 @@
                     </nav>
                 </div>
                 <div class="main1">
-                    <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8">
+                    
+                    <c:choose>
+                                <c:when test="${actualizar}">
+                                    <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8">
+                                        <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
+                                </c:when>
+                                <c:otherwise>
+                                    <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
+                                </c:otherwise>
+                            </c:choose>
 
+                    
                         <input type="hidden" name="pagina" value="noticia">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la noticia">
+                            <input type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
                         </div>
 
                         <div class="form-group">
                             <label for="texto">Texto</label>
-                            <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia"></textarea>
+                            <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
                         </div>
 
                         <div class="form-group">
@@ -69,9 +95,14 @@
                             <input type="file" id="foto">
                         </div>
                         <div class="buttons">
-                            <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button>
-                            <!--<button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
-                            <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>-->
+                            <c:choose>
+                                <c:when test="${actualizar}">
+                                    <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
+                                </c:otherwise>
+                            </c:choose>
                         </div>
 
                     </form>
