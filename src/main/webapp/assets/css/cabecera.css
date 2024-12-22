@@ -120,3 +120,19 @@ body {
     margin-top: 10px;
     margin-bottom: 50px;
 }
+
+.image-container {
+    display: inline-block;
+    overflow: hidden; /* Para evitar que la imagen ampliada sobresalga */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+.image-container img {
+    display: block;
+    width: 100%;
+    transition: transform 0.3s ease; /* Animación suave */
+}
+
+.image-container:hover img {
+    transform: scale(1.5); /* Ampliar al 120% */
+}

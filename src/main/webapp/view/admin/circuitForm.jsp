@@ -1,4 +1,9 @@
 <%-- 
+    Document   : circuitForm
+    Created on : 22 dic 2024, 11:52:48
+    Author     : micha
+--%>
+<%-- 
     Document   : newsForm
     Created on : 20 dic 2024, 22:45:18
     Author     : micha
@@ -12,15 +17,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>Nueva Noticia</title>
-        <c:choose>
-            <c:when test="${actualizar}">
-                <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
-            </c:when>
-            <c:otherwise>
-                <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">  
-            </c:otherwise>
-        </c:choose>
+        <title>Nuevo Circuito</title>
+        <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">
 
     </head>
     <body>
@@ -29,14 +27,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center" >
                     <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                          alt="F1 Logo">
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
-                        </c:otherwise>
-                    </c:choose>
+                    <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
 
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
                     <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
@@ -67,45 +58,48 @@
                     </nav>
                 </div>
                 <div class="main1">
+                    <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
+                        <input type="hidden" name="pagina" value="circuito">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el título de la noticia">
+                        </div>
 
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8">
-                                <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
-                            </c:when>
-                            <c:otherwise>
-                                <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
-                                </c:otherwise>
-                            </c:choose>
+                        <div class="form-group">
+                            <label for="ciudad">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese el título de la noticia">
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País</label>
+                            <input type="text" id="pais" name="pais" placeholder="Ingrese el título de la noticia">
+                        </div>
 
+                        <div class="form-group">
+                            <label for="foto">Trazado</label>
+                            <input type="file" id="foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="longitud">Longitud</label>
+                            <input type="number" id="longitud" name="longitud" placeholder="Ingrese el título de la noticia">
+                        </div>
+                        <div class="form-group">
+                            <label for="curvaslentas">CUrvas Lentas</label>
+                            <input type="number" id="curvaslentas" name="curvaslentas" placeholder="Ingrese el título de la noticia">
+                        </div>
+                        <div class="form-group">
+                            <label for="curvasmedias">Curvas Medias</label>
+                            <input type="number" id="curvasmedias" name="curvasmedias" placeholder="Ingrese el título de la noticia">
+                        </div>
+                        <div class="form-group">
+                            <label for="curvasrapidas">Curvas Rápidas</label>
+                            <input type="number" id="curvasrapidas" name="curvasrapidas" placeholder="Ingrese el título de la noticia">
+                        </div>
+                        <div class="buttons">
+                            <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
 
-                            <input type="hidden" name="pagina" value="noticia">
-                            <div class="form-group">
-                                <label for="titulo">Título</label>
-                                <input type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
-                            </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="texto">Texto</label>
-                                <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="foto">Foto</label>
-                                <input type="file" id="foto">
-                            </div>
-                            <div class="buttons">
-                                <c:choose>
-                                    <c:when test="${actualizar}">
-                                        <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,3 +107,4 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     </body>
 </html>
+

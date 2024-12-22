@@ -139,6 +139,7 @@ CREATE TABLE `circuitos` (
 	`curvas_lentas` INT NOT NULL,
 	`curvas_medias` INT NOT NULL,
 	`curvas_rapidas` INT NOT NULL,
+	`calendar` BOOLEAN DEFAULT TRUE,
 	PRIMARY KEY (`nid`)
 ) ENGINE = InnoDB;
 

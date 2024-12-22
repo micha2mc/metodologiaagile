@@ -5,6 +5,7 @@
 package controller;
 
 import dao.AuthoritiesDAO;
+import dao.CircuitDAO;
 import dao.NewsDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Authorities;
+import model.Circuit;
 import model.News;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +39,7 @@ public class AdminController extends HttpServlet {
     private final NewsDAO noticiaDAO = new NewsDAO();
     private final UserDAO userDAO = new UserDAO();
     private final AuthoritiesDAO authoritiesDAO = new AuthoritiesDAO();
+    private final CircuitDAO circuitDAO = new CircuitDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -50,11 +53,39 @@ public class AdminController extends HttpServlet {
             gestionNoticias(request, response);
         } else if ("votacion".equalsIgnoreCase(pagina)) {
             gestionVotaciones(request, response);
-        } else {
+        }else if("circuito".equalsIgnoreCase(pagina)) {
+            gestionCircuitos(request, response);
+
+
+        }else {
             gestionUsuarios(request, response);
         }
+    }
 
+    private void gestionCircuitos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "create" -> crearCircuito(request, response);
+                case "update" -> actualizarCircuito(request, response);
+                case "delete" -> eliminarUsuarios(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+        List<Circuit> allCircuits = circuitDAO.getAllCircuits();
+        request.setAttribute("listaCircuitos", allCircuits);
+        request.getRequestDispatcher("/view/admin/manageCircuits.jsp").forward(request, response);
+    }
 
+    private void actualizarCircuito(HttpServletRequest request, HttpServletResponse response) {
+        String circuito = request.getParameter("circuito");
+        String tipo = request.getParameter("tipo");
+        Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuito));
+        if("add".equalsIgnoreCase(tipo)){
+            circuit.setCalendar(Boolean.TRUE);
+        }else{
+            circuit.setCalendar(Boolean.FALSE);
+        }
+        circuitDAO.updateCalendarStatus(circuit);
     }
 
     private void gestionUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -173,6 +204,20 @@ public class AdminController extends HttpServlet {
             response.sendRedirect("view/common/nocreada.jsp");
         }
 
+    }
+
+    private void crearCircuito(HttpServletRequest request, HttpServletResponse response) {
+        Circuit circuit = Circuit.builder()
+                .nombre(request.getParameter("nombre"))
+                .ciudad(request.getParameter("ciudad"))
+                .pais(request.getParameter("pais"))
+                .trazadoImagen(request.getParameter("foto"))
+                .longitud(Integer.parseInt(request.getParameter("longitud")))
+                .curvasLentas(Integer.parseInt(request.getParameter("curvaslentas")))
+                .curvasMedias(Integer.parseInt(request.getParameter("curvasmedias")))
+                .curvasRapidas(Integer.parseInt(request.getParameter("curvasrapidas")))
+                .build();
+        circuitDAO.createCircuit(circuit);
     }
 
 }
