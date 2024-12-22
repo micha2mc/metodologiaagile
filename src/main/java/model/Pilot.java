@@ -24,7 +24,7 @@ public class Pilot {
     
     //relaciones
     //M:1 equipo
-    private int idEquipo;
+    private int id_equipo;
     //N:M votaciones
     @Builder.Default
     private List<Voting> voting = new ArrayList<>();

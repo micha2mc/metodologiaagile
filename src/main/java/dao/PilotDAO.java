@@ -20,10 +20,10 @@ import model.Pilot;
  */
 public class PilotDAO {
 
-    public static final String add_Pilot_SQL = "INSERT INTO pilot (nombre, apellidos,siglas, dorsal,imagen,pais, twitter)VALUES (?,?,?,?,?,?,?) ";
-    public static final String delet_Pilot_SQL = "DELETE FROM pilot WHERE id = ?";
-    public static final String get_All_Pilot_SQL = "SELECT * FROM pilot ";
-    public static final String get_Pilot_ById_SQL = "SELECT * FROM pilot WHERE id = ?";
+    public static final String add_Pilot_SQL = "INSERT INTO piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter,id_equipo)VALUES (?,?,?,?,?,?,?,?) ";
+    public static final String delet_Pilot_SQL = "DELETE FROM piloto WHERE nid = ?";
+    public static final String get_All_Pilot_SQL = "SELECT * FROM piloto ";
+    public static final String get_Pilot_ById_SQL = "SELECT * FROM piloto WHERE nid = ?";
     public static final String update_Pilot_By_Id_SQL = "UPDATE Pilot SET nombre=?,apellidos=?,siglas=? ,dorsal=?,imagen=?,pais=?,twitter=?,idEquipo=? WHERE id=?";
     private final ConnectionDB connectionBD;
 
@@ -44,8 +44,12 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
+            statement.setInt(8, pilot.getId_equipo());
+            
+            System.out.println(statement);
 
             int rowsAffected = statement.executeUpdate();
+            
             return rowsAffected > 0;
 
         } catch (SQLException e) {
@@ -92,7 +96,7 @@ public class PilotDAO {
                         .imagen(imagen)
                         .pais(pais)
                         .twitter(twitter)
-                        .idEquipo(id_equipo)
+                        .id_equipo(id_equipo)
                         .build();
 
                 pilots.add(pilot);
@@ -121,7 +125,7 @@ public class PilotDAO {
                         .imagen(resultSet.getString("imagen"))
                         .pais(resultSet.getString("pais"))
                         .twitter(resultSet.getString("twitter"))
-                        .idEquipo(resultSet.getInt("id_equipo"))
+                        .id_equipo(resultSet.getInt("id_equipo"))
                         .build();
             
       
@@ -142,7 +146,7 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
-            statement.setInt(8, pilot.getIdEquipo());
+            statement.setInt(8, pilot.getId_equipo());
             statement.setInt(9, id);
 
             int rowsAffected = statement.executeUpdate();

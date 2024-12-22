@@ -15,7 +15,7 @@ public class ConnectionDB {
     private static final String URL = "jdbc:mysql://localhost:3306/circuitsdb?"
             + "useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static final String USER = "root";
-    private static final String PSW = "";
+    private static final String PSW = "Asd1ramon5";
 
     private Connection connection;
 
