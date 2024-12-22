@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
@@ -58,10 +58,16 @@
                             <c:forEach var="temporalesUser" items="${listaUsuarios}">
                                 <tr>
                                     <td>${temporalesUser.userName}</td>
-                                    <td>${temporalesUser.userName}</td>
+                                    <td>${temporalesUser.email}</td>
                                     <td class="text-start">
-                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
-                                        <a href="AdminController?pagina=noticia&noticia=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a></td>
+                                        <c:if test="${!temporalesUser.valid}">
+                                            <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
+                                        </c:if>
+                                        
+                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
+                                    </td>
+                                    
+                                    <td>${temporalesUser.authorities.authority}</td>
                                     
                                 </tr>
                             </c:forEach>

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
@@ -51,7 +51,7 @@
                     </nav>
                 </div>
                 <div class="main1">
-                    <form class="form-sign" action="../../AdminController" method="POST">
+                    <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8">
 
                         <input type="hidden" name="pagina" value="noticia">
                         <div class="form-group">

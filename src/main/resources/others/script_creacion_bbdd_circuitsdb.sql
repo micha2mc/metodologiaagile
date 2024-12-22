@@ -9,38 +9,28 @@ USE `circuitsdb` ;
 
 -- ------------------------------------------------------------------
 -- Table `circuitsdb`.`Users` => Administradores y resp. de equipo
+-- Relacion de varios a uno con authorities
 -- ------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`users`;
 CREATE TABLE `users` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`username` varchar(50) NOT NULL,
 	`email` varchar(50) NOT NULL,
 	`password` varchar(50) NOT NULL,
 	`valid` BOOLEAN DEFAULT FALSE,
-	PRIMARY KEY (`nid`),
-	UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE
+	`nid_auth` INT,
+	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
 ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------------------------
 -- Table `circuitsdb`.`authorities`  => Tabla de roles de los usuarios
+-- Relacion de uno a varios con users
 -- -----------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`authorities`;
 CREATE TABLE `authorities` (
     `nid` INT NOT NULL AUTO_INCREMENT,
     `authority` VARCHAR(45) NOT NULL UNIQUE,
     PRIMARY KEY (`nid`)
-) ENGINE = InnoDB;
-
--- -------------------------------------------------------------------------------------
--- Table `circuitsdb`.`Users_has_Authorities` Tabla relacion entre usuarios y los roles
--- -------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`users_has_authorities`;
-CREATE TABLE `users_has_authorities` (
-	`id_user_fk` INT NOT NULL,
-	`id_authorities_fk` INT NOT NULL,
-	PRIMARY KEY (`id_user_fk`,`id_authorities_fk`),
-    INDEX `fk_users_has_authorities_authorities1_idx` (`id_authorities_fk` ASC) VISIBLE,
-    INDEX `fk_users_has_authorities_users1_idx` (`id_user_fk` ASC) VISIBLE
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
@@ -152,8 +142,6 @@ CREATE TABLE `circuitos` (
 	PRIMARY KEY (`nid`)
 ) ENGINE = InnoDB;
 
-ALTER TABLE `users_has_authorities` ADD CONSTRAINT `users_authorities_fk0` FOREIGN KEY (`id_user_fk`) REFERENCES `users`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE `users_has_authorities` ADD CONSTRAINT `users_authorities_fk1` FOREIGN KEY (`id_authorities_fk`) REFERENCES `authorities`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk0` FOREIGN KEY (`id_equipo_fk`) REFERENCES `equipo`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk1` FOREIGN KEY (`id_coche_fk`) REFERENCES `coche`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `piloto` ADD CONSTRAINT `piloto_equipo_fk0` FOREIGN KEY (`id_equipo`) REFERENCES `equipo` (`nid`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -163,10 +151,8 @@ ALTER TABLE `piloto_has_votacion` ADD CONSTRAINT `piloto_has_votacion_fk1` FOREI
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
-INSERT INTO `circuitsdb`.`users` (username, email, password, valid) VALUES ('Admin', 'admin@gmail.com', '12345', TRUE);
-INSERT INTO `circuitsdb`.`users` (username, email, password, valid) VALUES ('Team', 'team@gmail.com', '12345', TRUE);
-INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (1, 1);
-INSERT INTO `circuitsdb`.`users_has_authorities` VALUES (2, 2);
+INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth) VALUES ('Admin', 'admin@gmail.com', '12345', TRUE, 1);
+INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth) VALUES ('Team', 'team@gmail.com', '12345', TRUE, 2);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

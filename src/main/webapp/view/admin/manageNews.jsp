@@ -32,14 +32,14 @@
                         <div class="collpse navbar-collapse" id="navbarNav">
                             <div class="dropdown ms-auto">
                                 <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    ${usuario.getUserName()}
+                                    ${usuarioConectado.getUserName()}
                                 </button>
                                 <div class="dropdown-menu text-center">
                                     <a class="dropdown-item" href="#">
                                         <img src="img/usuario.png" alt="60" width="60"/>
                                     </a>
-                                    <a class="dropdown-item" href="#">${usuario.getUserName()}</a>
-                                    <a class="dropdown-item" href="#">${usuario.getEmail()}</a>
+                                    <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
+                                    <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
                                     <div class="dropdown-divider"></div>
                                     <form action="Validation" method="POST">
                                         <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>

@@ -13,38 +13,28 @@ import java.util.List;
 public class AuthoritiesDAO {
     ConnectionDB connectionDB = new ConnectionDB();
     Connection connection = connectionDB.ConnectionDB();
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
+
+    ;
 
 
-    public List<Authorities> getAllRoles(){
+    public List<Authorities> getAllRoles() {
         List<Authorities> authoritiesList = new ArrayList<>();
         String sql = "SELECT * FROM circuitsdb.authorities";
 
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                authoritiesList.add(getAuthorities());
+                authoritiesList.add(getAuthorities(resultSet));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        try {
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
 
 
         return authoritiesList;
     }
 
-    private Authorities getAuthorities() throws SQLException {
+    private Authorities getAuthorities(ResultSet resultSet) throws SQLException {
         return Authorities.builder()
                 .nid(resultSet.getInt("nid"))
                 .authority(resultSet.getString("authority"))

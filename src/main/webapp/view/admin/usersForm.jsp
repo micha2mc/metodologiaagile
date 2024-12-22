@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
@@ -23,7 +23,7 @@
                          alt="F1 Logo">
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
-                    <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
+                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuarios">Mant. Usuarios</a>
                 </div>
             </div>
             <div class="main">
@@ -51,9 +51,10 @@
                     </nav>
                 </div>
                 <div class="main1">
-                    <form class="form-sign" action="../../AdminController" method="POST">
+                    <form class="form-sign" action="AdminController" method="POST">
 
-                        <input type="hidden" name="pagina" value="noticia">
+                        <input type="hidden" name="pagina" value="usuarios">
+                        <input type="hidden" name="nid" value="${usuarioDB.nid}">
                         <div class="form-group">
                             <label for="userName">Nombre</label>
                             <input type="text" id="userName" name="userName" value="${usuarioDB.userName}" readonly>
@@ -65,7 +66,7 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Seleccione Role:</label>
-                            <select id="category" name="category" class="form-control">
+                            <select id="roleOption" name="roleOption" class="form-control">
                                 <c:forEach var="role" items="${roles}">
                                     <option value="${role.nid}">${role.authority}</option>
                                 </c:forEach>
@@ -73,8 +74,6 @@
                         </div>
                         <div class="buttons">
                             <button type = "submit" name="action" value="validar" style="background-color: yellowgreen;">Validar</button>
-                            <!--<button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
-                            <button type = "submit" name="action" value="delete" style="background-color:red;">Delete</button>-->
                         </div>
 
                     </form>
