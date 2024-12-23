@@ -45,8 +45,7 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
-
+        
         String pagina = request.getParameter("pagina");
 
         if ("noticia".equalsIgnoreCase(pagina)) {
@@ -67,7 +66,7 @@ public class AdminController extends HttpServlet {
             switch (action) {
                 case "create" -> crearCircuito(request, response);
                 case "update" -> actualizarCircuito(request, response);
-                case "delete" -> eliminarUsuarios(request);
+                case "delete" -> eliminarCircuito(request);
                 default -> throw new RuntimeException("Error");
             }
         }
@@ -76,10 +75,14 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/view/admin/manageCircuits.jsp").forward(request, response);
     }
 
+    private void eliminarCircuito(HttpServletRequest request) {
+        circuitDAO.deleteCircuit(Integer.parseInt(request.getParameter("circuito")));
+    }
+
     private void actualizarCircuito(HttpServletRequest request, HttpServletResponse response) {
-        String circuito = request.getParameter("circuito");
+        String circuitoId = request.getParameter("circuito");
         String tipo = request.getParameter("tipo");
-        Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuito));
+        Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuitoId));
         if("add".equalsIgnoreCase(tipo)){
             circuit.setCalendar(Boolean.TRUE);
         }else{

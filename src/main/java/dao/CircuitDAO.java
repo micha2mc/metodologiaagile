@@ -104,4 +104,19 @@ public class CircuitDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteCircuit(final int nid) {
+        String query = """
+                DELETE FROM circuitsdb.circuitos
+                WHERE nid= ?;
+                """;
+
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, nid);
+            preparedStatement.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
