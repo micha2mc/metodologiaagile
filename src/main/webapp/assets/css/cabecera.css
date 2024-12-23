@@ -19,8 +19,8 @@ body {
 
 .sidebar {
     background-color: #d32f2f;
-    color: white;
     width: 10%;
+    color: white;  
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -32,20 +32,20 @@ body {
 }
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .sidebar a {
     color: white;
     text-decoration: none;
     display: block;
-    padding: 30px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    padding: 15px;
+    /*border-radius: 5px;
+    transition: background-color 0.3s ease;*/
 }
 
 .sidebar a:hover {
-    background-color: #b71c1c;
+    /*background-color: #b71c1c;*/
 }
 
 
