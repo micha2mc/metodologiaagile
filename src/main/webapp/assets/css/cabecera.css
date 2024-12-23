@@ -134,5 +134,5 @@ body {
 }
 
 .image-container:hover img {
-    transform: scale(1.5); /* Ampliar al 120% */
+    transform: scale(1.9); /* Ampliar al 120% */
 }

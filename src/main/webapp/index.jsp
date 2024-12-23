@@ -31,6 +31,15 @@
                                 <li class="nav-item">
                                     <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="PublicController">Noticias</a>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Portal
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="#">Equipos</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <div>

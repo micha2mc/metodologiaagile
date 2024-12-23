@@ -25,6 +25,7 @@
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a>
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a>
+                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a>
                 </div>
             </div>
             <div class="main">
@@ -38,9 +39,18 @@
                                 <li class="nav-item">
                                     <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="PublicController">Noticias</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="view/admin/circuitForm.jsp">Crear Circuito</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Portal
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="#">Equipos</a></li>
+                                    </ul>
                                 </li>
+                                <div>
+                                    <a href="view/admin/circuitForm.jsp" class="btn btn-primary mb-3">Crear Circuito</a><br>
+                                </div>
                             </ul>
                             <div class="dropdown ms-auto">
                                 <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
