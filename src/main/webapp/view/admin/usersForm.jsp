@@ -24,6 +24,8 @@
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
                     <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuarios">Mant. Usuarios</a>
+                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a>
+                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a>
                 </div>
             </div>
             <div class="main">
