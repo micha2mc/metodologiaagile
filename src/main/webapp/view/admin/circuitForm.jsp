@@ -58,48 +58,50 @@
                     </nav>
                 </div>
                 <div class="main1">
-                    <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
-                        <input type="hidden" name="pagina" value="circuito">
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el título de la noticia">
-                        </div>
+                    <div class="scroll-container">
+                        <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
+                            <input type="hidden" name="pagina" value="circuito">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ingrese el título de la noticia">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="ciudad">Ciudad</label>
-                            <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese el título de la noticia">
-                        </div>
-                        <div class="form-group">
-                            <label for="pais">País</label>
-                            <input type="text" id="pais" name="pais" placeholder="Ingrese el título de la noticia">
-                        </div>
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese el título de la noticia">
+                            </div>
+                            <div class="form-group">
+                                <label for="pais">País</label>
+                                <input type="text" id="pais" name="pais" placeholder="Ingrese el título de la noticia">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="foto">Trazado</label>
-                            <input type="file" id="foto">
-                        </div>
-                        <div class="form-group">
-                            <label for="longitud">Longitud</label>
-                            <input type="number" id="longitud" name="longitud" placeholder="Ingrese el título de la noticia">
-                        </div>
-                        <div class="form-group">
-                            <label for="curvaslentas">CUrvas Lentas</label>
-                            <input type="number" id="curvaslentas" name="curvaslentas" placeholder="Ingrese el título de la noticia">
-                        </div>
-                        <div class="form-group">
-                            <label for="curvasmedias">Curvas Medias</label>
-                            <input type="number" id="curvasmedias" name="curvasmedias" placeholder="Ingrese el título de la noticia">
-                        </div>
-                        <div class="form-group">
-                            <label for="curvasrapidas">Curvas Rápidas</label>
-                            <input type="number" id="curvasrapidas" name="curvasrapidas" placeholder="Ingrese el título de la noticia">
-                        </div>
-                        <div class="buttons">
-                            <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
+                            <div class="form-group">
+                                <label for="foto">Trazado</label>
+                                <input type="file" id="foto">
+                            </div>
+                            <div class="form-group">
+                                <label for="longitud">Longitud</label>
+                                <input type="number" id="longitud" name="longitud" placeholder="Ingrese el título de la noticia">
+                            </div>
+                            <div class="form-group">
+                                <label for="curvaslentas">CUrvas Lentas</label>
+                                <input type="number" id="curvaslentas" name="curvaslentas" placeholder="Ingrese el título de la noticia">
+                            </div>
+                            <div class="form-group">
+                                <label for="curvasmedias">Curvas Medias</label>
+                                <input type="number" id="curvasmedias" name="curvasmedias" placeholder="Ingrese el título de la noticia">
+                            </div>
+                            <div class="form-group">
+                                <label for="curvasrapidas">Curvas Rápidas</label>
+                                <input type="number" id="curvasrapidas" name="curvasrapidas" placeholder="Ingrese el título de la noticia">
+                            </div>
+                            <div class="buttons">
+                                <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
 
-                        </div>
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
