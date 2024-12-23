@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : index
     Created on : 13 nov 2024, 22:36:38
     Author     : micha
@@ -169,7 +169,7 @@
 
 
 
-        <!-- Start Categories of The Month 
+        <!-- Start Categories of The Month
         <section class="container py-5">
             <div class="row text-center pt-3">
                 <div class="col-lg-6 m-auto">
@@ -177,17 +177,17 @@
                     <p class="text-center"><a class="btn btn-success">Votar</a></p>
                 </div>
             </div>
- 
+
         </section>-->
         <!-- End Categories of The Month -->
-        <!-- Start Footer 
+        <!-- Start Footer
         <footer class="bg-dark" id="tempaltemo_footer">
             <div class="container">
                 <div class="row text-center">
                     <h2 class="h2 text-success pb-3 border-light logo">Circuit Management</h2>
                 </div>
             </div>
- 
+
         </footer>-->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
