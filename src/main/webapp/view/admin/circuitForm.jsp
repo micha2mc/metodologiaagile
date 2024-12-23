@@ -31,6 +31,8 @@
 
                     <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
                     <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
+                    <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=circuito">Mant. Circuitos</a>
+                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a>
                 </div>
             </div>
             <div class="main">
@@ -57,7 +59,7 @@
                         </div>
                     </nav>
                 </div>
-                <div class="main1">
+                <div class="main1" style="overflow-x: hidden;">
                     <div class="scroll-container">
                         <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
                             <input type="hidden" name="pagina" value="circuito">

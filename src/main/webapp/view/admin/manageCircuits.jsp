@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="sidebar">
+            <div class="sidebar" style="overflow-x: hidden;">
                 <div class="d-flex flex-column justify-content-center align-items-center" >
                     <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                          alt="F1 Logo">

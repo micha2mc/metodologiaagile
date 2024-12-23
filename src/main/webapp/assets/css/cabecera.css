@@ -136,13 +136,3 @@ body {
 .image-container:hover img {
     transform: scale(1.9); /* Ampliar al 120% */
 }
-
-.scroll-container {
-    max-height: 80vh; /* Limita la altura al 80% de la ventana */
-    overflow-y: auto; /* Activa el scroll vertical si es necesario */
-    margin: auto; /* Centra horizontalmente */
-    padding: 1rem; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde para delimitar el área */
-    border-radius: 8px; /* Bordes redondeados */
-    background-color: #f9f9f9; /* Fondo para mejorar la visibilidad */
-}
