@@ -51,7 +51,7 @@
                         <div class="col-md-6 my-1">
                             <c:forEach var="temporalesNoticias" items="${listaNoticias}">
                                 <a href="PublicController?noticia=${temporalesNoticias.nid}" class="card shadow-lg" style="text-decoration:none;">
-                                    <img th:src="@{'/images/uploads/'+ ${pelicula.image}}" th:alt="*{title}" class="card-img-top">
+                                    <img src="${temporalesNoticias.imagen}" th:alt="*{title}" class="card-img-top">
                                     <div class="card-body">
                                         <h2 class="card-title fs-6">${temporalesNoticias.titulo}</h2>
                                         <p class="text-muted small">${temporalesNoticias.texto}</p>

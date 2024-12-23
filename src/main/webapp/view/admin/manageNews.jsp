@@ -78,8 +78,8 @@
                             <c:forEach var="temporalesNoticias" items="${listaNoticias}">
                                 <tr>
                                     <td style="width:150px;">
-                                        <a th:href="@{'/images/uploads/'+ ${actor.image}}" data-fancybox>
-                                            <img th:src="@{'/images/uploads/'+ ${actor.image}}" alt="" class="img-thumbnail w-100">
+                                        <a>
+                                            <img src="${temporalesNoticias.imagen}" alt="" class="img-thumbnail w-100 h-100">
                                         </a>
                                     </td>
                                     <td>
@@ -92,10 +92,10 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th class="text-start" th:text="*{name}">${temporalesNoticias.titulo}</th>
+                                                    <th class="text-start">${temporalesNoticias.titulo}</th>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-start" th:text="*{genre}">${temporalesNoticias.texto}</td>
+                                                    <td class="text-start">${temporalesNoticias.texto}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-start">

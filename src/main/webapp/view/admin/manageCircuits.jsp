@@ -81,7 +81,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="card">
                                     <div class="image-container">
-                                        <img src="img/Silesia Ring-Western-Test-Loop-2018.png" class="card-img-top" alt="${circuito.nombre}"/>
+                                        <img src="${circuito.trazadoImagen}" class="card-img-top" alt="${circuito.nombre}"/>
                                     </div>
 
                                     <div class="card-body">

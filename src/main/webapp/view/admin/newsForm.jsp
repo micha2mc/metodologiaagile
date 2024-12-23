@@ -70,11 +70,11 @@
 
                     <c:choose>
                         <c:when test="${actualizar}">
-                            <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8">
+                            <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                                 <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
                             </c:when>
                             <c:otherwise>
-                                <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
+                                <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
                                 </c:otherwise>
                             </c:choose>
 
@@ -92,7 +92,7 @@
 
                             <div class="form-group">
                                 <label for="foto">Foto</label>
-                                <input type="file" id="foto">
+                                <input type="file" id="foto" name="foto">
                             </div>
                             <div class="buttons">
                                 <c:choose>

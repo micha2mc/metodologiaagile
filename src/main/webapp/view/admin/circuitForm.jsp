@@ -61,7 +61,7 @@
                 </div>
                 <div class="main1" style="overflow-x: hidden;">
                     <div class="scroll-container">
-                        <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8"> 
+                        <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
                             <input type="hidden" name="pagina" value="circuito">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
@@ -78,8 +78,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="foto">Trazado</label>
-                                <input type="file" id="foto">
+                                <label for="trazado">Trazado</label>
+                                <input type="file" id="trazado" name="trazado">
                             </div>
                             <div class="form-group">
                                 <label for="longitud">Longitud</label>

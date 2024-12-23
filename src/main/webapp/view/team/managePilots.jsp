@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <title>Zona de Administración</title>
+        <title>Zona de Responsables</title>
         <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
@@ -47,7 +47,7 @@
                                     </ul>
                                 </li>
                                 <div>
-                                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
+                                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
                                 </div>
                             </ul>
                             <div class="dropdown ms-auto">

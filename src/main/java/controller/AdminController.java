@@ -9,6 +9,7 @@ import dao.CircuitDAO;
 import dao.NewsDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import model.Circuit;
 import model.News;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
+import utils.FileSearcher;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +36,15 @@ import java.util.List;
  * Puede ver los detalles de cada equipo, con el fin de obtener datos de grafismo para el equipo de producción que retransmite la carrera.
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+    maxFileSize = 1024 * 1024 * 10,      // 10MB
+    maxRequestSize = 1024 * 1024 * 50   // 50MB
+)
 public class AdminController extends HttpServlet {
+    
+    private static final String UPLOAD_DIR_CIRCUIT = "img/circuitos/";
+    private static final String UPLOAD_DIR_NEWS = "img/noticias/";
 
     private final NewsDAO noticiaDAO = new NewsDAO();
     private final UserDAO userDAO = new UserDAO();
@@ -185,7 +195,7 @@ public class AdminController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void crearNoticia(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+    private void crearNoticia(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
 
         String titulo = request.getParameter("titulo");
         String texto = request.getParameter("texto");
@@ -193,13 +203,13 @@ public class AdminController extends HttpServlet {
             response.getWriter().println("Error: Los campos 'título' y 'texto' son obligatorios.");
             return;
         }
-
+        String imagePath= FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
         LocalDate fecha = LocalDate.now();
         News newNoticia = News.builder()
                 .titulo(titulo)
                 .texto(texto)
                 .fecha(fecha)
-                .imagen("")
+                .imagen(imagePath)
                 .build();
         try {
             noticiaDAO.crearNoticia(newNoticia);
@@ -209,12 +219,14 @@ public class AdminController extends HttpServlet {
 
     }
 
-    private void crearCircuito(HttpServletRequest request, HttpServletResponse response) {
+    private void crearCircuito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String fileName= FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
         Circuit circuit = Circuit.builder()
                 .nombre(request.getParameter("nombre"))
                 .ciudad(request.getParameter("ciudad"))
                 .pais(request.getParameter("pais"))
-                .trazadoImagen(request.getParameter("foto"))
+                .trazadoImagen(fileName)
                 .longitud(Integer.parseInt(request.getParameter("longitud")))
                 .curvasLentas(Integer.parseInt(request.getParameter("curvaslentas")))
                 .curvasMedias(Integer.parseInt(request.getParameter("curvasmedias")))
