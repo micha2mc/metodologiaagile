@@ -81,7 +81,7 @@
                             <tr>
                                 <td style="width:150px;">
                                     <a>
-                                        <img src="${temporalesNoticias.imagen}" alt="" class="img-thumbnail w-100 h-100">
+                                        <img src="${temporalesNoticias.imagen}" alt="" class="img-thumbnail w-100 h-1000">
                                     </a>
                                 </td>
                                 <td>
@@ -95,6 +95,9 @@
                                         <tbody>
                                             <tr>
                                                 <th class="text-start">${temporalesNoticias.titulo}</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">${temporalesNoticias.fecha}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-start">${temporalesNoticias.texto}</td>

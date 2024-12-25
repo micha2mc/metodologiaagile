@@ -172,8 +172,8 @@ public class AdminController extends HttpServlet {
     }
 
     private void eliminarNoticia(HttpServletRequest request) {
-        String noticiaNid = request.getParameter("noticia");
-        noticiaDAO.deleteNew(Integer.parseInt(noticiaNid));
+        int noticiaNid = Integer.parseInt(request.getParameter("noticia"));
+        noticiaDAO.deleteNew(noticiaNid);
     }
 
 
