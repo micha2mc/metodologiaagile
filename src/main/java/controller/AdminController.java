@@ -37,12 +37,12 @@ import java.util.List;
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-    maxFileSize = 1024 * 1024 * 10,      // 10MB
-    maxRequestSize = 1024 * 1024 * 50   // 50MB
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50   // 50MB
 )
 public class AdminController extends HttpServlet {
-    
+
     private static final String UPLOAD_DIR_CIRCUIT = "img/circuitos/";
     private static final String UPLOAD_DIR_NEWS = "img/noticias/";
 
@@ -55,23 +55,24 @@ public class AdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+
         String pagina = request.getParameter("pagina");
 
         if ("noticia".equalsIgnoreCase(pagina)) {
             gestionNoticias(request, response);
         } else if ("votacion".equalsIgnoreCase(pagina)) {
             gestionVotaciones(request, response);
-        }else if("circuito".equalsIgnoreCase(pagina)) {
+        } else if ("circuito".equalsIgnoreCase(pagina)) {
             gestionCircuitos(request, response);
 
 
-        }else {
+        } else {
             gestionUsuarios(request, response);
         }
     }
 
-    private void gestionCircuitos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {String action = request.getParameter("action");
+    private void gestionCircuitos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
                 case "create" -> crearCircuito(request, response);
@@ -93,9 +94,9 @@ public class AdminController extends HttpServlet {
         String circuitoId = request.getParameter("circuito");
         String tipo = request.getParameter("tipo");
         Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuitoId));
-        if("add".equalsIgnoreCase(tipo)){
+        if ("add".equalsIgnoreCase(tipo)) {
             circuit.setCalendar(Boolean.TRUE);
-        }else{
+        } else {
             circuit.setCalendar(Boolean.FALSE);
         }
         circuitDAO.updateCalendarStatus(circuit);
@@ -164,7 +165,10 @@ public class AdminController extends HttpServlet {
         } else {
             noticiaBBDD.setTitulo(request.getParameter("titulo"));
             noticiaBBDD.setTexto(request.getParameter("texto"));
-            noticiaBBDD.setImagen(request.getParameter("foto"));
+            String filePath = FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
+            if (StringUtils.isNotBlank(filePath)) {
+                noticiaBBDD.setImagen(filePath);
+            }
             noticiaBBDD.setFecha(LocalDate.now());
             noticiaDAO.updateNews(noticiaBBDD);
         }
@@ -204,7 +208,7 @@ public class AdminController extends HttpServlet {
             response.getWriter().println("Error: Los campos 'título' y 'texto' son obligatorios.");
             return;
         }
-        String imagePath= FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
+        String imagePath = FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
         LocalDate fecha = LocalDate.now();
         News newNoticia = News.builder()
                 .titulo(titulo)
@@ -222,7 +226,7 @@ public class AdminController extends HttpServlet {
 
     private void crearCircuito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String fileName= FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
+        String fileName = FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
         Circuit circuit = Circuit.builder()
                 .nombre(request.getParameter("nombre"))
                 .ciudad(request.getParameter("ciudad"))
