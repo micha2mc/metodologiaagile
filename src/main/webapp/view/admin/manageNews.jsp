@@ -13,7 +13,6 @@
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <title>Zona de Administración</title>
-        <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-danger">
@@ -44,78 +43,79 @@
                                 </ul>
                             </li>
                             <div>
-                                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                                </div>
-                        </ul>
-                        <div class="dropdown ms-auto">
-                                <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    ${usuarioConectado.getUserName()}
-                                </button>
-                                <div class="dropdown-menu text-center">
-                                    <a class="dropdown-item" href="#">
-                                        <img src="img/usuario.png" alt="60" width="60"/>
-                                    </a>
-                                    <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
-                                    <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <form action="Validation" method="POST">
-                                        <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
-                                    </form>
-                                </div>
+                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
                             </div>
-                        </div>
+                        </ul>
                     </div>
                 </div>
-
             </div>
-        </nav>
-        
-        <div class="container">
-            <p>Noticias</p>
-            <div class="main">
-                <div class="main1" style="overflow-x: hidden;">
-
-                    <table class="table table-hover">
-                        <tbody>
-                            <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                                <tr>
-                                    <td style="width:150px;">
-                                        <a>
-                                            <img src="${temporalesNoticias.imagen}" alt="" class="img-thumbnail w-100 h-100">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th class="text-start">${temporalesNoticias.titulo}</th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-start">${temporalesNoticias.texto}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-start">
-                                                        <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
-                                                        <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+            <div class="d-flex justify-content-end" style="margin-right: 20px;">
+                <div class="dropdown ms-3">
+                    <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        ${usuarioConectado.getUserName()}
+                    </button>
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">
+                            <img src="img/usuario.png" alt="60" width="60"/>
+                        </a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
+                        <div class="dropdown-divider"></div>
+                        <form action="Validation" method="POST">
+                            <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    </body>
+    </nav>
+
+    <div class="container">
+        <p>Noticias</p>
+        <div class="main">
+            <div class="main1" style="overflow-x: hidden;">
+
+                <table class="table table-hover">
+                    <tbody>
+                        <c:forEach var="temporalesNoticias" items="${listaNoticias}">
+                            <tr>
+                                <td style="width:150px;">
+                                    <a>
+                                        <img src="${temporalesNoticias.imagen}" alt="" class="img-thumbnail w-100 h-100">
+                                    </a>
+                                </td>
+                                <td>
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-start">${temporalesNoticias.titulo}</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">${temporalesNoticias.texto}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">
+                                                    <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
+                                                    <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
 </html>

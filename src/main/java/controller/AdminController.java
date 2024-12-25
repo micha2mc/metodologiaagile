@@ -159,6 +159,7 @@ public class AdminController extends HttpServlet {
 
             request.setAttribute("noticiaObtenida", noticiaBBDD);
             request.setAttribute("actualizar", Boolean.TRUE);
+            request.setAttribute("tituloAccion", "Actualizando la Noticia");
             request.getRequestDispatcher("/view/admin/newsForm.jsp").forward(request, response);
         } else {
             noticiaBBDD.setTitulo(request.getParameter("titulo"));

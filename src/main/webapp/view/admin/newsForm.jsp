@@ -13,15 +13,6 @@
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <title>Nueva Noticia</title>
-        <c:choose>
-            <c:when test="${actualizar}">
-                <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
-            </c:when>
-            <c:otherwise>
-                <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">  
-            </c:otherwise>
-        </c:choose>
-
     </head>
     <body>
 
@@ -62,75 +53,99 @@
                                 </ul>
                             </li>
                             <div>
-                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
+                                <c:choose>
+                                    <c:when test="${actualizar}">
+                                        <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
+                                    </c:when>
+                                    <c:otherwise>
+
+                                        <a href="newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </ul>
-                        <div class="dropdown ms-auto">
-                            <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                ${usuarioConectado.getUserName()}
-                            </button>
-                            <div class="dropdown-menu text-center">
-                                <a class="dropdown-item" href="#">
-                                    <img src="img/usuario.png" alt="60" width="60"/>
-                                </a>
-                                <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
-                                <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
-                                <div class="dropdown-divider"></div>
-                                <form action="Validation" method="POST">
-                                    <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
+            <div class="d-flex justify-content-end" style="margin-right: 20px;">
+                <div class="dropdown ms-3">
+                    <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        ${usuarioConectado.getUserName()}
+                    </button>
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">
+                            <img src="img/usuario.png" alt="60" width="60"/>
+                        </a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
+                        <div class="dropdown-divider"></div>
+                        <form action="Validation" method="POST">
+                            <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
 
-    <div class="container">
+    <div class="row justify-content-center">
 
-        <div class="main">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-danger text-white">
 
-            <c:choose>
-                <c:when test="${actualizar}">
-                    <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-                        <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
-                    </c:when>
-                    <c:otherwise>
-                        <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                    <c:choose>
+                        <c:when test="${actualizar}">
+                            <h3>${tituloAccion}</h3>
+                        </c:when>
+                        <c:otherwise>
+
+                            <h3>Añadiendo Noticia</h3>
                         </c:otherwise>
                     </c:choose>
+                </div>
+                <div class="card-body">
 
-
-                    <input type="hidden" name="pagina" value="noticia">
-                    <div class="form-group">
-                        <label for="titulo">Título</label>
-                        <input type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="texto">Texto</label>
-                        <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="foto">Foto</label>
-                        <input type="file" id="foto" name="foto">
-                    </div>
-                    <div class="buttons">
-                        <c:choose>
-                            <c:when test="${actualizar}">
-                                <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
+                    <c:choose>
+                        <c:when test="${actualizar}">
+                            <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                                <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
                             </c:when>
                             <c:otherwise>
-                                <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                                <form action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                                </c:otherwise>
+                            </c:choose>
+                            <input type="hidden" name="pagina" value="noticia">
+                            <div class="form-group mb-3">
+                                <label for="titulo" class="form-label">Título</label>
+                                <input class="form-control" type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
+                            </div>
 
-                </form>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="texto">Texto</label>
+                                <textarea class="form-control" id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="foto">Foto</label>
+                                <input class="form-control" type="file" id="foto" name="foto">
+                            </div>
+                            <div class="buttons">
+                                <c:choose>
+                                    <c:when test="${actualizar}">
+                                        <button type = "submit" name="action" value="update" class="btn btn-warning">Update</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type = "submit" name="action" value="create" class="btn btn-success">Create</button> 
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+
+                        </form>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
