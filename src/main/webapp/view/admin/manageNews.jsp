@@ -16,43 +16,38 @@
         <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
-        <div class="container">
-            <div class="sidebar">
-                <div class="d-flex flex-column justify-content-center align-items-center" >
-                    <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
-                         alt="F1 Logo">
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
-                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a>
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a>
-                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a>
-                </div>
-            </div>
-            <div class="main">
-                <div class="header">
-                    <nav class="navbar navbar-expand-lg">
-                        <div class="collpse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="PublicController">Noticias</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Portal
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="#">Equipos</a></li>
-                                    </ul>
-                                </li>
-                                <div>
+        <nav class="navbar navbar-expand-lg bg-danger">
+            <div class="container d-flex justify-content-between align-items-center">
+
+                <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
+                     alt="F1 Logo">
+
+                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Controller">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="PublicController">Noticias</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mantenimiento Admin.
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a></li>
+                                </ul>
+                            </li>
+                            <div>
                                     <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
                                 </div>
-                            </ul>
-                            <div class="dropdown ms-auto">
+                        </ul>
+                        <div class="dropdown ms-auto">
                                 <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     ${usuarioConectado.getUserName()}
                                 </button>
@@ -69,8 +64,15 @@
                                 </div>
                             </div>
                         </div>
-                    </nav>
+                    </div>
                 </div>
+
+            </div>
+        </nav>
+        
+        <div class="container">
+            <p>Noticias</p>
+            <div class="main">
                 <div class="main1" style="overflow-x: hidden;">
 
                     <table class="table table-hover">

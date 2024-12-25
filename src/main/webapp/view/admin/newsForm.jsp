@@ -24,92 +24,116 @@
 
     </head>
     <body>
-        <div class="container">
-            <div class="sidebar">
-                <div class="d-flex flex-column justify-content-center align-items-center" >
-                    <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
-                         alt="F1 Logo">
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
+
+        <nav class="navbar navbar-expand-lg bg-danger">
+            <div class="container d-flex justify-content-between align-items-center">
+
+                <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
+                     alt="F1 Logo">
+
+                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Controller">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="PublicController">Noticias</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mantenimiento Admin.
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <c:choose>
+                                            <c:when test="${actualizar}">
+                                                <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a></li>
+                                </ul>
+                            </li>
+                            <div>
+                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
+                            </div>
+                        </ul>
+                        <div class="dropdown ms-auto">
+                            <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                ${usuarioConectado.getUserName()}
+                            </button>
+                            <div class="dropdown-menu text-center">
+                                <a class="dropdown-item" href="#">
+                                    <img src="img/usuario.png" alt="60" width="60"/>
+                                </a>
+                                <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
+                                <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
+                                <div class="dropdown-divider"></div>
+                                <form action="Validation" method="POST">
+                                    <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <div class="main">
+
+            <c:choose>
+                <c:when test="${actualizar}">
+                    <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
+                    </c:when>
+                    <c:otherwise>
+                        <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
                         </c:otherwise>
                     </c:choose>
 
-                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a>
-                    <a class="btn btn-outline-ligth text-center" href="manageUsers.jsp">Mant. Usuarios</a>
-                </div>
-            </div>
-            <div class="main">
-                <div class="header">
-                    <nav class="navbar navbar-expand-lg">
-                        <div class="collpse navbar-collapse" id="navbarNav">
-                            <div class="dropdown ms-auto">
-                                <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    ${usuario.getUserName()}
-                                </button>
-                                <div class="dropdown-menu text-center">
-                                    <a class="dropdown-item" href="#">
-                                        <img src="img/usuario.png" alt="60" width="60"/>
-                                    </a>
-                                    <a class="dropdown-item" href="#">${usuario.getUserName()}</a>
-                                    <a class="dropdown-item" href="#">${usuario.getEmail()}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <form action="Validation" method="POST">
-                                        <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
-                                    </form>
 
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <div class="main1">
+                    <input type="hidden" name="pagina" value="noticia">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
+                    </div>
 
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <form class="form-sign" action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-                                <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
+                    <div class="form-group">
+                        <label for="texto">Texto</label>
+                        <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" id="foto" name="foto">
+                    </div>
+                    <div class="buttons">
+                        <c:choose>
+                            <c:when test="${actualizar}">
+                                <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
                             </c:when>
                             <c:otherwise>
-                                <form class="form-sign" action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
-                                </c:otherwise>
-                            </c:choose>
+                                <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
 
-
-                            <input type="hidden" name="pagina" value="noticia">
-                            <div class="form-group">
-                                <label for="titulo">Título</label>
-                                <input type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="texto">Texto</label>
-                                <textarea id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="foto">Foto</label>
-                                <input type="file" id="foto" name="foto">
-                            </div>
-                            <div class="buttons">
-                                <c:choose>
-                                    <c:when test="${actualizar}">
-                                        <button type = "submit" name="action" value="update" style="background-color:yellow; color:black ;">Update</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button type = "submit" name="action" value="create" style="background-color: yellowgreen;">Create</button> 
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-
-                        </form>
-                </div>
-            </div>
+                </form>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    </body>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
 </html>
