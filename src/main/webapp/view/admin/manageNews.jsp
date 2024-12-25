@@ -39,6 +39,7 @@
                                     <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a></li>
                                     <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
                                     <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Detalles Equipos</a></li>
                                     <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a></li>
                                 </ul>
                             </li>
