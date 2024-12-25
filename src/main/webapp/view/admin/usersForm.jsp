@@ -71,7 +71,6 @@
         </div>
     </nav>
     <div class="row justify-content-center">
-
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header text-center bg-danger text-white">
@@ -85,7 +84,6 @@
                             <label for="userName">Nombre</label>
                             <input class="form-control" type="text" id="userName" name="userName" value="${usuarioDB.userName}" readonly>
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="email">Correo Electronico</label>
                             <input class="form-control" type="text" id="email" name="email" value="${usuarioDB.email}" readonly>
@@ -98,34 +96,11 @@
                                 </c:forEach>
                             </select>
                         </div>
-
-
                         <div class="buttons mb-3">
                             <button type = "submit" name="action" value="validar" class="btn btn-success">Validar</button>
                         </div>
-
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-    <div class="container">
-        <div class="main">
-            <div class="main1">
-                <form class="form-sign" action="AdminController" method="POST">
-
-                    <input type="hidden" name="pagina" value="usuarios">
-                    <input type="hidden" name="nid" value="${usuarioDB.nid}">
-
-
-
-                </form>
             </div>
         </div>
     </div>
