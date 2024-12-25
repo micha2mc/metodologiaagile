@@ -16,102 +16,102 @@
         <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
     </head>
     <body>
-        <div class="container">
-            <div class="sidebar">
-                <div class="d-flex flex-column justify-content-center align-items-center" >
-                    <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
-                         alt="F1 Logo">
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Pilotos</a>
-                    <a class="btn btn-outline-ligth text-center" href="#">Mant. Coches</a>
-                    <a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Herramienta Simulación</a>
+        <nav class="navbar navbar-expand-lg bg-danger">
+            <div class="container d-flex justify-content-between align-items-center">
+
+                <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
+                     alt="F1 Logo">
+
+                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Controller">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="PublicController">Noticias</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mantenimiento Admin.
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Pilotos</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Coches</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Herram. Simulación</a></li>
+                                </ul>
+                            </li>
+                            <div>
+                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="main">
-                <div class="header">
-                    <nav class="navbar navbar-expand-lg">
-                        <div class="collpse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="index.jsp">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a style="margin-left: 10px; border: none" class="btn btn-outline-ligth" href="PublicController">Noticias</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Portal
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="#">Equipos</a></li>
-                                    </ul>
-                                </li>
-                                <div>
-                                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
-                                </div>
-                            </ul>
-                            <div class="dropdown ms-auto">
-                                <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    ${usuarioConectado.getUserName()}
-                                </button>
-                                <div class="dropdown-menu text-center">
-                                    <a class="dropdown-item" href="#">
-                                        <img src="img/usuario.png" alt="60" width="60"/>
-                                    </a>
-                                    <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
-                                    <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
-                                    <div class="dropdown-divider"></div>
-                                    <form action="Validation" method="POST">
-                                        <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <div class="main1" style="overflow-x: hidden;">
-
-                    <table class="table table-hover">
-                        <tbody>
-                            <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                                <tr>
-                                    <td style="width:150px;">
-                                        <a th:href="@{'/images/uploads/'+ ${actor.image}}" data-fancybox>
-                                            <img th:src="@{'/images/uploads/'+ ${actor.image}}" alt="" class="img-thumbnail w-100">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th class="text-start" th:text="*{name}">${temporalesNoticias.titulo}</th>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-start" th:text="*{genre}">${temporalesNoticias.texto}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-start">
-                                                        <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
-                                                        <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+            <div class="d-flex justify-content-end" style="margin-right: 20px;">
+                <div class="dropdown ms-3">
+                    <button style="border: none" class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        ${usuarioConectado.getUserName()}
+                    </button>
+                    <div class="dropdown-menu text-center">
+                        <a class="dropdown-item" href="#">
+                            <img src="img/usuario.png" alt="60" width="60"/>
+                        </a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getUserName()}</a>
+                        <a class="dropdown-item" href="#">${usuarioConectado.getEmail()}</a>
+                        <div class="dropdown-divider"></div>
+                        <form action="Validation" method="POST">
+                            <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    </body>
+    </nav>
+    <div class="container">
+        <div class="main1" style="overflow-x: hidden;">
+
+            <table class="table table-hover">
+                <tbody>
+                <c:forEach var="temporalesNoticias" items="${listaNoticias}">
+                    <tr>
+                        <td style="width:150px;">
+                            <a th:href="@{'/images/uploads/'+ ${actor.image}}" data-fancybox>
+                                <img th:src="@{'/images/uploads/'+ ${actor.image}}" alt="" class="img-thumbnail w-100">
+                            </a>
+                        </td>
+                        <td>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="text-start" th:text="*{name}">${temporalesNoticias.titulo}</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start" th:text="*{genre}">${temporalesNoticias.texto}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start">
+                                            <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
+                                            <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
 </html>
