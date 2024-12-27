@@ -26,25 +26,38 @@
                 <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                     <div class="flex-fill">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="Controller">Home</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="PublicController">Noticias</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Mantenimiento Admin.
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Votación</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="#">Detalles Equipos</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a></li>
-                                </ul>
+                            <li class="nav-item dropdown me-3">
+                                <div class="dropdown">
+
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Admin.
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
+                                        <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                    </ul>
+                                </div>
                             </li>
+                            <li class="nav-item me-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Portal
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
                             <div>
                                 <a href="view/admin/circuitForm.jsp" class="btn btn-primary mb-3">Crear Circuito</a><br>
                             </div>
