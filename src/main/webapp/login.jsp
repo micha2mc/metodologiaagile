@@ -60,30 +60,35 @@
                 </div>
             </div>
         </nav>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-lg">
-                    <div class="card-header text-center bg-danger text-white">
-                        <h3>Conéctate</h3>
-                        <label>Introduce</label>
-                    </div>
-                    <div class="card-body">
-                        <form action="Validation" method="POST">
-                            <!-- Correo electronico -->
-                            <div class="form-group mb-3">
-                                <input class="form-control" type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
+        <div class="container">
+
+            <div class="main">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header text-center bg-danger text-white">
+                                <h3>Conéctate</h3>
+                                <label>Introduce</label>
                             </div>
-                            <!-- Contraseña -->
-                            <div class="form-group mb-3">
-                                <input type="password" name="txtpass" placeholder="Contraseña" class="form-control" required>
+                            <div class="card-body">
+                                <form action="Validation" method="POST">
+                                    <!-- Correo electronico -->
+                                    <div class="form-group mb-3">
+                                        <input class="form-control" type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
+                                    </div>
+                                    <!-- Contraseña -->
+                                    <div class="form-group mb-3">
+                                        <input type="password" name="txtpass" placeholder="Contraseña" class="form-control" required>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" name="accion" value="conectar" class="btn btn-danger btn-block">ENTRA</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="d-grid">
-                                <button type="submit" name="accion" value="conectar" class="btn btn-danger btn-block">ENTRA</button>
+                            <div class="card-footer text-center">
+                                <p class="align-center text-center color-primary margin-bottom-m">Si no tienes todavía, <a href="registro.jsp">crea tu cuenta</a></p>
                             </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        <p class="align-center text-center color-primary margin-bottom-m">Si no tienes todavía, <a href="registro.jsp">crea tu cuenta</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
