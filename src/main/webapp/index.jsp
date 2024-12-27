@@ -40,7 +40,7 @@
                                     Portal
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Calendario</a></li>
+                                    <li><a class="dropdown-item" href="view/public/calendar.jsp">Calendario</a></li>
                                     <li><a class="dropdown-item" href="#">Equipos</a></li>
                                 </ul>
                             </li>
@@ -205,7 +205,7 @@
         </section>
         <!-- Start Categories of The Month -->
         <section class="container py-5">
-            <div class="row text-center pt-3">
+            <!--<div class="row text-center pt-3">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">Categories of The Month</h1>
                     <p>
@@ -230,7 +230,79 @@
                     <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
                     <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
                 </div>
+            </div>-->
+            <div class="container mt-4">
+                <!-- Título -->
+                <h2 class="text-center">Fórmula 1</h2>
+
+                <div class="row mt-4">
+                    <!-- Clasificación en la última carrera -->
+                    <div class="col-md-4">
+                        <h4 class="text-center">Clasificación en la última carrera</h4>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th>Piloto</th>
+                                    <th>Equipo</th>
+                                    <th>Puntos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="piloto" items="${ultimaCarrera}">
+                                    <tr>
+                                        <td>${piloto.posicion}</td>
+                                        <td>${piloto.nombre}</td>
+                                        <td>${piloto.equipo}</td>
+                                        <td>${piloto.puntos}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Clasificación general -->
+                    <div class="col-md-4">
+                        <h4 class="text-center">Clasificación general</h4>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th>Piloto</th>
+                                    <th>Equipo</th>
+                                    <th>Puntos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="piloto" items="${clasificacionGeneral}">
+                                    <tr>
+                                        <td>${piloto.posicion}</td>
+                                        <td>${piloto.nombre}</td>
+                                        <td>${piloto.equipo}</td>
+                                        <td>${piloto.puntos}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Próximo Gran Premio -->
+                    <div class="col-md-4">
+                        <h4 class="text-center">Próximo Gran Premio</h4>
+                        <div class="card">
+                            <img src="img/circuito/${proximoGP.circuitoImg}" class="card-img-top" alt="${proximoGP.nombre}">
+                            <div class="card-body">
+                                <h5 class="card-title">${proximoGP.nombre}</h5>
+                                <p class="card-text">
+                                    Fecha: ${proximoGP.fecha}<br>
+                                    Ubicación: ${proximoGP.ubicacion}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </section>
         <!-- End Categories of The Month -->
         <!-- End Featured Product -->

@@ -28,7 +28,10 @@ public class TeamController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-request.setCharacterEncoding("UTF-8");
+        gestionEquipos(request, response);
+    }
+
+    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) {
     }
 
 

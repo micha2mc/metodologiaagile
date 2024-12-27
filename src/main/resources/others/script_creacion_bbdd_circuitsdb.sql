@@ -126,11 +126,25 @@ CREATE TABLE `noticias` (
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
+-- Table `circuitsdb`.`calendar`.
+-- Relacion uno a uno con circuito, el administrador introduce fecha y selecciona el circuito
+-- -------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`calendar`;
+CREATE TABLE `calendar` (
+	`nid` INT NOT NULL AUTO_INCREMENT,
+	`fecha` DATE NOT NULL,
+	`nombre` varchar(50) NOT NULL,
+	`ubicacion` varchar(50) NOT NULL,
+	`estado` varchar(50) NOT NULL,
+	PRIMARY KEY (`nid`)
+) ENGINE = InnoDB;
+
+-- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`circuitos`.
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`circuitos`;
 CREATE TABLE `circuitos` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
 	`ciudad` varchar(50) NOT NULL,
 	`pais` varchar(50) NOT NULL,
@@ -139,9 +153,11 @@ CREATE TABLE `circuitos` (
 	`curvas_lentas` INT NOT NULL,
 	`curvas_medias` INT NOT NULL,
 	`curvas_rapidas` INT NOT NULL,
-	`calendar` BOOLEAN DEFAULT TRUE,
-	PRIMARY KEY (`nid`)
+	`calendar` BOOLEAN DEFAULT TRUE
 ) ENGINE = InnoDB;
+
+
+
 
 ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk0` FOREIGN KEY (`id_equipo_fk`) REFERENCES `equipo`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk1` FOREIGN KEY (`id_coche_fk`) REFERENCES `coche`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;

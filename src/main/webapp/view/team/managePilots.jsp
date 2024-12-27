@@ -38,6 +38,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Pilotos</a></li>
                                     <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Coches</a></li>
+                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Equipos</a></li>
                                     <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Herram. Simulación</a></li>
                                 </ul>
                             </li>

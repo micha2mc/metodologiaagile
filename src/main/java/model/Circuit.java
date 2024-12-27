@@ -20,5 +20,5 @@ public class Circuit {
     private int curvasLentas;
     private int curvasMedias;
     private int curvasRapidas;
-    private boolean calendar;
+    private boolean calendar; //para indicar si el circuito está en el calendario.
 }
