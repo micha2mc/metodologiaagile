@@ -7,13 +7,9 @@
         <title>Circuits Management</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/templatemo.css">
         <link rel="stylesheet" href="assets/css/custom.css">
-
-        <!-- Load fonts style after rendering the layout styles -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
         <link rel="stylesheet" href="assets/css/fontawesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -40,14 +36,15 @@
                                     Portal
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="view/public/calendar.jsp">Calendario</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="PublicController?pagina=calendario">Calendario</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Equipos</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
-
             </div>
             <div>
                 <!-- Example single danger button -->
@@ -174,7 +171,7 @@
 
         <!-- Start Featured Product -->
         <section class="bg-light">
-            <div class="container py-5">
+            <div class="container py-12">
                 <div class="row text-center py-3">
                     <div class="col-lg-6 m-auto">
                         <h1 class="h1">Últimas noticias</h1>
@@ -204,7 +201,7 @@
             </div>
         </section>
         <!-- Start Categories of The Month -->
-        <section class="container py-5">
+        <section class="container py-12">
             <!--<div class="row text-center pt-3">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">Categories of The Month</h1>

@@ -4,27 +4,23 @@
  */
 package controller;
 
-import dao.AuthoritiesDAO;
-import dao.CircuitDAO;
-import dao.NewsDAO;
-import dao.UserDAO;
+import dao.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Authorities;
-import model.Circuit;
-import model.News;
-import model.User;
+import model.*;
 import org.apache.commons.lang3.StringUtils;
 import utils.FileSearcher;
+import utils.Utiles;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author micha
@@ -50,6 +46,7 @@ public class AdminController extends HttpServlet {
     private final UserDAO userDAO = new UserDAO();
     private final AuthoritiesDAO authoritiesDAO = new AuthoritiesDAO();
     private final CircuitDAO circuitDAO = new CircuitDAO();
+    private final CalendarDAO calendarDAO = new CalendarDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -64,10 +61,47 @@ public class AdminController extends HttpServlet {
             gestionVotaciones(request, response);
         } else if ("circuito".equalsIgnoreCase(pagina)) {
             gestionCircuitos(request, response);
-
-
+        } else if ("calendario".equalsIgnoreCase(pagina)) {
+            gestionCalendario(request, response);
         } else {
             gestionUsuarios(request, response);
+        }
+    }
+
+    private void gestionCalendario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "create" -> crearCalendario(request, response);
+                //case "update" -> actualizarCircuito(request, response);
+                //case "delete" -> eliminarCircuito(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+        List<Calendar> listaCarreras = calendarDAO.getAllCalendarItem();
+        request.setAttribute("listaCarreras", listaCarreras);
+        request.getRequestDispatcher("/view/admin/manageCalendar.jsp").forward(request, response);
+    }
+
+    private void crearCalendario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            String circuito = request.getParameter("circuitOption");
+            Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuito));
+            LocalDate fechaForm = LocalDate.parse(request.getParameter("fecha"));
+            String status = Utiles.getStatusCalendar(fechaForm);
+            Calendar calendar = Calendar.builder()
+                    .fecha(fechaForm)
+                    .nombre(circuit.getNombre())
+                    .ubicacion(circuit.getCiudad())
+                    .estado(status)
+                    .build();
+            calendarDAO.createCalendar(calendar);
+
+        } else {
+            List<Circuit> listCircuits = circuitDAO.getAllCircuits().stream().filter(Circuit::isCalendar).toList();
+            request.setAttribute("listaCircuitos", listCircuits);
+            request.getRequestDispatcher("/view/admin/calendarForm.jsp").forward(request, response);
+
         }
     }
 
