@@ -26,7 +26,7 @@
                     <div class="flex-fill">
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.jsp">Home</a>
+                                <a class="nav-link" href="index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="PublicController">Noticias</a>

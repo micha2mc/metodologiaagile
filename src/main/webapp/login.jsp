@@ -29,7 +29,7 @@
                     <div class="flex-fill">
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="Controller">Home</a>
+                                <a class="nav-link" href="Controller">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="PublicController">Noticias</a>
