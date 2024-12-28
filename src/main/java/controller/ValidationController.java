@@ -28,6 +28,7 @@ public class ValidationController extends HttpServlet {
 
     protected void processRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
 
         if (accion.equalsIgnoreCase("conectar")) {
@@ -82,6 +83,7 @@ public class ValidationController extends HttpServlet {
             if (user.getAuthorities().getAuthority().equalsIgnoreCase(RolEnum.ROLE_ADMIN.getDescr())) {
                 List<News> listNews = noticiaDAO.getTodasNoticias();
                 request.setAttribute("listaNoticias", listNews);
+                request.setAttribute("usuarioConectado", user);
                 request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);

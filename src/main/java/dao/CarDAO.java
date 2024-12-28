@@ -5,28 +5,28 @@
 package dao;
 
 import config.ConnectionDB;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import model.Car;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author asd
  */
 public class CarDAO {
 
-    public static final String add_Car = "INSERT INTO Cars (nombre, codigo, ers_curvas_lentas, ers_curvas_medias, ers_curvas_rapidas, consumo)VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String add_Car = """
+            INSERT INTO Cars (nombre, codigo, ers_curvas_lentas, ers_curvas_medias, ers_curvas_rapidas, consumo)
+            VALUES (?, ?, ?, ?, ?, ?)""";
     public static final String get_ALL_Cars = "SELECT * FROM Cars";
     public static final String get_Car = "SELECT * FROM Car WHERE id=?";
-    public static final String update_Car_By_Id = "UPDATE Cars SET nombre = ?, codigo = ?, ers_curvas_lentas = ?, ers_curvas_medias = ?, ers_curvas_rapidas = ?, consumo = ? WHERE id = ?";
+    public static final String update_Car_By_Id = """
+            UPDATE Cars SET nombre = ?, codigo = ?, ers_curvas_lentas = ?, ers_curvas_medias = ?, 
+            ers_curvas_rapidas = ?, consumo = ? WHERE id = ?""";
     public static final String delet_Car_By_Id = "DELETE FROM Cars WHERE id = ?";
 
-    ConnectionDB connectionBD = new ConnectionDB();
+    ConnectionDB connectionBD;
 
     public CarDAO() {
         this.connectionBD = new ConnectionDB();
@@ -55,7 +55,9 @@ public class CarDAO {
     public List<Car> getAllCars() throws SQLException {
         List<Car> carList = new ArrayList<>();
 
-        try (Connection connection = connectionBD.ConnectionDB(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(get_ALL_Cars)) {
+        try (Connection connection = connectionBD.ConnectionDB();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(get_ALL_Cars)) {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -93,15 +95,7 @@ public class CarDAO {
 
             if (resultSet.next()) {
 
-                car = Car.builder()
-                        .nid(resultSet.getInt("id"))
-                        .nombre(resultSet.getString("nombre"))
-                        .codigo(resultSet.getString("codigo"))
-                        .ers_curvas_lentas(resultSet.getInt("ers_curvas_lentas"))
-                        .ers_curvas_medias(resultSet.getInt("ers_curvas_medias"))
-                        .ers_curvas_rapidas(resultSet.getInt("ers_curvas_rapidas"))
-                        .consumo(resultSet.getInt("consumo"))
-                        .build();
+                car = Car.builder().nid(resultSet.getInt("id")).nombre(resultSet.getString("nombre")).codigo(resultSet.getString("codigo")).ers_curvas_lentas(resultSet.getInt("ers_curvas_lentas")).ers_curvas_medias(resultSet.getInt("ers_curvas_medias")).ers_curvas_rapidas(resultSet.getInt("ers_curvas_rapidas")).consumo(resultSet.getInt("consumo")).build();
 
             }
         } catch (SQLException e) {

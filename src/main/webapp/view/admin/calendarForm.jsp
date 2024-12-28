@@ -1,24 +1,30 @@
-<%--
-    Document   : Noticias
-    Created on : 17 nov 2024, 09:42:17
-    Author     : Home
+<%-- 
+    Document   : circuitForm
+    Created on : 22 dic 2024, 11:52:48
+    Author     : micha
+--%>
+<%-- 
+    Document   : newsForm
+    Created on : 20 dic 2024, 22:45:18
+    Author     : micha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Zona de Administración</title>
+    <head>     
+        <title>Nueva Entrada en el calendario</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/templatemo.css">
         <link rel="stylesheet" href="assets/css/custom.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
         <link rel="stylesheet" href="assets/css/fontawesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-danger">
@@ -43,10 +49,10 @@
                                         Mant. Admin.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
+                                        <li><a class="dropdown-item" href="../../AdminController?pagina=noticia">Mant. Noticias</a></li>
                                         <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                        <li><a class="dropdown-item" href="../../AdminController?pagina=usuario">Mant. Usuarios</a></li>
+                                        <li><a class="dropdown-item" href="../../AdminController?pagina=circuito">Mant. Circuitos</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -61,8 +67,7 @@
                                     </ul>
                                 </div>
                             </li>
-                        </ul>                    
-                                               
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -85,34 +90,37 @@
                 </div>
             </div>
         </div>
-    </nav>        
-    <div class="container">
-        <div class="main">
+    </nav>
 
-            <div class="main1" style="overflow-x: hidden;">
-                <!--<div>
-                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                </div>-->
-                <table class="table table-hover">
-                    <tbody>
-                        <c:forEach var="temporalesUser" items="${listaUsuarios}">
-                            <tr>
-                                <td>${temporalesUser.userName}</td>
-                                <td>${temporalesUser.email}</td>
-                                <td class="text-start">
-                                    <c:if test="${!temporalesUser.valid}">
-                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
-                                    </c:if>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-danger text-white">
+                    <h3>Añadiendo nueva entrada al calendario</h3>
+                </div>
+                <div class="card-body">
+                    <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                        <input type="hidden" name="pagina" value="calendario">
+                        <input type="hidden" name="action" value="create"><!-- comment -->
+                        <input type="hidden" name="estado" value="create">
+                        <div class="form-group mb-3">
+                            <label for="fecha">Fecha</label>
+                            <input class="form-control" type="date" id="fecha" name="fecha" placeholder="Ingrese la fecha de la carrera" required>
+                        </div>
 
-                                    <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                </td>
-
-                                <td>${temporalesUser.authorities.authority}</td>
-
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        <div class="form-group mb-3">
+                            <label for="ciudad">Selección Circuito:</label>
+                            <select id="circuitOption" name="circuitOption" class="form-control">
+                                <c:forEach var="circuito" items="${listaCircuitos}">
+                                    <option value="${circuito.nid}">${circuito.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="buttons mb-3">
+                            <button type = "submit" name="action" value="create" class="btn btn-success">Create</button> 
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -120,3 +128,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
+

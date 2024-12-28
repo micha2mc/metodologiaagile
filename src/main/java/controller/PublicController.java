@@ -4,17 +4,18 @@
  */
 package controller;
 
+import dao.CalendarDAO;
 import dao.NewsDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Calendar;
 import model.News;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +28,20 @@ import java.util.List;
 public class PublicController extends HttpServlet {
 
     private final NewsDAO noticiaDAO = new NewsDAO();
+    private final CalendarDAO calendarDAO = new CalendarDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        presentarNoticias(request, response);
+        request.setCharacterEncoding("UTF-8");
+        String pagina = request.getParameter("pagina");
+        if ("calendario".equalsIgnoreCase(pagina)) {
+            List<Calendar> listaCarreras = calendarDAO.getAllCalendarItem();
+            request.setAttribute("listaCarreras", listaCarreras);
+            request.getRequestDispatcher("/view/public/calendar.jsp").forward(request, response);
+        } else {
+            presentarNoticias(request, response);
+        }
 
     }
 

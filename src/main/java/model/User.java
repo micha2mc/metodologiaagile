@@ -14,7 +14,7 @@ public class User {
     private String userName;
     private String email;
     private String password;
-    private Authorities authorities;
+    private Authorities authorities; //mmany to one
     private boolean valid;
 
 }
