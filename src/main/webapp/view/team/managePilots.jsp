@@ -98,7 +98,7 @@
             <c:forEach var="piloto" items="${listaPilotos}">
                 <div class="col-md-3 mb-3">
                     <div class="card product-card">
-                        <img src="${piloto.imagen}" alt="${piloto.nombre}" class="card-img-top product-image">
+                        <img src="${piloto.imagen}" alt="${piloto.nombre}" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title  text-center">${piloto.nombre}</h5>
                             <p class="card-text text-muted">
