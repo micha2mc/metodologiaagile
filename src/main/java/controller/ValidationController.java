@@ -1,6 +1,7 @@
 package controller;
 
 import dao.NewsDAO;
+import dao.PilotDAO;
 import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,11 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import model.News;
 import model.User;
 import utils.RolEnum;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,9 +28,10 @@ public class ValidationController extends HttpServlet {
 
     private UserDAO userDAO = new UserDAO();
     private final NewsDAO noticiaDAO = new NewsDAO();
+    private final PilotDAO pilotDAO = new PilotDAO();
 
     protected void processRequest(final HttpServletRequest request, final HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException, ServletException, SQLException {
         request.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
 
@@ -57,15 +61,15 @@ public class ValidationController extends HttpServlet {
     }
 
 
+    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         processRequest(request, response);
     }
 
+    @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         processRequest(request, response);
     }
 
@@ -75,7 +79,7 @@ public class ValidationController extends HttpServlet {
     }
 
     private void sesionIniciada(final HttpServletRequest request, final HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         String pass = request.getParameter("txtpass");
         String email = request.getParameter("txtemail");
         User user = userDAO.validar(pass, email);
@@ -86,6 +90,7 @@ public class ValidationController extends HttpServlet {
                 request.setAttribute("usuarioConectado", user);
                 request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
+                request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
                 request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
             }
         } else {

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
 <html>
@@ -30,25 +31,40 @@
                 <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                     <div class="flex-fill">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="Controller">Inicio</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item me-3">
                                 <a class="nav-link" href="PublicController">Noticias</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Mantenimiento Admin.
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=noticia">Mant. Pilotos</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Coches</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Equipos</a></li>
-                                    <li><a class="btn btn-outline-ligth text-center" href="AdminController?pagina=usuario">Herram. Simulación</a></li>
-                                </ul>
+                            <li class="nav-item dropdown me-3">
+                                <div class="dropdown">
+
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Respo.
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="TeamController?pagina=pilotos">Mant. Pilotos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
+                                    </ul>
+                                </div>
                             </li>
+                            <!--<li class="nav-item me-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Portal
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
+                                    </ul>
+                                </div>
+                            </li>-->
+
                             <div>
-                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
+                                <a href="view/team/pilotForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
                             </div>
                         </ul>
                     </div>
@@ -74,46 +90,35 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="main1" style="overflow-x: hidden;">
+    <div class="container mt-1">
+        <h1 class="text-center mb-4">Listado de Pilotos</h1>
 
-            <table class="table table-hover">
-                <tbody>
-                <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                    <tr>
-                        <td style="width:150px;">
-                            <a th:href="@{'/images/uploads/'+ ${actor.image}}" data-fancybox>
-                                <img th:src="@{'/images/uploads/'+ ${actor.image}}" alt="" class="img-thumbnail w-100">
+        <!-- Listado de productos -->
+        <div class="row">
+            <c:forEach var="piloto" items="${listaPilotos}">
+                <div class="col-md-3 mb-3">
+                    <div class="card product-card">
+                        <img src="${piloto.imagen}" alt="${piloto.nombre}" class="card-img-top product-image">
+                        <div class="card-body">
+                            <h5 class="card-title  text-center">${piloto.nombre}</h5>
+                            <p class="card-text text-muted">
+                                <strong>Nombre:</strong> ${piloto.nombre}<br>
+                                <strong>Apellidos:</strong> ${piloto.apellidos}<br>
+                                <strong>Siglas:</strong> ${piloto.siglas}<br>
+                                <strong>Dorsal:</strong> ${piloto.dorsal}<br>
+                                <strong>País:</strong> ${piloto.pais}<br>
+                                <strong>Twitter:</strong> ${piloto.twitter}
+                            </p>
+                            <a href="TeamController?pagina=pilotos&nidPiloto=${piloto.nid}&accion=delete" class="btn btn-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                </svg>
                             </a>
-                        </td>
-                        <td>
-                            <table class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th class="text-start" th:text="*{name}">${temporalesNoticias.titulo}</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-start" th:text="*{genre}">${temporalesNoticias.texto}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-start">
-                                            <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
-                                            <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </div>

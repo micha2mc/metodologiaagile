@@ -7,6 +7,19 @@ ALTER DATABASE `circuitsdb` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `circuitsdb` ;
 
 
+
+-- -----------------------------------------------------------------------
+-- Table `circuitsdb`.`authorities`  => Tabla de roles de los usuarios
+-- Relacion de uno a varios con users
+-- -----------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`authorities`;
+CREATE TABLE `authorities` (
+    `nid` INT NOT NULL AUTO_INCREMENT,
+    `authority` VARCHAR(45) NOT NULL UNIQUE,
+    PRIMARY KEY (`nid`)
+) ENGINE = InnoDB;
+
+
 -- ------------------------------------------------------------------
 -- Table `circuitsdb`.`Users` => Administradores y resp. de equipo
 -- Relacion de varios a uno con authorities
@@ -22,19 +35,10 @@ CREATE TABLE `users` (
 	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
 ) ENGINE = InnoDB;
 
--- -----------------------------------------------------------------------
--- Table `circuitsdb`.`authorities`  => Tabla de roles de los usuarios
--- Relacion de uno a varios con users
--- -----------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`authorities`;
-CREATE TABLE `authorities` (
-    `nid` INT NOT NULL AUTO_INCREMENT,
-    `authority` VARCHAR(45) NOT NULL UNIQUE,
-    PRIMARY KEY (`nid`)
-) ENGINE = InnoDB;
+
 
 -- -------------------------------------------------------------------------------------
--- Table `circuitsdb`.`equipo` 
+-- Table `circuitsdb`.`equipo`
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`equipo`;
 CREATE TABLE `equipo` (
@@ -46,7 +50,7 @@ CREATE TABLE `equipo` (
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
--- Table `circuitsdb`.`coche` 
+-- Table `circuitsdb`.`coche`
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`coche`;
 CREATE TABLE `coche` (
@@ -63,66 +67,47 @@ CREATE TABLE `coche` (
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`equipo_has_coche` Tabla relacion entre equipo y coche
 -- -------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`equipo_has_coche`;
-CREATE TABLE `equipo_has_coche` (
-	`id_equipo_fk` INT NOT NULL,
-	`id_coche_fk` INT NOT NULL,
-	PRIMARY KEY (`id_equipo_fk`,`id_coche_fk`),
-    INDEX `fk_equipo_has_coche_coche1_idx` (`id_coche_fk` ASC) VISIBLE,
-    INDEX `fk_equipo_has_coche_equipo1_idx` (`id_equipo_fk` ASC) VISIBLE
-) ENGINE = InnoDB;
+
 
 -- ---------------------------------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`piloto`. Está relacionada con equipo de uno a varios. Un equipo puede tener varios pilotos
 -- ---------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`piloto`;
 CREATE TABLE `piloto` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL auto_increment PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
 	`apellidos` varchar(50) NOT NULL,
 	`siglas` varchar(3),
 	`dorsal` INT,
 	`imagen` varchar(255),
 	`pais` varchar(50) NOT NULL,
-	`twitter` varchar(100),
-	`id_equipo` INT NOT NULL,
-	PRIMARY KEY (`nid`, `id_equipo`),
-	INDEX `fk_piloto_equipo_idx` (`id_equipo` ASC) VISIBLE
+	`twitter` varchar(100)
 ) ENGINE = InnoDB;
 
 
 DROP TABLE IF EXISTS `circuitsdb`.`votacion`;
 CREATE TABLE `votacion` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL auto_increment PRIMARY KEY,
 	`titulo` varchar(50) NOT NULL,
 	`descripcion` text,
-    `fecha_limite` DATE NOT NULL,
-	PRIMARY KEY (`nid`)
+    `fecha_limite` DATE NOT NULL
 ) ENGINE = InnoDB;
 
 -- ---------------------------------------------------------------------------------------------------------------
--- Table `circuitsdb`.`piloto_has_votacion`. Tabla de relacion entre piloto y votacion (many to many). 
+-- Table `circuitsdb`.`piloto_has_votacion`. Tabla de relacion entre piloto y votacion (many to many).
 -- ---------------------------------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`piloto_has_votacion`;
-CREATE TABLE `piloto_has_votacion` (
-	`id_piloto_fk` INT NOT NULL,
-	`id_votacion_fk` INT NOT NULL,
-	PRIMARY KEY (`id_piloto_fk`,`id_votacion_fk`),
-    INDEX `fk_piloto_has_votacion_votacion1_idx` (`id_votacion_fk` ASC) VISIBLE,
-    INDEX `fk_piloto_has_votacion_piloto1_idx` (`id_piloto_fk` ASC) VISIBLE
-) ENGINE = InnoDB;
+
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`noticias`.
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`noticias`;
 CREATE TABLE `noticias` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL auto_increment PRIMARY KEY,
 	`titulo` varchar(150) NOT NULL,
 	`imagen` varchar(255),
 	`texto` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-    `fecha` DATE NOT NULL,
-	PRIMARY KEY (`nid`)
+    `fecha` DATE NOT NULL
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
@@ -131,12 +116,11 @@ CREATE TABLE `noticias` (
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`calendar`;
 CREATE TABLE `calendar` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL auto_increment PRIMARY KEY,
 	`fecha` DATE NOT NULL,
 	`nombre` varchar(50) NOT NULL,
 	`ubicacion` varchar(50) NOT NULL,
-	`estado` varchar(50) NOT NULL,
-	PRIMARY KEY (`nid`)
+	`estado` varchar(50) NOT NULL
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
@@ -158,12 +142,6 @@ CREATE TABLE `circuitos` (
 
 
 
-
-ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk0` FOREIGN KEY (`id_equipo_fk`) REFERENCES `equipo`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE `equipo_has_coche` ADD CONSTRAINT `equipo_has_coche_fk1` FOREIGN KEY (`id_coche_fk`) REFERENCES `coche`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE `piloto` ADD CONSTRAINT `piloto_equipo_fk0` FOREIGN KEY (`id_equipo`) REFERENCES `equipo` (`nid`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `piloto_has_votacion` ADD CONSTRAINT `piloto_has_votacion_fk0` FOREIGN KEY (`id_piloto_fk`) REFERENCES `piloto`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE `piloto_has_votacion` ADD CONSTRAINT `piloto_has_votacion_fk1` FOREIGN KEY (`id_votacion_fk`) REFERENCES `votacion`(`nid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
