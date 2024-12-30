@@ -6,16 +6,19 @@ package controller;
 
 import dao.PilotDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Pilot;
+import org.apache.commons.lang3.StringUtils;
+import utils.FileSearcher;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import model.Pilot;
+
 
 /**
  * @author micha Responsable/s de equipo. Requiere registro. Deberá ser validado
@@ -26,8 +29,56 @@ import model.Pilot;
  * determinado circuito.
  */
 @WebServlet(name = "TeamController", urlPatterns = {"/TeamController"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50   // 50MB
+)
 public class TeamController extends HttpServlet {
 
+
+    private static final String UPLOAD_DIR_PILOT = "img/pilotos/";
+    private final PilotDAO pilotDAO = new PilotDAO();
+
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String pagina = request.getParameter("pagina");
+        switch (pagina) {
+            case "pilotos" -> gestionPilotos(request, response);
+            case "equipos" -> gestionEquipos(request, response);
+        }
+
+    }
+
+    private void gestionPilotos(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
+        String accion = request.getParameter("accion");
+        if (StringUtils.isNotBlank(accion)) {
+            switch (accion) {
+                case "create" -> crearPiloto(request, response);
+                case "delete" -> eliminarPiloto(request, response);
+            }
+        }
+        request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
+        request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
+    }
+
+    private void eliminarPiloto(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        pilotDAO.deletePilot(Integer.parseInt(request.getParameter("nidPiloto")));
+    }
+
+    private void crearPiloto(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String apellidos = request.getParameter("apellidos");
+        Pilot pilot = Pilot.builder()
+                .nombre(request.getParameter("nombre"))
+                .apellidos(apellidos)
+                .siglas(apellidos.substring(0, 3).toUpperCase())
+                .dorsal(Integer.parseInt(request.getParameter("dorsal")))
+                .imagen(FileSearcher.obtainFileName(request, UPLOAD_DIR_PILOT))
+                .pais(request.getParameter("pais"))
+                .twitter(request.getParameter("twitter"))
+                .build();
+        pilotDAO.createPilot(pilot);
     private PilotDAO pilotDAO;
 
     @Override
@@ -143,6 +194,7 @@ public class TeamController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         gestionEquipos(request, response);
+
     }
 
     private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) {
@@ -150,16 +202,22 @@ public class TeamController extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

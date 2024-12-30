@@ -1,42 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import config.ConnectionDB;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import model.Pilot;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author asd
  */
 public class PilotDAO {
 
-    public static final String add_Pilot_SQL = "INSERT INTO piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter,id_equipo)VALUES (?,?,?,?,?,?,?,?) ";
-    public static final String delet_Pilot_SQL = "DELETE FROM piloto WHERE nid = ?";
-    public static final String get_All_Pilot_SQL = "SELECT * FROM piloto ";
-    public static final String get_Pilot_ById_SQL = "SELECT * FROM piloto WHERE nid = ?";
-    public static final String update_Pilot_By_Id_SQL = "UPDATE Pilot SET nombre=?,apellidos=?,siglas=? ,dorsal=?,imagen=?,pais=?,twitter=?,idEquipo=? WHERE id=?";
+
+    public static final String add_Pilot_SQL = """
+            INSERT INTO circuitsdb.piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter)VALUES (?,?,?,?,?,?,?) 
+            """;
+    public static final String delet_Pilot_SQL = """
+            DELETE FROM circuitsdb.piloto WHERE nid = ?
+            """;
+    public static final String get_All_Pilot_SQL = """
+            SELECT * FROM circuitsdb.piloto """;
+    public static final String get_Pilot_ById_SQL = "SELECT * FROM circuitsdb.piloto WHERE nid = ?";
+    public static final String update_Pilot_By_Id_SQL = """
+            UPDATE circuitsdb.piloto SET nombre=?,apellidos=?,siglas=? ,dorsal=?,imagen=?,pais=?,twitter=?,idEquipo=? WHERE nid=?
+            """;
+
     private final ConnectionDB connectionBD;
 
     public PilotDAO() {
         this.connectionBD = new ConnectionDB();
     }
 
-    public boolean createPilot(Pilot pilot) throws SQLException {
+    public boolean createPilot(final Pilot pilot) throws SQLException {
         if (pilot == null || pilot.getNombre() == null || pilot.getApellidos() == null) {
             throw new IllegalArgumentException("Datos del Piloto no validos ");
         }
 
-        try (Connection connection = connectionBD.ConnectionDB(); PreparedStatement statement = connection.prepareStatement(add_Pilot_SQL)) {
+        try (Connection connection = connectionBD.ConnectionDB();
+             PreparedStatement statement = connection.prepareStatement(add_Pilot_SQL)) {
             statement.setString(1, pilot.getNombre());
             statement.setString(2, pilot.getApellidos());
             statement.setString(3, pilot.getSiglas());
@@ -60,7 +62,8 @@ public class PilotDAO {
     }
 
     public boolean deletePilot(int id) throws SQLException {
-        try (Connection connection = connectionBD.ConnectionDB(); PreparedStatement statement = connection.prepareStatement(delet_Pilot_SQL)) {
+        try (Connection connection = connectionBD.ConnectionDB();
+             PreparedStatement statement = connection.prepareStatement(delet_Pilot_SQL)) {
             statement.setInt(1, id);
 
             int rowsAffected = statement.executeUpdate();
@@ -75,9 +78,11 @@ public class PilotDAO {
 
     public List<Pilot> getAllPilot() throws SQLException {
         List<Pilot> pilots = new ArrayList<>();
-        try (Connection connection = connectionBD.ConnectionDB(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(get_All_Pilot_SQL)) {
+        try (Connection connection = connectionBD.ConnectionDB();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(get_All_Pilot_SQL)) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("nid");
                 String nombre = resultSet.getString("nombre");
                 String apellidos = resultSet.getString("apellidos");
                 String siglas = resultSet.getString("siglas");
@@ -85,7 +90,6 @@ public class PilotDAO {
                 String imagen = resultSet.getString("imagen");
                 String pais = resultSet.getString("pais");
                 String twitter = resultSet.getString("twitter");
-                int id_equipo = resultSet.getInt("id_equipo");
 
                 Pilot pilot = Pilot.builder()
                         .nid(id)
@@ -96,7 +100,7 @@ public class PilotDAO {
                         .imagen(imagen)
                         .pais(pais)
                         .twitter(twitter)
-                        .id_equipo(id_equipo)
+
                         .build();
 
                 pilots.add(pilot);
@@ -125,10 +129,10 @@ public class PilotDAO {
                         .imagen(resultSet.getString("imagen"))
                         .pais(resultSet.getString("pais"))
                         .twitter(resultSet.getString("twitter"))
-                        .id_equipo(resultSet.getInt("id_equipo"))
+
                         .build();
-            
-      
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,7 +150,7 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
-            statement.setInt(8, pilot.getId_equipo());
+
             statement.setInt(9, id);
 
             int rowsAffected = statement.executeUpdate();

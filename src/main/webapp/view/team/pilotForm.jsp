@@ -1,15 +1,15 @@
 <%-- 
-    Document   : manageNews
-    Created on : 11 dic 2024, 23:28:32
+    Document   : newsForm
+    Created on : 20 dic 2024, 22:45:18
     Author     : micha
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
-        <title>Listado de Circuitos</title>
+        <title>Nuevo Piloto</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -41,17 +41,17 @@
                                 <div class="dropdown">
 
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mant. Admin.
+                                        Mant. Respo.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
-                                        <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                        <li><a class="dropdown-item" href="../../TeamController?pagina=pilotos">Mant. Pilotos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item me-3">
+                            <!--<li class="nav-item me-3">
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mant. Portal
@@ -64,8 +64,8 @@
                             </li>
 
                             <div>
-                                <a href="view/admin/circuitForm.jsp" class="btn btn-primary mb-3">Crear Circuito</a><br>
-                            </div>
+                                <a href="view/team/pilotForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
+                            </div>-->
                         </ul>
                     </div>
                 </div>
@@ -91,49 +91,55 @@
         </div>
     </nav>
 
-    <div class="container mt-1">
-        <h1 class="text-center mb-4">Listado de Circuitos</h1>
 
-        <!-- Listado de productos -->
-        <div class="row">
-            <c:forEach var="circuito" items="${listaCircuitos}" varStatus="status">
-                <div class="col-md-3 mb-3">
-                    <div class="card product-card">
-                        <img src="${circuito.trazadoImagen}" alt="${circuito.nombre}" class="card-img-top product-image">
-                        <div class="card-body">
-                            <h5 class="card-title  text-center">${circuito.nombre}</h5>
-                            <p class="card-text text-muted">
-                                <strong>Ciudad:</strong> ${circuito.ciudad}<br>
-                                <strong>País:</strong> ${circuito.pais}<br>
-                                <strong>Longitud:</strong> ${circuito.longitud} km<br>
-                                <strong>Curvas Lentas:</strong> ${circuito.curvasLentas}<br>
-                                <strong>Curvas Medias</strong> ${circuito.curvasMedias}<br>
-                                <strong>Curvas Rápidas:</strong> ${circuito.curvasRapidas}
-                            </p>
-                            <a href="AdminController?pagina=circuito&circuito=${circuito.nid}&action=update&tipo=add"class="btn btn-success">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                </svg>
-                            </a>
-                            <a href="AdminController?pagina=circuito&circuito=${circuito.nid}&action=update" class="btn btn-warning">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-                                </svg>
-                            </a>
-                            <c:if test="${!circuito.calendar}">
-                                <a href="AdminController?pagina=circuito&circuito=${circuito.nid}&action=delete" class="btn btn-danger">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                    </svg>
-                                </a>
-                            </c:if>
-                        </div>
-                    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-danger text-white">
+                    <h3>Añadiendo Piloto</h3>
                 </div>
-            </c:forEach>
+                <div class="card-body">
+
+                    <form action="../../TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <input type="hidden" name="pagina" value="pilotos">
+                        <div class="form-group mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input class="form-control" type="text" id="nombre" name="nombre" value="" placeholder="Ingrese el nombre">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="apellidos">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese el apellidos">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="dorsal">Dorsal</label>
+                            <input type="number" class="form-control" id="dorsal" name="dorsal" placeholder="Ingrese el dorsal">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="foto">Imagen</label>
+                            <input class="form-control" type="file" id="foto" name="foto">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="pais">País</label>
+                            <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese el país del piloto">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="twitter">Twitter</label>
+                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Ingrese el twiter del piloto">
+                        </div>
+
+                        <div class="buttons">
+                            <button type = "submit" name="accion" value="create" class="btn btn-success">Create</button> 
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
