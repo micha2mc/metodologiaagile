@@ -51,20 +51,12 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!--<li class="nav-item me-3">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mant. Portal
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
-                                    </ul>
-                                </div>
-                            </li>-->
-
                             <div>
-                                <a href="view/team/pilotForm.jsp" class="btn btn-primary mb-3">Añadir Piloto</a><br>
+                                <form action="TeamController" method="POST">
+                                    <button href="#" class="btn btn-primary mb-3">Añadir Piloto</button><br>
+                                    <input type="hidden" name="pagina" value="pilotos"><!-- comment -->
+                                    <input type="hidden" name="accion" value="create">
+                                </form>
                             </div>
                         </ul>
                     </div>

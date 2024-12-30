@@ -82,17 +82,22 @@ public class TeamController extends HttpServlet {
     }
 
     private void crearPiloto(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        String apellidos = request.getParameter("apellidos");
-        Pilot pilot = Pilot.builder()
-                .nombre(request.getParameter("nombre"))
-                .apellidos(apellidos)
-                .siglas(apellidos.substring(0, 3).toUpperCase())
-                .dorsal(Integer.parseInt(request.getParameter("dorsal")))
-                .imagen(FileSearcher.obtainFileName(request, UPLOAD_DIR_PILOT))
-                .pais(request.getParameter("pais"))
-                .twitter(request.getParameter("twitter"))
-                .build();
-        pilotDAO.createPilot(pilot);
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            String apellidos = request.getParameter("apellidos");
+            Pilot pilot = Pilot.builder()
+                    .nombre(request.getParameter("nombre"))
+                    .apellidos(apellidos)
+                    .siglas(apellidos.substring(0, 3).toUpperCase())
+                    .dorsal(Integer.parseInt(request.getParameter("dorsal")))
+                    .imagen(FileSearcher.obtainFileName(request, UPLOAD_DIR_PILOT))
+                    .pais(request.getParameter("pais"))
+                    .twitter(request.getParameter("twitter"))
+                    .build();
+            pilotDAO.createPilot(pilot);
+        } else {
+            request.getRequestDispatcher("view/team/pilotForm.jsp").forward(request, response);
+        }
+
     }
 
 

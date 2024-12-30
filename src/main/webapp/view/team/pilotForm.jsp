@@ -44,7 +44,7 @@
                                         Mant. Respo.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="../../TeamController?pagina=pilotos">Mant. Pilotos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=pilotos">Mant. Pilotos</a></li>
                                         <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
                                         <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
                                         <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
@@ -103,6 +103,8 @@
 
                     <form action="../../TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="pagina" value="pilotos">
+
+                        <input type="hidden" name="estado" value="create">
                         <div class="form-group mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input class="form-control" type="text" id="nombre" name="nombre" value="" placeholder="Ingrese el nombre">
@@ -126,6 +128,15 @@
                         <div class="form-group mb-3">
                             <label class="form-label" for="pais">País</label>
                             <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese el país del piloto">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="category">Seleccione Equipo:</label>
+                            <select id="teamOption" name="teamOption" class="form-control">
+                                <c:forEach var="equipo" items="${listaEquipos}">
+                                    <option value="${equipo.nid}">${equipo.nombre}</option>
+                                </c:forEach>
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
