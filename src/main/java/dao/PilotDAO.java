@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class PilotDAO {
 
+
     public static final String add_Pilot_SQL = """
             INSERT INTO circuitsdb.piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter)VALUES (?,?,?,?,?,?,?) 
             """;
@@ -24,6 +25,7 @@ public class PilotDAO {
     public static final String update_Pilot_By_Id_SQL = """
             UPDATE circuitsdb.piloto SET nombre=?,apellidos=?,siglas=? ,dorsal=?,imagen=?,pais=?,twitter=?,idEquipo=? WHERE nid=?
             """;
+
     private final ConnectionDB connectionBD;
 
     public PilotDAO() {
@@ -44,8 +46,12 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
+            statement.setInt(8, pilot.getId_equipo());
+            
+            System.out.println(statement);
 
             int rowsAffected = statement.executeUpdate();
+            
             return rowsAffected > 0;
 
         } catch (SQLException e) {
@@ -94,6 +100,7 @@ public class PilotDAO {
                         .imagen(imagen)
                         .pais(pais)
                         .twitter(twitter)
+
                         .build();
 
                 pilots.add(pilot);
@@ -122,6 +129,7 @@ public class PilotDAO {
                         .imagen(resultSet.getString("imagen"))
                         .pais(resultSet.getString("pais"))
                         .twitter(resultSet.getString("twitter"))
+
                         .build();
 
 
@@ -142,6 +150,7 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
+
             statement.setInt(9, id);
 
             int rowsAffected = statement.executeUpdate();
