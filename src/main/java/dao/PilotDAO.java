@@ -46,7 +46,6 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
-            statement.setInt(8, pilot.getId_equipo());
             
             System.out.println(statement);
 
