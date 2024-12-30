@@ -41,9 +41,28 @@ public class TeamController extends HttpServlet {
         String pagina = request.getParameter("pagina");
         switch (pagina) {
             case "pilotos" -> gestionPilotos(request, response);
+            case "coches" -> gestionCoches(request, response);
             case "equipos" -> gestionEquipos(request, response);
         }
 
+    }
+
+    private void gestionCoches(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String accion = request.getParameter("accion");
+        if (StringUtils.isNotBlank(accion)) {
+            switch (accion) {
+                case "create" -> crearCoche(request, response);
+                case "delete" -> eliminarCoche(request, response);
+            }
+        }
+        //request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
+        //request.getRequestDispatcher("view/team/manageCars.jsp").forward(request, response);
+    }
+
+    private void eliminarCoche(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    private void crearCoche(HttpServletRequest request, HttpServletResponse response) {
     }
 
     private void gestionPilotos(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {

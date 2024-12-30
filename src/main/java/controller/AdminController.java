@@ -62,6 +62,8 @@ public class AdminController extends HttpServlet {
             gestionCircuitos(request, response);
         } else if ("calendario".equalsIgnoreCase(pagina)) {
             gestionCalendario(request, response);
+        }else if ("equipo".equalsIgnoreCase(pagina)) {
+            request.getRequestDispatcher("/view/admin/manageTeam.jsp").forward(request, response);
         } else {
             gestionUsuarios(request, response);
         }

@@ -52,7 +52,7 @@
                                         <li><a class="dropdown-item" href="../../AdminController?pagina=noticia">Mant. Noticias</a></li>
                                         <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
                                         <li><a class="dropdown-item" href="../../AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                        <li><a class="dropdown-item" href="../../AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
                                     </ul>
                                 </div>
                             </li>

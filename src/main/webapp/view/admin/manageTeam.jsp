@@ -1,27 +1,45 @@
-<%--
-    Document   : Noticias
-    Created on : 17 nov 2024, 09:42:17
-    Author     : Home
+<%-- 
+    Document   : manageTeam
+    Created on : 30 dic 2024, 11:49:55
+    Author     : micha
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <title>Zona de Administración</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/templatemo.css">
-        <link rel="stylesheet" href="assets/css/custom.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-danger">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos y Pilotos F1 2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .team-section {
+            margin: 20px auto;
+        }
+        .team-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .team-logo {
+            width: 100px;
+            height: auto;
+        }
+        .driver-img {
+            width: 80px;
+            height: auto;
+            border-radius: 50%;
+        }
+        .driver-name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
 
                 <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
@@ -61,8 +79,16 @@
                                     </ul>
                                 </div>
                             </li>
-                        </ul>                    
-                                               
+
+                            <div>
+                                <form action="AdminController" method="POST">
+                                    <button name="accion" value="Salir" href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
+                                    <input type="hidden" name="pagina" value="equipo"><!-- comment -->
+                                    <input type="hidden" name="action" value="create">
+                                </form>
+
+                            </div>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -85,38 +111,37 @@
                 </div>
             </div>
         </div>
-    </nav>        
+    </nav>
+
     <div class="container">
-        <div class="main">
-
-            <div class="main1" style="overflow-x: hidden;">
-                <!--<div>
-                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                </div>-->
-                <table class="table table-hover">
-                    <tbody>
-                        <c:forEach var="temporalesUser" items="${listaUsuarios}">
-                            <tr>
-                                <td>${temporalesUser.userName}</td>
-                                <td>${temporalesUser.email}</td>
-                                <td class="text-start">
-                                    <c:if test="${!temporalesUser.valid}">
-                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
-                                    </c:if>
-
-                                    <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
-                                </td>
-
-                                <td>${temporalesUser.authorities.authority}</td>
-
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+        <h1 class="text-center my-5">Equipos y Pilotos F1 - Temporada 2024</h1>
+        <div class="row team-section">
+            <c:forEach var="team" items="${equipos}">
+                <div class="col-md-6 col-lg-4">
+                    <div class="team-card p-3">
+                        <div class="d-flex align-items-center">
+                            <img src="${team.logo}" alt="${team.nombre}" class="team-logo me-3">
+                            <h3 class="mb-0">${team.nombre}</h3>
+                        </div>
+                        <hr>
+                        <div class="drivers">
+                            <c:forEach var="driver" items="${team.pilotos}">
+                                <div class="d-flex align-items-center my-2">
+                                    <img src="${driver.foto}" alt="${driver.nombre}" class="driver-img me-3">
+                                    <div>
+                                        <p class="driver-name mb-0">${driver.nombre}</p>
+                                        <p class="text-muted mb-0">${driver.nacionalidad}</p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

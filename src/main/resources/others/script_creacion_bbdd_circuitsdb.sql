@@ -39,14 +39,16 @@ CREATE TABLE `users` (
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`equipo`
+-- Relaciones:
+-- 1) 1 equipo varios pilotos
+-- 2) 1 equipo varios coches
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`equipo`;
 CREATE TABLE `equipo` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
 	`logo_imagen` varchar(255),
 	`twitter` varchar(100),
-	PRIMARY KEY (`nid`)
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
@@ -70,7 +72,9 @@ CREATE TABLE `coche` (
 
 
 -- ---------------------------------------------------------------------------------------------------------------
--- Table `circuitsdb`.`piloto`. Está relacionada con equipo de uno a varios. Un equipo puede tener varios pilotos
+-- Table `circuitsdb`.`piloto`.
+-- Relaciones:
+-- 1) varios pilotos 1 Equipo
 -- ---------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`piloto`;
 CREATE TABLE `piloto` (
@@ -81,7 +85,9 @@ CREATE TABLE `piloto` (
 	`dorsal` INT,
 	`imagen` varchar(255),
 	`pais` varchar(50) NOT NULL,
-	`twitter` varchar(100)
+	`twitter` varchar(100),
+	`nid_team` INT,
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
 ) ENGINE = InnoDB;
 
 

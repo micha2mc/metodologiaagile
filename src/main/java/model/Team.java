@@ -18,8 +18,8 @@ public class Team {
     
     //relaciones
     // Relación Uno a Muchos: Pilotos
-    private List <Pilot > pilot; 
-    // Relación Muchos a Muchos: Coches
-    private List<Car> car;
+    private List <Pilot> pilot;
+    // Relación uno a Muchos: Coches
+    //private List<Car> car;
 
 }
