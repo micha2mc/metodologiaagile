@@ -48,7 +48,7 @@ CREATE TABLE `equipo` (
 	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
 	`logo_imagen` varchar(255),
-	`twitter` varchar(100),
+	`twitter` varchar(100)
 ) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
@@ -65,10 +65,6 @@ CREATE TABLE `coche` (
 	`consumo` INT,
 	PRIMARY KEY (`nid`)
 ) ENGINE = InnoDB;
-
--- -------------------------------------------------------------------------------------
--- Table `circuitsdb`.`equipo_has_coche` Tabla relacion entre equipo y coche
--- -------------------------------------------------------------------------------------
 
 
 -- ---------------------------------------------------------------------------------------------------------------
@@ -98,11 +94,6 @@ CREATE TABLE `votacion` (
 	`descripcion` text,
     `fecha_limite` DATE NOT NULL
 ) ENGINE = InnoDB;
-
--- ---------------------------------------------------------------------------------------------------------------
--- Table `circuitsdb`.`piloto_has_votacion`. Tabla de relacion entre piloto y votacion (many to many).
--- ---------------------------------------------------------------------------------------------------------------
-
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`noticias`.

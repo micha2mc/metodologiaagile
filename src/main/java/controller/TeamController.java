@@ -95,7 +95,8 @@ public class TeamController extends HttpServlet {
                     .pais(request.getParameter("pais"))
                     .twitter(request.getParameter("twitter"))
                     .build();
-            pilotDAO.createPilot(pilot);
+            int nidEquipo = Integer.parseInt(request.getParameter("teamOption"));
+            pilotDAO.createPilot(pilot, nidEquipo);
         } else {
             request.setAttribute("listaEquipos", teamDAO.getAllTeam());
             request.getRequestDispatcher("view/team/pilotForm.jsp").forward(request, response);

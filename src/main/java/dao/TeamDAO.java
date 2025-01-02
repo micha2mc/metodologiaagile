@@ -1,6 +1,7 @@
 package dao;
 
 import config.ConnectionDB;
+import model.Pilot;
 import model.Team;
 
 import java.sql.Connection;
@@ -8,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeamDAO {
     ConnectionDB connectionDB = new ConnectionDB();
@@ -18,14 +21,57 @@ public class TeamDAO {
         List<Team> listTeam = new ArrayList<>();
 
         String query = """
-                SELECT * FROM equipo
+                SELECT 
+                    e.nid AS equipo_id,
+                    e.nombre AS equipo_nombre,
+                    logo_imagen,
+                    e.twitter AS equipo_twitter,
+                    p.nid AS piloto_id,
+                    p.nombre AS piloto_nombre,
+                    apellidos,
+                    siglas,
+                    dorsal,
+                    imagen,
+                    pais,
+                    p.twitter AS piloto_twiter
+                FROM
+                    equipo e
+                LEFT JOIN
+                    piloto p
+                ON
+                    e.nid = p.nid;
                 """;
         try (Connection connection = connectionDB.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
+            Map<Integer, Team> mapTeam = new HashMap<>();
             while (resultSet.next()) {
-                listTeam.add(getTeam(resultSet));
+                int teamId = resultSet.getInt("equipo_id");
+                Team team = mapTeam.getOrDefault(teamId, new Team());
+                if (!mapTeam.containsKey(teamId)) {
+                    team.setNid(teamId);
+                    team.setNombre(resultSet.getString("equipo_nombre"));
+                    team.setLogoImage(resultSet.getString("logo_imagen"));
+                    team.setTwitter(resultSet.getString("equipo_twitter"));
+                    team.setPilot(new ArrayList<>());
+                    mapTeam.put(teamId, team);
+                }
+                int pilotId = resultSet.getInt("piloto_id");
+                if (pilotId != 0) {
+                    Pilot pilot = Pilot.builder()
+                            .nid(pilotId)
+                            .nombre(resultSet.getString("piloto_nombre"))
+                            .apellidos(resultSet.getString("apellidos"))
+                            .siglas(resultSet.getString("siglas"))
+                            .dorsal(resultSet.getInt("dorsal"))
+                            .imagen(resultSet.getString("imagen"))
+                            .pais(resultSet.getString("pais"))
+                            .twitter(resultSet.getString("piloto_twiter"))
+                            .build();
+                    team.getPilot().add(pilot);
+                }
             }
+            listTeam.addAll(mapTeam.values());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,8 +85,8 @@ public class TeamDAO {
                 """;
         try (Connection connection = connectionDB.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-             preparedStatement.setInt(1, nid);
-             ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setInt(1, nid);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return getTeam(resultSet);
             }

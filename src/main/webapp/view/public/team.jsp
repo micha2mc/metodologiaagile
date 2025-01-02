@@ -101,15 +101,15 @@
                             </div>
                             <hr>
                             <div class="drivers">
-                                <!--<c:forEach var="driver" items="${team.pilot}">
+                                <c:forEach var="driver" items="${team.pilot}">
                                     <div class="d-flex align-items-center my-2">
-                                        <img src="${driver.foto}" alt="${driver.nombre}" class="driver-img me-3">
+                                        <img src="${driver.imagen}" alt="${driver.nombre}" class="driver-img me-3">
                                         <div>
                                             <p class="driver-name mb-0">${driver.nombre}</p>
-                                            <p class="text-muted mb-0">${driver.nacionalidad}</p>
+                                            <p class="text-muted mb-0">${driver.pais}</p>
                                         </div>
                                     </div>
-                                </c:forEach>-->
+                                </c:forEach>
                             </div>
                         </div>
                     </div>

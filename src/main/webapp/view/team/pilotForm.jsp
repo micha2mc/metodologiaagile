@@ -101,7 +101,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="../../TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="pagina" value="pilotos">
 
                         <input type="hidden" name="estado" value="create">
@@ -132,7 +132,7 @@
                         
                         <div class="form-group mb-3">
                             <label for="category">Seleccione Equipo:</label>
-                            <select id="teamOption" name="teamOption" class="form-control">
+                            <select id="teamOption" name="teamOption" class="form-control" required>
                                 <c:forEach var="equipo" items="${listaEquipos}">
                                     <option value="${equipo.nid}">${equipo.nombre}</option>
                                 </c:forEach>

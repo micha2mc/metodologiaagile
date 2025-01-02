@@ -14,7 +14,8 @@ public class PilotDAO {
 
 
     public static final String add_Pilot_SQL = """
-            INSERT INTO circuitsdb.piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter)VALUES (?,?,?,?,?,?,?) 
+            INSERT INTO circuitsdb.piloto (nombre, apellidos,siglas, dorsal,imagen,pais, twitter, nid_team)
+            VALUES (?,?,?,?,?,?,?, ?) 
             """;
     public static final String delet_Pilot_SQL = """
             DELETE FROM circuitsdb.piloto WHERE nid = ?
@@ -32,7 +33,7 @@ public class PilotDAO {
         this.connectionBD = new ConnectionDB();
     }
 
-    public boolean createPilot(final Pilot pilot) throws SQLException {
+    public boolean createPilot(final Pilot pilot, int nidTeam) throws SQLException {
         if (pilot == null || pilot.getNombre() == null || pilot.getApellidos() == null) {
             throw new IllegalArgumentException("Datos del Piloto no validos ");
         }
@@ -46,7 +47,8 @@ public class PilotDAO {
             statement.setString(5, pilot.getImagen());
             statement.setString(6, pilot.getPais());
             statement.setString(7, pilot.getTwitter());
-            
+            statement.setInt(8, nidTeam);
+
             System.out.println(statement);
 
             int rowsAffected = statement.executeUpdate();
