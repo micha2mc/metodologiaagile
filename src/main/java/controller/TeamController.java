@@ -1,6 +1,7 @@
 package controller;
 
 import dao.PilotDAO;
+import dao.TeamDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,6 +35,7 @@ public class TeamController extends HttpServlet {
 
     private static final String UPLOAD_DIR_PILOT = "img/pilotos/";
     private final PilotDAO pilotDAO = new PilotDAO();
+    private final TeamDAO teamDAO = new TeamDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
@@ -95,6 +97,7 @@ public class TeamController extends HttpServlet {
                     .build();
             pilotDAO.createPilot(pilot);
         } else {
+            request.setAttribute("listaEquipos", teamDAO.getAllTeam());
             request.getRequestDispatcher("view/team/pilotForm.jsp").forward(request, response);
         }
 

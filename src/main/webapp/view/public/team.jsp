@@ -1,27 +1,45 @@
-<%--
-    Document   : noticias
-    Created on : 16 nov 2024, 13:38:42
+<%-- 
+    Document   : team
+    Created on : 2 ene 2025, 11:06:52
     Author     : micha
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Actualidad</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/templatemo.css">
-        <link rel="stylesheet" href="assets/css/custom.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-        <link href="assets/css/cabecera.css" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">     
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Equipos y Pilotos F1 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .team-section {
+                margin: 20px auto;
+            }
+            .team-card {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+            .team-logo {
+                width: 100px;
+                height: auto;
+            }
+            .driver-img {
+                width: 80px;
+                height: auto;
+                border-radius: 50%;
+            }
+            .driver-name {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        </style>
     </head>
     <body>
+
         <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
 
@@ -32,7 +50,7 @@
                     <div class="flex-fill">
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="Controller">Inicio</a>
+                                <a class="nav-link" href="index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="PublicController">Noticias</a>
@@ -42,7 +60,9 @@
                                     Portal
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="PublicController?pagina=calendario">Calendario</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="PublicController?pagina=calendario">Calendario</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="PublicController?pagina=equipos">Equipos</a></li>
                                 </ul>
                             </li>
@@ -69,21 +89,35 @@
             </div>
         </nav>
 
-
-        <div class="row d-flex align-items-start justify-content-center" style="overflow-x: hidden; height: 100vh;">
-            <div class="col-md-6 my-1">
-                <c:forEach var="temporalesNoticias" items="${listaNoticias}">
-                    <a href="PublicController?noticia=${temporalesNoticias.nid}" class="card shadow-lg" style="text-decoration:none;">
-                        <img src="${temporalesNoticias.imagen}" th:alt="*{title}" class="card-img-top">
-                        <div class="card-body">
-                            <h2 class="card-title fs-6">${temporalesNoticias.titulo}</h2>
-                            <p class="text-muted small">${temporalesNoticias.texto}</p>
+        <div class="container">
+            <h1 class="text-center my-1">Equipos y Pilotos F1 - Temporada 2024</h1>
+            <div class="row team-section">
+                <c:forEach var="team" items="${listaEquipos}">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="team-card p-3">
+                            <div class="d-flex align-items-center">
+                                <img src="${team.logoImage}" alt="${team.nombre}" class="team-logo me-3">
+                                <h3 class="mb-0">${team.nombre}</h3>
+                            </div>
+                            <hr>
+                            <div class="drivers">
+                                <!--<c:forEach var="driver" items="${team.pilot}">
+                                    <div class="d-flex align-items-center my-2">
+                                        <img src="${driver.foto}" alt="${driver.nombre}" class="driver-img me-3">
+                                        <div>
+                                            <p class="driver-name mb-0">${driver.nombre}</p>
+                                            <p class="text-muted mb-0">${driver.nacionalidad}</p>
+                                        </div>
+                                    </div>
+                                </c:forEach>-->
+                            </div>
                         </div>
-                    </a>
+                    </div>
                 </c:forEach>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+

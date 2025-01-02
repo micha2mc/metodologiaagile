@@ -6,6 +6,7 @@ package controller;
 
 import dao.CalendarDAO;
 import dao.NewsDAO;
+import dao.TeamDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,6 +30,7 @@ public class PublicController extends HttpServlet {
 
     private final NewsDAO noticiaDAO = new NewsDAO();
     private final CalendarDAO calendarDAO = new CalendarDAO();
+    private final TeamDAO teamDAO = new TeamDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +41,9 @@ public class PublicController extends HttpServlet {
             List<Calendar> listaCarreras = calendarDAO.getAllCalendarItem();
             request.setAttribute("listaCarreras", listaCarreras);
             request.getRequestDispatcher("/view/public/calendar.jsp").forward(request, response);
+        } else if ("equipos".equalsIgnoreCase(pagina)) {
+            request.setAttribute("listaEquipos", teamDAO.getAllTeam());
+            request.getRequestDispatcher("/view/public/team.jsp").forward(request, response);
         } else {
             presentarNoticias(request, response);
         }
