@@ -8,39 +8,39 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipos y Pilotos F1 2024</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .team-section {
-            margin: 20px auto;
-        }
-        .team-card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .team-logo {
-            width: 100px;
-            height: auto;
-        }
-        .driver-img {
-            width: 80px;
-            height: auto;
-            border-radius: 50%;
-        }
-        .driver-name {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    
-    <nav class="navbar navbar-expand-lg bg-danger">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Equipos y Pilotos F1 2024</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .team-section {
+                margin: 20px auto;
+            }
+            .team-card {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+            .team-logo {
+                width: 100px;
+                height: auto;
+            }
+            .driver-img {
+                width: 80px;
+                height: auto;
+                border-radius: 50%;
+            }
+            .driver-name {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
 
                 <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
@@ -126,15 +126,15 @@
                         </div>
                         <hr>
                         <div class="drivers">
-                            <!--<c:forEach var="driver" items="${team.pilot}">
+                            <c:forEach var="driver" items="${team.pilot}">
                                 <div class="d-flex align-items-center my-2">
-                                    <img src="${driver.foto}" alt="${driver.nombre}" class="driver-img me-3">
+                                    <img src="${driver.imagen}" alt="${driver.nombre}" class="driver-img me-3">
                                     <div>
                                         <p class="driver-name mb-0">${driver.nombre}</p>
-                                        <p class="text-muted mb-0">${driver.nacionalidad}</p>
+                                        <p class="text-muted mb-0">${driver.pais}</p>
                                     </div>
                                 </div>
-                            </c:forEach>-->
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

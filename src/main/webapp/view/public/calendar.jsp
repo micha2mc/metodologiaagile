@@ -45,7 +45,7 @@
                                     <li>
                                         <a class="dropdown-item" href="PublicController?pagina=calendario">Calendario</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Equipos</a></li>
+                                    <li><a class="dropdown-item" href="PublicController?pagina=equipos">Equipos</a></li>
                                 </ul>
                             </li>
                         </ul>
