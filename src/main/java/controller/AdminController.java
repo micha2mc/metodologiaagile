@@ -62,6 +62,8 @@ public class AdminController extends HttpServlet {
             gestionCalendario(request, response);
         } else if ("equipo".equalsIgnoreCase(pagina)) {
             gestionEquipos(request, response);
+        } else if ("votacion".equalsIgnoreCase(pagina)) {
+            gestionVotaciones(request, response);
         } else {
             gestionUsuarios(request, response);
         }
@@ -80,7 +82,6 @@ public class AdminController extends HttpServlet {
         request.setAttribute("listaEquipos", teamDAO.getAllTeam());
         request.getRequestDispatcher("/view/admin/manageTeamAdmin.jsp").forward(request, response);
     }
-
 
 
     private void gestionCalendario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

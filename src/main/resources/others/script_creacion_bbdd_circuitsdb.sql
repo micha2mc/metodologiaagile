@@ -66,11 +66,24 @@ CREATE TABLE `coche` (
 	PRIMARY KEY (`nid`)
 ) ENGINE = InnoDB;
 
+-- ---------------------------------------------------------------------------------------------------------------
+-- Table `circuitsdb`.`votacion`.
+-- Relaciones:
+-- 1) 1 votacion Varios pilotos
+-- ---------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`votacion`;
+CREATE TABLE `votacion` (
+	`nid` INT NOT NULL auto_increment PRIMARY KEY,
+	`titulo` varchar(50) NOT NULL,
+	`descripcion` text,
+    `fecha_limite` DATE NOT NULL
+) ENGINE = InnoDB;
 
 -- ---------------------------------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`piloto`.
 -- Relaciones:
 -- 1) varios pilotos 1 Equipo
+-- 2) Varios pilotos 1 votacion
 -- ---------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`piloto`;
 CREATE TABLE `piloto` (
@@ -83,17 +96,11 @@ CREATE TABLE `piloto` (
 	`pais` varchar(50) NOT NULL,
 	`twitter` varchar(100),
 	`nid_team` INT,
-	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
+	`nid_votacion` INT,
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid),
+	FOREIGN KEY (nid_votacion) REFERENCES votacion (nid)
 ) ENGINE = InnoDB;
 
-
-DROP TABLE IF EXISTS `circuitsdb`.`votacion`;
-CREATE TABLE `votacion` (
-	`nid` INT NOT NULL auto_increment PRIMARY KEY,
-	`titulo` varchar(50) NOT NULL,
-	`descripcion` text,
-    `fecha_limite` DATE NOT NULL
-) ENGINE = InnoDB;
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`noticias`.

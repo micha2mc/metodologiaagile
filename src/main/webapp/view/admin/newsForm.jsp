@@ -54,7 +54,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </li>
-                                        <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=votacion">Mant. Votación</a></li>
                                         <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
                                         <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
                                     </ul>
