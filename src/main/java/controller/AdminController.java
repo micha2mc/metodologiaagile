@@ -40,7 +40,7 @@ public class AdminController extends HttpServlet {
 
     private static final String UPLOAD_DIR_CIRCUIT = "img/circuitos/";
     private static final String UPLOAD_DIR_NEWS = "img/noticias/";
-    private static final String UPLOAD_DIR_TEAM = "img/equipo/";
+
 
     private final NewsDAO noticiaDAO = new NewsDAO();
     private final UserDAO userDAO = new UserDAO();
@@ -73,33 +73,19 @@ public class AdminController extends HttpServlet {
 
     private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (StringUtils.isNotBlank(action)) {
+        /*if (StringUtils.isNotBlank(action)) {
             switch (action) {
                 case "create" -> crearEquipo(request, response);
                 //case "update" -> actualizarCircuito(request, response);
                 //case "delete" -> eliminarCircuito(request);
                 default -> throw new RuntimeException("Error");
             }
-        }
+        }*/
         request.setAttribute("listaEquipos", teamDAO.getAllTeam());
         request.getRequestDispatcher("/view/admin/manageTeam.jsp").forward(request, response);
     }
 
-    private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
-            Team team = Team.builder()
-                    .nombre(request.getParameter("nombre"))
-                    .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
-                    .twitter(request.getParameter("twitter"))
-                    .build();
-            teamDAO.createTeam(team);
-        } else {
-            request.getRequestDispatcher("/view/admin/teamForm.jsp").forward(request, response);
-
-        }
-
-    }
 
     private void gestionCalendario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

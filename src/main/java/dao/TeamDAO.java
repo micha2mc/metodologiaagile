@@ -39,7 +39,7 @@ public class TeamDAO {
                 LEFT JOIN
                     piloto p
                 ON
-                    e.nid = p.nid;
+                    e.nid = p.nid_team;
                 """;
         try (Connection connection = connectionDB.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query);

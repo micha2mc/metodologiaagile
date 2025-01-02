@@ -164,11 +164,6 @@
             </a>
         </div>
         <!-- End Banner Hero -->
-
-
-
-
-
         <!-- Start Featured Product -->
         <section class="bg-light">
             <div class="container py-12">
@@ -186,9 +181,7 @@
                                         <img src="${noticia.imagen}" class="card-img-top" alt="...">
                                     </a>
                                     <div class="card-body">
-
                                         <a href="PublicController?noticia=${noticia.nid}" class="h2 text-decoration-none text-dark">${noticia.titulo}"</a>
-
                                     </div>
                                 </div>
                             </div>
@@ -230,8 +223,6 @@
             </div>-->
             <div class="container mt-4">
                 <!-- Título -->
-                <h2 class="text-center">Fórmula 1</h2>
-
                 <div class="row mt-4">
                     <!-- Clasificación en la última carrera -->
                     <div class="col-md-4">

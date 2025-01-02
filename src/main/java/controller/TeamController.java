@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Pilot;
+import model.Team;
 import org.apache.commons.lang3.StringUtils;
 import utils.FileSearcher;
 
@@ -34,6 +35,7 @@ public class TeamController extends HttpServlet {
 
 
     private static final String UPLOAD_DIR_PILOT = "img/pilotos/";
+    private static final String UPLOAD_DIR_TEAM = "img/equipo/";
     private final PilotDAO pilotDAO = new PilotDAO();
     private final TeamDAO teamDAO = new TeamDAO();
 
@@ -105,7 +107,34 @@ public class TeamController extends HttpServlet {
     }
 
 
-    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) {
+    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "create" -> crearEquipo(request, response);
+                //case "update" -> actualizarCircuito(request, response);
+                //case "delete" -> eliminarCircuito(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+        request.setAttribute("listaEquipos", teamDAO.getAllTeam());
+        request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
+    }
+
+    private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            Team team = Team.builder()
+                    .nombre(request.getParameter("nombre"))
+                    .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
+                    .twitter(request.getParameter("twitter"))
+                    .build();
+            teamDAO.createTeam(team);
+        } else {
+            request.getRequestDispatcher("/view/team/teamForm.jsp").forward(request, response);
+
+        }
+
     }
 
 

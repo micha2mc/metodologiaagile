@@ -42,7 +42,6 @@
 
         <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
-
                 <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                      alt="F1 Logo">
 
@@ -59,35 +58,22 @@
                                 <div class="dropdown">
 
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mant. Admin.
+                                        Mant. Respo.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
-                                        <li><a class="dropdown-item" href="#">Mant. Votación</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=pilotos">Mant. Pilotos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
+                                        <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item me-3">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mant. Portal
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=equipo">Detalles Equipos</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-
                             <div>
-                                <form action="AdminController" method="POST">
+                                <form action="TeamController" method="POST">
                                     <button href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
-                                    <input type="hidden" name="pagina" value="equipo"><!-- comment -->
+                                    <input type="hidden" name="pagina" value="equipos"><!-- comment -->
                                     <input type="hidden" name="action" value="create">
                                 </form>
-
                             </div>
                         </ul>
                     </div>
