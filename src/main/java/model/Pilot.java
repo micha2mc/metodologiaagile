@@ -1,8 +1,6 @@
 
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +19,5 @@ public class Pilot {
     private String imagen;
     private String pais;
     private String twitter;
-
+    private int puntos;
 }

@@ -74,9 +74,10 @@ CREATE TABLE `coche` (
 DROP TABLE IF EXISTS `circuitsdb`.`votacion`;
 CREATE TABLE `votacion` (
 	`nid` INT NOT NULL auto_increment PRIMARY KEY,
-	`titulo` varchar(50) NOT NULL,
+	`titulo` varchar(150) NOT NULL,
 	`descripcion` text,
-    `fecha_limite` DATE NOT NULL
+    `fecha_limite` DATE NOT NULL,
+    `active` BOOLEAN DEFAULT TRUE
 ) ENGINE = InnoDB;
 
 -- ---------------------------------------------------------------------------------------------------------------
@@ -96,9 +97,23 @@ CREATE TABLE `piloto` (
 	`pais` varchar(50) NOT NULL,
 	`twitter` varchar(100),
 	`nid_team` INT,
-	`nid_votacion` INT,
-	FOREIGN KEY (nid_team) REFERENCES equipo (nid),
-	FOREIGN KEY (nid_votacion) REFERENCES votacion (nid)
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
+) ENGINE = InnoDB;
+
+
+-- ---------------------------------------------------------------------------------------------------------------
+-- Table Intermediaria `circuitsdb`.`votaciones_pilotos`.
+-- Relaciones:
+-- 1) varios pilotos varias votaciones
+-- ---------------------------------------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`votaciones_pilotos`;
+CREATE TABLE `votaciones_pilotos` (
+	`id_votacion` INT,
+    `id_piloto` INT,
+    `puntos` INT DEFAULT 0,
+     PRIMARY KEY (id_votacion, id_piloto),
+     FOREIGN KEY (id_votacion) REFERENCES votacion(nid),
+     FOREIGN KEY (id_piloto) REFERENCES piloto(nid)
 ) ENGINE = InnoDB;
 
 

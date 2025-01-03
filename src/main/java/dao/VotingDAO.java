@@ -32,20 +32,37 @@ public class VotingDAO {
     }
 
     //Create Voting
-    public void createVoting(final Voting voting) {
+    public void createVoting(final Voting voting, List<Integer> listIdPilotos) {
 
         String query = """
                 INSERT INTO circuitsdb.votacion
                 (titulo, descripcion, fecha_limite)
                 VALUES(?, ?, ?); 
                 """;
+        String query2 = """
+                INSERT INTO votaciones_pilotos (id_votacion, id_piloto) VALUES (?, ?)
+                """;
 
         try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, voting.getTitulo());
             preparedStatement.setString(2, voting.getDescripcion());
             preparedStatement.setDate(3, Date.valueOf(voting.getFechaLimite()));
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
+            try (PreparedStatement preparedStat = connection.prepareStatement(query2);
+                 ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idVotacion = rs.getInt(1);
+                    for (int idPiloto : listIdPilotos) {
+                        preparedStat.setInt(1, idVotacion);
+                        preparedStat.setInt(2, idPiloto);
+                        preparedStat.addBatch();
+
+                    }
+                    preparedStat.executeBatch();
+                }
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

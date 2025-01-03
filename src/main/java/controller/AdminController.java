@@ -15,7 +15,9 @@ import utils.Utiles;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author micha
@@ -45,6 +47,8 @@ public class AdminController extends HttpServlet {
     private final CalendarDAO calendarDAO = new CalendarDAO();
     private final TeamDAO teamDAO = new TeamDAO();
     private final PilotDAO pilotDAO = new PilotDAO();
+    private final VotingDAO votingDAO = new VotingDAO();
+
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -69,15 +73,6 @@ public class AdminController extends HttpServlet {
     }
 
     private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        /*if (StringUtils.isNotBlank(action)) {
-            switch (action) {
-                case "create" -> crearEquipo(request, response);
-                //case "update" -> actualizarCircuito(request, response);
-                //case "delete" -> eliminarCircuito(request);
-                default -> throw new RuntimeException("Error");
-            }
-        }*/
         request.setAttribute("listaEquipos", teamDAO.getAllTeam());
         request.getRequestDispatcher("/view/admin/manageTeamAdmin.jsp").forward(request, response);
     }
@@ -186,6 +181,20 @@ public class AdminController extends HttpServlet {
     }
 
     private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            String[] pilotosSeleccionados = request.getParameterValues("pilotosOption");
+            List<Integer> listIdPilotos = Arrays.stream(pilotosSeleccionados)
+                    .map(Integer::parseInt) // Convierte cada elemento a Integer
+                    .collect(Collectors.toList());
+            Voting voting = Voting.builder()
+                    .titulo(request.getParameter("titulo"))
+                    .descripcion(request.getParameter("descripcion"))
+                    .fechaLimite(LocalDate.parse(request.getParameter("fecha")))
+                    .build();
+            votingDAO.createVoting(voting, listIdPilotos);
+            request.setAttribute("listaPilotos", pilotosSeleccionados);
+        }
         List<Pilot> listPilots = pilotDAO.getAllPilot();
         request.setAttribute("listaPilotos", listPilots);
         request.getRequestDispatcher("/view/admin/votacionForm.jsp").forward(request, response);

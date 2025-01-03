@@ -17,7 +17,5 @@ public class Voting {
     private String titulo;
     private String descripcion;
     private LocalDate fechaLimite;
-     
-    // Relación Muchos a Muchos: Pilotos
-    private List<Pilot> pilot;
+    private Boolean active;
 }
