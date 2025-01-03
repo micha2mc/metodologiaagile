@@ -1,6 +1,6 @@
 <%-- 
-    Document   : newsForm
-    Created on : 20 dic 2024, 22:45:18
+    Document   : votacionForm
+    Created on : 2 ene 2025, 15:50:53
     Author     : micha
 --%>
 
@@ -8,20 +8,20 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Nueva Noticia</title>
+    <head>     
+        <title>Nueva Entrada en el calendario</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/templatemo.css">
         <link rel="stylesheet" href="assets/css/custom.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cabecera.css">
+        <link rel="stylesheet" type="text/css" href="../../assets/css/cabecera.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
         <link rel="stylesheet" href="assets/css/fontawesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     </head>
     <body>
-
         <nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
 
@@ -44,16 +44,7 @@
                                         Mant. Admin.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li>
-                                            <c:choose>
-                                                <c:when test="${actualizar}">
-                                                    <a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a class="btn btn-outline-ligth text-center" href="../../AdminController?pagina=noticia">Mant. Noticias</a>  
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
                                         <li><a class="dropdown-item" href="AdminController?pagina=votacion">Mant. Votación</a></li>
                                         <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
                                         <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
@@ -66,7 +57,7 @@
                                         Mant. Portal
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
                                         <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
                                     </ul>
                                 </div>
@@ -96,61 +87,42 @@
         </div>
     </nav>
 
-
     <div class="row justify-content-center">
-
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header text-center bg-danger text-white">
-
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <h3>${tituloAccion}</h3>
-                        </c:when>
-                        <c:otherwise>
-
-                            <h3>Añadiendo Noticia</h3>
-                        </c:otherwise>
-                    </c:choose>
+                    <h3>Añadiendo nueva Votación</h3>
                 </div>
                 <div class="card-body">
+                    <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                        <input type="hidden" name="pagina" value="votacion">
+                        <input type="hidden" name="action" value="create"><!-- comment -->
+                        <input type="hidden" name="estado" value="create">
+                        <div class="form-group mb-3">
+                            <label for="titulo">Título</label>
+                            <input class="form-control" type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la votación" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="descripcion">Descripción</label>
+                            <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Ingrese una descripción de la votación" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="fecha">Fecha Límite</label>
+                            <input class="form-control" type="date" id="fecha" name="fecha" placeholder="Ingrese la fecha de la carrera" required>
+                        </div>
 
-                    <c:choose>
-                        <c:when test="${actualizar}">
-                            <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-                                <input type="hidden" name="noticia" value="${noticiaObtenida.nid}"">
-                            </c:when>
-                            <c:otherwise>
-                                <form action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
-                                </c:otherwise>
-                            </c:choose>
-                            <input type="hidden" name="pagina" value="noticia">
-                            <div class="form-group mb-3">
-                                <label for="titulo" class="form-label">Título</label>
-                                <input class="form-control" type="text" id="titulo" name="titulo" value="${noticiaObtenida.titulo}" placeholder="Ingrese el título de la noticia">
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="texto">Texto</label>
-                                <textarea class="form-control" id="texto" name="texto" rows="5" placeholder="Ingrese el texto de la noticia">${noticiaObtenida.texto}</textarea>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="form-label" for="foto">Foto</label>
-                                <input class="form-control" type="file" id="foto" name="foto">
-                            </div>
-                            <div class="buttons">
-                                <c:choose>
-                                    <c:when test="${actualizar}">
-                                        <button type = "submit" name="action" value="update" class="btn btn-warning">Update</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button type = "submit" name="action" value="create" class="btn btn-success">Create</button> 
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-
-                        </form>
+                        <div class="form-group mb-3">
+                            <label for="ciudad">Selección de pilotos:</label>
+                            <select id="pilotosOption" name="pilotosOption" class="form-control" multiple="true" size="10">
+                                <c:forEach var="piloto" items="${listaPilotos}">
+                                    <option value="${piloto.nid}">${piloto.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="buttons mb-3">
+                            <button type = "submit" name="action" value="create" class="btn btn-success">Create</button> 
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

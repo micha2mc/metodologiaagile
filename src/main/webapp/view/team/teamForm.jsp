@@ -82,8 +82,8 @@
                     <h3>Añadiendo Equipo</h3>
                 </div>
                 <div class="card-body">
-                    <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
-                        <input type="hidden" name="pagina" value="equipo">
+                    <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                        <input type="hidden" name="pagina" value="equipos">
                         <input type="hidden" name="estado" value="creando">
                         <div class="form-group mb-3">
                             <label for="nombre">Nombre:</label>

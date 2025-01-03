@@ -44,10 +44,11 @@ public class AdminController extends HttpServlet {
     private final CircuitDAO circuitDAO = new CircuitDAO();
     private final CalendarDAO calendarDAO = new CalendarDAO();
     private final TeamDAO teamDAO = new TeamDAO();
+    private final PilotDAO pilotDAO = new PilotDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         request.setCharacterEncoding("UTF-8");
 
         String pagina = request.getParameter("pagina");
@@ -62,8 +63,6 @@ public class AdminController extends HttpServlet {
             gestionCalendario(request, response);
         } else if ("equipo".equalsIgnoreCase(pagina)) {
             gestionEquipos(request, response);
-        } else if ("votacion".equalsIgnoreCase(pagina)) {
-            gestionVotaciones(request, response);
         } else {
             gestionUsuarios(request, response);
         }
@@ -186,7 +185,10 @@ public class AdminController extends HttpServlet {
         }
     }
 
-    private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) {
+    private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<Pilot> listPilots = pilotDAO.getAllPilot();
+        request.setAttribute("listaPilotos", listPilots);
+        request.getRequestDispatcher("/view/admin/votacionForm.jsp").forward(request, response);
     }
 
     private void gestionNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -234,14 +236,22 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
