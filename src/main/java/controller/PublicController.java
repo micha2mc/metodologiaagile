@@ -69,7 +69,10 @@ public class PublicController extends HttpServlet {
                         //Le muestro la votacion
                         request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
                     } else {
-                        Participante partic = Participante.builder().build();
+                        Participante partic = Participante.builder()
+                                .userName(request.getParameter("txtname"))
+                                .email(request.getParameter("txtemail"))
+                                .build();
                         participanteDAO.createParticipante(partic);
                         Voting voting = Utiles.ordenarPilotosPuntuacion();
                         request.setAttribute("votacion", voting);

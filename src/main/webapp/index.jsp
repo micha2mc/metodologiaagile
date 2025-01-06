@@ -202,37 +202,15 @@
         </section>
         <!-- Start Categories of The Month -->
         <section class="container py-12">
-            <!--<div class="row text-center pt-3">
-                <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Categories of The Month</h1>
-                    <p>
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"></a>
-                    <h5 class="text-center mt-3 mb-3">Watches</h5>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
-                <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./assets/img/category_img_02.jpg" class="rounded-circle img-fluid border"></a>
-                    <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
-                <div class="col-12 col-md-4 p-5 mt-3">
-                    <a href="#"><img src="./assets/img/category_img_03.jpg" class="rounded-circle img-fluid border"></a>
-                    <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-                    <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-                </div>
-            </div>-->
             <div class="container mt-4">
                 <!-- Título -->
+                <div class="row text-center py-3">
+                    <div class="col-lg-6 m-auto">
+                        <h1 class="h1">Votaciones en curso</h1>
+                    </div>
+                </div>
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        <h4 class="text-center">Votaciones en curso</h4>
                         <div class="card">
                             <!--<img src="img/circuito/${proximoGP.circuitoImg}" class="card-img-top" alt="${proximoGP.nombre}">-->
                             <div class="card-body">
