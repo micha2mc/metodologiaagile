@@ -5,15 +5,16 @@
 package controller;
 
 import dao.NewsDAO;
+import dao.VotingDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.News;
+import utils.Utiles;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
 
 /**
  * @author micha
@@ -22,49 +23,39 @@ import java.util.List;
 public class Controller extends HttpServlet {
 
     private final NewsDAO newsDAO = new NewsDAO();
+    private final VotingDAO votingDAO = new VotingDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<News> todasNoticias = newsDAO.getTodasNoticias();
-        request.setAttribute("listaNoticias", todasNoticias);
+            throws ServletException, IOException, SQLException {
+
+        request.setAttribute("listaNoticias", newsDAO.getTodasNoticias());
+        request.setAttribute("listaVotacion", Utiles.ordenarPilotosPuntuacion());
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -35,6 +35,15 @@ CREATE TABLE `users` (
 	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
 ) ENGINE = InnoDB;
 
+-- ------------------------------------------------------------------
+-- Table `circuitsdb`.`participantes` =>
+-- ------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`participantes`;
+CREATE TABLE `participantes` (
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`username` varchar(50) NOT NULL,
+	`email` varchar(50) NOT NULL
+) ENGINE = InnoDB;
 
 
 -- -------------------------------------------------------------------------------------

@@ -4,9 +4,7 @@
  */
 package controller;
 
-import dao.CalendarDAO;
-import dao.NewsDAO;
-import dao.TeamDAO;
+import dao.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,10 +12,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Calendar;
 import model.News;
+import model.Participante;
+import model.Voting;
 import org.apache.commons.lang3.StringUtils;
+import utils.Utiles;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author micha
@@ -31,10 +34,12 @@ public class PublicController extends HttpServlet {
     private final NewsDAO noticiaDAO = new NewsDAO();
     private final CalendarDAO calendarDAO = new CalendarDAO();
     private final TeamDAO teamDAO = new TeamDAO();
+    private final ParticipanteDAO participanteDAO = new ParticipanteDAO();
+    private final VotingDAO votingDAO = new VotingDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         request.setCharacterEncoding("UTF-8");
         String pagina = request.getParameter("pagina");
         if ("calendario".equalsIgnoreCase(pagina)) {
@@ -44,22 +49,68 @@ public class PublicController extends HttpServlet {
         } else if ("equipos".equalsIgnoreCase(pagina)) {
             request.setAttribute("listaEquipos", teamDAO.getAllTeam());
             request.getRequestDispatcher("/view/public/team.jsp").forward(request, response);
+        } else if ("votacion".equalsIgnoreCase(pagina)) {
+            gestionVotaciones(request, response);
         } else {
             presentarNoticias(request, response);
         }
 
     }
 
+    private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String action = request.getParameter("action");
+
+        if (StringUtils.isNotBlank(action)) {
+            //Actualizando la votacion
+            switch (action) {
+                case "conectar" -> {
+                    Participante participante = participanteDAO.getParticipanteByEmail(request.getParameter("txtemail"));
+                    if (Objects.nonNull(participante)) {
+                        //Le muestro la votacion
+                        request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
+                    } else {
+                        Participante partic = Participante.builder().build();
+                        participanteDAO.createParticipante(partic);
+                        Voting voting = Utiles.ordenarPilotosPuntuacion();
+                        request.setAttribute("votacion", voting);
+                        request.getRequestDispatcher("/view/public/votingForm.jsp").forward(request, response);
+                    }
+                }
+                case "votar" -> {
+                    String pilotoSeleccionado = request.getParameter("pilotoSeleccionado");
+                    String idVotacion = request.getParameter("idVotacion");
+                    votingDAO.updateScore(Integer.valueOf(pilotoSeleccionado), Integer.valueOf(idVotacion));
+                    request.setAttribute("listaNoticias", noticiaDAO.getTodasNoticias());
+                    request.setAttribute("listaVotacion", Utiles.ordenarPilotosPuntuacion());
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
+                //case "delete" -> eliminarNoticia(request);
+                default -> throw new RuntimeException("Error");
+            }
+        } else {
+            // Llamo al formulario de votacion
+            request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -13,6 +13,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
         <link rel="stylesheet" href="assets/css/fontawesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style>
+            .img-custom {
+                width: 50px;
+                height: auto; /* Mantener la proporción */
+                object-fit: contain; /* Ajustar el contenido dentro de las dimensiones */
+            }
+        </style>
     </head>
 
     <body>
@@ -224,68 +231,43 @@
             <div class="container mt-4">
                 <!-- Título -->
                 <div class="row mt-4">
-                    <!-- Clasificación en la última carrera -->
-                    <div class="col-md-4">
-                        <h4 class="text-center">Clasificación en la última carrera</h4>
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Pos</th>
-                                    <th>Piloto</th>
-                                    <th>Equipo</th>
-                                    <th>Puntos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="piloto" items="${ultimaCarrera}">
-                                    <tr>
-                                        <td>${piloto.posicion}</td>
-                                        <td>${piloto.nombre}</td>
-                                        <td>${piloto.equipo}</td>
-                                        <td>${piloto.puntos}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Clasificación general -->
-                    <div class="col-md-4">
-                        <h4 class="text-center">Clasificación general</h4>
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Pos</th>
-                                    <th>Piloto</th>
-                                    <th>Equipo</th>
-                                    <th>Puntos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="piloto" items="${clasificacionGeneral}">
-                                    <tr>
-                                        <td>${piloto.posicion}</td>
-                                        <td>${piloto.nombre}</td>
-                                        <td>${piloto.equipo}</td>
-                                        <td>${piloto.puntos}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Próximo Gran Premio -->
-                    <div class="col-md-4">
-                        <h4 class="text-center">Próximo Gran Premio</h4>
+                    <div class="col-md-12">
+                        <h4 class="text-center">Votaciones en curso</h4>
                         <div class="card">
-                            <img src="img/circuito/${proximoGP.circuitoImg}" class="card-img-top" alt="${proximoGP.nombre}">
+                            <!--<img src="img/circuito/${proximoGP.circuitoImg}" class="card-img-top" alt="${proximoGP.nombre}">-->
                             <div class="card-body">
-                                <h5 class="card-title">${proximoGP.nombre}</h5>
                                 <p class="card-text">
-                                    Fecha: ${proximoGP.fecha}<br>
-                                    Ubicación: ${proximoGP.ubicacion}
+                                    Fecha Límite: ${listaVotacion.fechaLimite}<br>
+                                    Descripción: ${listaVotacion.descripcion}
                                 </p>
+                                <h4 class="text-center">${listaVotacion.titulo}</h4>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Piloto</th>
+                                            <th>Equipo</th>
+                                            <th>Puntos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="piloto" items="${listaVotacion.pilots}" varStatus="status">
+                                            <tr>
+                                                <td><img src="${piloto.imagen}" class="card-img-top img-custom" alt="${piloto.nombre}" width="200" height="25" ></td>
+                                                <td>${piloto.nombre} ${piloto.apellidos}</td>
+                                                <td>${piloto.nombre} ${piloto.apellidos}</td>
+                                                <td>${piloto.puntos}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
+                        <div class="mt-3">
+                            <form action="PublicController" method="POST">
+                                <button type = "submit" name="pagina" value="votacion" class="btn btn-success">Votar</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>

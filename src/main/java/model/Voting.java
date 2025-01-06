@@ -18,4 +18,5 @@ public class Voting {
     private String descripcion;
     private LocalDate fechaLimite;
     private Boolean active;
+    private List<Pilot> pilots;
 }

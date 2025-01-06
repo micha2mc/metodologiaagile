@@ -1,11 +1,13 @@
 package dao;
 
 import config.ConnectionDB;
+import model.Pilot;
 import model.Voting;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class VotingDAO {
     ConnectionDB connectionDB = new ConnectionDB();
@@ -69,6 +71,65 @@ public class VotingDAO {
 
     }
 
+    public Voting getAllVoting() throws SQLException {
+        Voting voting = null;
+        String query = """
+                SELECT
+                    v.nid AS votacion_nid,
+                    titulo,
+                    descripcion,
+                    fecha_limite,
+                    p.nid AS piloto_nid,
+                    nombre,
+                    imagen,
+                    apellidos,
+                    vp.puntos AS puntos
+                FROM
+                    votacion v
+                LEFT JOIN
+                    votaciones_pilotos vp
+                ON
+                    v.nid = vp.id_votacion
+                LEFT JOIN
+                    piloto p
+                ON
+                    vp.id_piloto = p.nid
+                WHERE
+                    active = TRUE
+                """;
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet rs = preparedStatement.executeQuery()) {
+            List<Pilot> pilotos = new ArrayList<>();
+            while (rs.next()) {
+                if (Objects.isNull(voting)) {
+                    voting = Voting.builder()
+                            .nid(rs.getInt("votacion_nid"))
+                            .titulo(rs.getString("titulo"))
+                            .descripcion(rs.getString("descripcion"))
+                            .fechaLimite(rs.getDate("fecha_limite").toLocalDate())
+                            .build();
+                }
+                int idPiloto = rs.getInt("piloto_nid");
+                if (!rs.wasNull()) {
+                    Pilot pilot = Pilot.builder()
+                            .nid(idPiloto)
+                            .imagen(rs.getString("imagen"))
+                            .nombre(rs.getString("nombre"))
+                            .apellidos(rs.getString("apellidos"))
+                            .puntos(rs.getInt("puntos"))
+                            .build();
+                    pilotos.add(pilot);
+                }
+            }
+            if (Objects.nonNull(voting)) {
+                voting.setPilots(pilotos);
+            }
+
+        }
+        return voting;
+    }
+
     //Update Voting
     public void updateVoting(final Voting voting) {
 
@@ -117,5 +178,19 @@ public class VotingDAO {
                 .descripcion(resultSet.getString("descripcion"))
                 .fechaLimite(resultSet.getDate("fecha_limite").toLocalDate())
                 .build();
+    }
+
+    public void updateScore(final Integer idPilot, final Integer idVotacion) throws SQLException {
+        String query = """
+                UPDATE circuitsdb.votaciones_pilotos
+                SET puntos=puntos+5
+                WHERE id_votacion=? AND id_piloto=?;
+                """;
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idVotacion);
+            ps.setInt(2, idPilot);
+            ps.executeUpdate();
+        }
     }
 }
