@@ -67,6 +67,7 @@ public class PublicController extends HttpServlet {
                     Participante participante = participanteDAO.getParticipanteByEmail(request.getParameter("txtemail"));
                     if (Objects.nonNull(participante)) {
                         //Le muestro la votacion
+                        request.setAttribute("mensaje", String.format("El usuario: %s ya ha votado", participante.getEmail()));
                         request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
                     } else {
                         Participante partic = Participante.builder()

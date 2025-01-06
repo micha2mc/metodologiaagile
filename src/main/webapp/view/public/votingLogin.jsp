@@ -92,6 +92,39 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <% String mensaje = (String) request.getAttribute("mensaje"); %>
+        <% if (mensaje != null) {%>
+        <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mensajeModalLabel">Mensaje</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <%= mensaje%>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="PublicController" method="POST">
+                            <input type="hidden" name="pagina" value="votacion">
+                            <button type="submit" class="btn btn-danger btn-block">Volver al formulario</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Mostrar el modal automáticamente si hay un mensaje
+            <% if (mensaje != null) { %>
+            var myModal = new bootstrap.Modal(document.getElementById('mensajeModal'));
+            myModal.show();
+            <% }%>
+        </script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
