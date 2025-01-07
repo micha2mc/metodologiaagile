@@ -2,6 +2,7 @@ package dao;
 
 import config.ConnectionDB;
 import model.Pilot;
+import model.Team;
 import model.Voting;
 
 import java.sql.*;
@@ -83,6 +84,7 @@ public class VotingDAO {
                     nombre,
                     imagen,
                     apellidos,
+                    nid_team,
                     vp.puntos AS puntos
                 FROM
                     votacion v
@@ -97,8 +99,17 @@ public class VotingDAO {
                 WHERE
                     active = TRUE
                 """;
+        String queryTeam = """
+                SELECT 
+                    *
+                FROM
+                    circuitsdb.equipo
+                WHERE
+                    nid = ?
+                """;
         try (Connection connection = connectionDB.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
+             PreparedStatement preparedStatTeam = connection.prepareStatement(queryTeam);
              ResultSet rs = preparedStatement.executeQuery()) {
             List<Pilot> pilotos = new ArrayList<>();
             while (rs.next()) {
@@ -111,6 +122,7 @@ public class VotingDAO {
                             .build();
                 }
                 int idPiloto = rs.getInt("piloto_nid");
+
                 if (!rs.wasNull()) {
                     Pilot pilot = Pilot.builder()
                             .nid(idPiloto)
@@ -119,6 +131,16 @@ public class VotingDAO {
                             .apellidos(rs.getString("apellidos"))
                             .puntos(rs.getInt("puntos"))
                             .build();
+                    int idTeam = rs.getInt("nid_team");
+                    preparedStatTeam.setInt(1, idTeam);
+                    ResultSet resultSet = preparedStatTeam.executeQuery();
+                    Team team = null;
+                    if (resultSet.next()) {
+                        team = Team.builder()
+                                .nombre(resultSet.getString("nombre"))
+                                .build();
+                    }
+                    pilot.setTeam(team);
                     pilotos.add(pilot);
                 }
             }

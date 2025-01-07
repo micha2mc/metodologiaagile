@@ -223,7 +223,6 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Piloto</th>
                                             <th>Equipo</th>
                                             <th>Puntos</th>
                                         </tr>
@@ -231,9 +230,8 @@
                                     <tbody>
                                         <c:forEach var="piloto" items="${listaVotacion.pilots}" varStatus="status">
                                             <tr>
-                                                <td><img src="${piloto.imagen}" class="card-img-top img-custom" alt="${piloto.nombre}" width="200" height="25" ></td>
-                                                <td>${piloto.nombre} ${piloto.apellidos}</td>
-                                                <td>${piloto.nombre} ${piloto.apellidos}</td>
+                                                <td><img src="${piloto.imagen}" class="card-img-top img-custom" alt="${piloto.nombre}" width="200" height="25" >   ${piloto.nombre} ${piloto.apellidos}</td>
+                                                <td>${piloto.team.nombre}</td>
                                                 <td>${piloto.puntos}</td>
                                             </tr>
                                         </c:forEach>

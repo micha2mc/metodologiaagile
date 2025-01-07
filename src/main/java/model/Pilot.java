@@ -20,4 +20,5 @@ public class Pilot {
     private String pais;
     private String twitter;
     private int puntos;
+    private Team team;
 }
