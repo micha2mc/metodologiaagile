@@ -5,16 +5,17 @@
 package controller;
 
 import dao.NewsDAO;
-import dao.VotingDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Voting;
 import utils.Utiles;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  * @author micha
@@ -23,13 +24,13 @@ import java.sql.SQLException;
 public class Controller extends HttpServlet {
 
     private final NewsDAO newsDAO = new NewsDAO();
-    private final VotingDAO votingDAO = new VotingDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
+        Voting listaVotacion = Utiles.ordenarPilotosPuntuacion();
         request.setAttribute("listaNoticias", newsDAO.getTodasNoticias());
-        request.setAttribute("listaVotacion", Utiles.ordenarPilotosPuntuacion());
+        request.setAttribute("listaVotacion", listaVotacion);
+        request.setAttribute("votar", listaVotacion.getFechaLimite().isAfter(LocalDate.now()));
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

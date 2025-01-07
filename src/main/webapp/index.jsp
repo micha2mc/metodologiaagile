@@ -239,12 +239,15 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <form action="PublicController" method="POST">
-                                <button type = "submit" name="pagina" value="votacion" class="btn btn-success">Votar</button>
-                            </form>
+                        <c:if test="${votar}">
+                            <div class="mt-3">
+                                <form action="PublicController" method="POST">
+                                    <button type = "submit" name="pagina" value="votacion" class="btn btn-success">Votar</button>
+                                </form>
 
-                        </div>
+                            </div>
+                        </c:if>
+
                     </div>
                 </div>
             </div>
