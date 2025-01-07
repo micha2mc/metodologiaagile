@@ -50,7 +50,6 @@ public class AdminController extends HttpServlet {
     private final VotingDAO votingDAO = new VotingDAO();
 
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         request.setCharacterEncoding("UTF-8");
@@ -183,21 +182,36 @@ public class AdminController extends HttpServlet {
     private void gestionVotaciones(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
-            String[] pilotosSeleccionados = request.getParameterValues("pilotosOption");
-            List<Integer> listIdPilotos = Arrays.stream(pilotosSeleccionados)
-                    .map(Integer::parseInt) // Convierte cada elemento a Integer
-                    .collect(Collectors.toList());
-            Voting voting = Voting.builder()
-                    .titulo(request.getParameter("titulo"))
-                    .descripcion(request.getParameter("descripcion"))
-                    .fechaLimite(LocalDate.parse(request.getParameter("fecha")))
-                    .build();
-            votingDAO.createVoting(voting, listIdPilotos);
-            request.setAttribute("listaPilotos", pilotosSeleccionados);
+            switch (action) {
+                case "create" -> {
+                    if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+                        String[] pilotosSeleccionados = request.getParameterValues("pilotosOption");
+                        List<Integer> listIdPilotos = Arrays.stream(pilotosSeleccionados)
+                                .map(Integer::parseInt) // Convierte cada elemento a Integer
+                                .collect(Collectors.toList());
+                        Voting voting = Voting.builder()
+                                .titulo(request.getParameter("titulo"))
+                                .descripcion(request.getParameter("descripcion"))
+                                .fechaLimite(LocalDate.parse(request.getParameter("fecha")))
+                                .build();
+                        votingDAO.createVoting(voting, listIdPilotos);
+                        request.setAttribute("listaPilotos", pilotosSeleccionados);
+                    } else {
+                        List<Pilot> listPilots = pilotDAO.getAllPilot();
+                        request.setAttribute("listaPilotos", listPilots);
+                        request.getRequestDispatcher("/view/admin/votacionForm.jsp").forward(request, response);
+                    }
+                }
+                case "eliminar" ->{
+                    String idVotacion = request.getParameter("idVotacion");
+                    votingDAO.deleteVoting(Integer.parseInt(idVotacion));
+                }
+            }
+
         }
-        List<Pilot> listPilots = pilotDAO.getAllPilot();
-        request.setAttribute("listaPilotos", listPilots);
-        request.getRequestDispatcher("/view/admin/votacionForm.jsp").forward(request, response);
+        request.setAttribute("votingList", votingDAO.getAllVoting());
+        request.getRequestDispatcher("/view/admin/manageVotes.jsp").forward(request, response);
+        /**/
     }
 
     private void gestionNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

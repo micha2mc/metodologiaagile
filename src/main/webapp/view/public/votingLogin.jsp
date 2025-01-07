@@ -76,6 +76,8 @@
                             <div class="card-body">
                                 <form action="PublicController" method="POST">
                                     <input type="hidden" name="pagina" value="votacion">
+                                    <input type="hidden" name="idvotacion" value="${votacionSeleccinada}">
+                                    
                                     <div class="form-group mb-3">
                                         <input class="form-control" type="text" name="txtname" placeholder="Introduce nombre" value="" required>
                                     </div>

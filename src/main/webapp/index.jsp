@@ -211,42 +211,43 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        <div class="card">
-                            <!--<img src="img/circuito/${proximoGP.circuitoImg}" class="card-img-top" alt="${proximoGP.nombre}">-->
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Fecha Límite: ${listaVotacion.fechaLimite}<br>
-                                    Descripción: ${listaVotacion.descripcion}
-                                </p>
-                                <h4 class="text-center">${listaVotacion.titulo}</h4>
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Equipo</th>
-                                            <th>Puntos</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="piloto" items="${listaVotacion.pilots}" varStatus="status">
-                                            <tr>
-                                                <td><img src="${piloto.imagen}" class="card-img-top img-custom" alt="${piloto.nombre}" width="200" height="25" >   ${piloto.nombre} ${piloto.apellidos}</td>
-                                                <td>${piloto.team.nombre}</td>
-                                                <td>${piloto.puntos}</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <c:if test="${votar}">
-                            <div class="mt-3">
-                                <form action="PublicController" method="POST">
-                                    <button type = "submit" name="pagina" value="votacion" class="btn btn-success">Votar</button>
-                                </form>
 
+                        <c:forEach var="votacion" items="${listaVotacion}" varStatus="status">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Fecha Límite: ${votacion.fechaLimite}<br>
+                                        Descripción: ${votacion.descripcion}
+                                    </p>
+                                    <h4 class="text-center">${votacion.titulo}</h4>
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Equipo</th>
+                                                <th>Puntos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="piloto" items="${votacion.pilots}" varStatus="status">
+                                                <tr>
+                                                    <td><img src="${piloto.imagen}" class="card-img-top img-custom" alt="${piloto.nombre}" width="200" height="25" >   ${piloto.nombre} ${piloto.apellidos}</td>
+                                                    <td>${piloto.team.nombre}</td>
+                                                    <td>${piloto.puntos}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-3">
+                                    <form action="PublicController" method="POST">
+                                        <input type="hidden" name="votacionSeleccinada" value="${votacion.nid}">
+                                        <button type = "submit" name="pagina" value="votacion" class="btn btn-success">Votar</button>
+                                    </form>
+
+                                </div>
                             </div>
-                        </c:if>
+                        </c:forEach>
 
                     </div>
                 </div>

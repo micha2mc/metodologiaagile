@@ -16,6 +16,7 @@ import utils.Utiles;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author micha
@@ -27,10 +28,10 @@ public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        Voting listaVotacion = Utiles.ordenarPilotosPuntuacion();
+        List<Voting> listaVotacion = Utiles.ordenarPilotosPuntuacion();
         request.setAttribute("listaNoticias", newsDAO.getTodasNoticias());
         request.setAttribute("listaVotacion", listaVotacion);
-        request.setAttribute("votar", listaVotacion.getFechaLimite().isAfter(LocalDate.now()));
+        //request.setAttribute("votar", listaVotacion.getFechaLimite().isAfter(LocalDate.now()));
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

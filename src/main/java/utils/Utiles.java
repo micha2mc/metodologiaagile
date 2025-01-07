@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class Utiles {
     private static final VotingDAO votingDAO = new VotingDAO();
+
     public static String getStatusCalendar(LocalDate inputDate) {
         LocalDate currentDate = LocalDate.now();
 
@@ -24,13 +25,16 @@ public class Utiles {
         }
     }
 
-    public static Voting ordenarPilotosPuntuacion() throws SQLException {
-        Voting allVoting = votingDAO.getAllVoting();
-        List<Pilot> listPilots = allVoting.getPilots()
-                .stream()
-                .sorted(Comparator.comparing(Pilot::getPuntos).reversed())
-                .collect(Collectors.toList());
-        allVoting.setPilots(listPilots);
+    public static List<Voting> ordenarPilotosPuntuacion() throws SQLException {
+        List<Voting> allVoting = votingDAO.getAllVotingWithPilot();
+        for (Voting voting : allVoting) {
+            List<Pilot> listPilots = voting.getPilots()
+                    .stream()
+                    .sorted(Comparator.comparing(Pilot::getPuntos).reversed())
+                    .collect(Collectors.toList());
+            voting.setPilots(listPilots);
+        }
+
         return allVoting;
     }
 }

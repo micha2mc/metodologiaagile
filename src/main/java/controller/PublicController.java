@@ -74,8 +74,9 @@ public class PublicController extends HttpServlet {
                                 .userName(request.getParameter("txtname"))
                                 .email(request.getParameter("txtemail"))
                                 .build();
-                        participanteDAO.createParticipante(partic);
-                        Voting voting = Utiles.ordenarPilotosPuntuacion();
+                        String idVotacion = request.getParameter("idvotacion");
+                        participanteDAO.createParticipante(partic);  
+                        Voting voting = votingDAO.getVotingById(Integer.parseInt(idVotacion));
                         request.setAttribute("votacion", voting);
                         request.getRequestDispatcher("/view/public/votingForm.jsp").forward(request, response);
                     }
@@ -93,6 +94,8 @@ public class PublicController extends HttpServlet {
             }
         } else {
             // Llamo al formulario de votacion
+            String votacionSeleccinada = request.getParameter("votacionSeleccinada");
+            request.setAttribute("votacionSeleccinada", votacionSeleccinada);
             request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
         }
     }

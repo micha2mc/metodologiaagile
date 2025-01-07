@@ -5,10 +5,10 @@ import model.Pilot;
 import model.Team;
 import model.Voting;
 
+import java.sql.Date;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class VotingDAO {
     ConnectionDB connectionDB = new ConnectionDB();
@@ -72,8 +72,9 @@ public class VotingDAO {
 
     }
 
-    public Voting getAllVoting() throws SQLException {
+    public List<Voting> getAllVotingWithPilot() throws SQLException {
         Voting voting = null;
+        Map<Integer, Voting> votacionesMap = new HashMap<>();
         String query = """
                 SELECT
                     v.nid AS votacion_nid,
@@ -111,6 +112,99 @@ public class VotingDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              PreparedStatement preparedStatTeam = connection.prepareStatement(queryTeam);
              ResultSet rs = preparedStatement.executeQuery()) {
+            List<Pilot> pilotos = new ArrayList<>();
+            while (rs.next()) {
+
+                int idVotacion = rs.getInt("votacion_nid");
+                voting = votacionesMap.computeIfAbsent(
+                        idVotacion,
+                        id -> {
+                            try {
+                                return Voting.builder()
+                                        .nid(id)
+                                        .titulo(rs.getString("titulo"))
+                                        .descripcion(rs.getString("descripcion"))
+                                        .fechaLimite(rs.getDate("fecha_limite").toLocalDate())
+                                        .build();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
+
+                int idPiloto = rs.getInt("piloto_nid");
+
+                if (!rs.wasNull()) {
+                    Pilot pilot = Pilot.builder()
+                            .nid(idPiloto)
+                            .imagen(rs.getString("imagen"))
+                            .nombre(rs.getString("nombre"))
+                            .apellidos(rs.getString("apellidos"))
+                            .puntos(rs.getInt("puntos"))
+                            .build();
+                    int idTeam = rs.getInt("nid_team");
+                    preparedStatTeam.setInt(1, idTeam);
+                    ResultSet resultSet = preparedStatTeam.executeQuery();
+                    Team team = null;
+                    if (resultSet.next()) {
+                        team = Team.builder()
+                                .nombre(resultSet.getString("nombre"))
+                                .build();
+                    }
+                    pilot.setTeam(team);
+                    pilotos.add(pilot);
+                }
+                if (Objects.nonNull(voting)) {
+                    voting.setPilots(pilotos);
+                }
+            }
+        }
+        return new ArrayList<>(votacionesMap.values());
+    }
+
+
+    public Voting getVotingById(int idVotacion) throws SQLException {
+        Voting voting = null;
+        String query = """
+                SELECT
+                    v.nid AS votacion_nid,
+                    titulo,
+                    descripcion,
+                    fecha_limite,
+                    p.nid AS piloto_nid,
+                    nombre,
+                    imagen,
+                    apellidos,
+                    nid_team,
+                    vp.puntos AS puntos
+                FROM
+                    votacion v
+                LEFT JOIN
+                    votaciones_pilotos vp
+                ON
+                    v.nid = vp.id_votacion
+                LEFT JOIN
+                    piloto p
+                ON
+                    vp.id_piloto = p.nid
+                WHERE
+                    active = TRUE
+                AND 
+                    v.nid = ?
+                """;
+        String queryTeam = """
+                SELECT 
+                    *
+                FROM
+                    circuitsdb.equipo
+                WHERE
+                    nid = ?
+                """;
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             PreparedStatement preparedStatTeam = connection.prepareStatement(queryTeam)) {
+            preparedStatement.setInt(1, idVotacion);
+            ResultSet rs = preparedStatement.executeQuery();
             List<Pilot> pilotos = new ArrayList<>();
             while (rs.next()) {
                 if (Objects.isNull(voting)) {
@@ -182,8 +276,17 @@ public class VotingDAO {
                 WHERE nid= ?;
                 """;
 
+        String query2 = """
+                DELETE FROM 
+                    circuitsdb.votaciones_pilotos
+                WHERE id_votacion= ?;
+                """;
+
         try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             PreparedStatement preparedSt = connection.prepareStatement(query2)) {
+            preparedSt.setInt(1, id);
+            preparedSt.execute();
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
@@ -214,5 +317,27 @@ public class VotingDAO {
             ps.setInt(2, idPilot);
             ps.executeUpdate();
         }
+    }
+
+    public List<Voting> getAllVoting() {
+        List<Voting> votingList = new ArrayList<>();
+        String query = """
+                SELECT 
+                    *
+                FROM circuitsdb.votacion;
+                """;
+
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                votingList.add(getVoting(resultSet));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return votingList.stream().sorted(Comparator.comparing(Voting::getFechaLimite).reversed())
+                .collect(Collectors.toList());
     }
 }
