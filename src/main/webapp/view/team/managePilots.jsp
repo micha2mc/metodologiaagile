@@ -44,29 +44,29 @@
                                         Mant. Respo.
                                     </button>
                                     <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
-                                        <li class="m-0 p-0">
-                                            <form action="TeamController" method="POST">
+                                        <li>
+                                            <form class="m-0 p-0" action="TeamController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Mant. Pilotos</button><br>
                                                 <input type="hidden" name="pagina" value="pilotos">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                             </form>
                                         </li>
-                                        <li class="m-0 p-0">
-                                            <form action="TeamController" method="POST">
+                                        <li>
+                                            <form class="m-0 p-0" action="TeamController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Mant. Coches</button><br>
                                                 <input type="hidden" name="pagina" value="coches">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                             </form>
                                         </li>
-                                        <li class="m-0 p-0">
-                                            <form action="TeamController" method="POST">
+                                        <li>
+                                            <form class="m-0 p-0" action="TeamController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Mant. Equipos</button><br>
                                                 <input type="hidden" name="pagina" value="equipos">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                             </form>
                                         </li>
-                                        <li class="m-0 p-0">
-                                            <form action="TeamController" method="POST">
+                                        <li>
+                                            <form class="m-0 p-0" action="TeamController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Herram. Simulación</button><br>
                                                 <input type="hidden" name="pagina" value="simulacion">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
