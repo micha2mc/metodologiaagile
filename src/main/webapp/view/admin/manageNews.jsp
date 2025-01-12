@@ -87,7 +87,12 @@
                             </li>
 
                             <div>
-                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-4">Añadir Noticia</a><br>
+                                <form action="AdminController" method="POST">
+                                    <button href="#" class="btn btn-primary mb-3">Añadir Noticia</button><br>
+                                    <input type="hidden" name="pagina" value="noticia">
+                                    <input type="hidden" name="action" value="create">
+                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                </form>
                             </div>
                         </ul>
                     </div>
@@ -134,6 +139,7 @@
                                             <tr>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
+                                                <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -141,15 +147,30 @@
                                                 <th class="text-start">${temporalesNoticias.titulo}</th>
                                             </tr>
                                             <tr>
-                                                <td class="text-start">${temporalesNoticias.fecha}</td>
+                                                <td colspan="2" class="text-start">${temporalesNoticias.fecha}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-start">${temporalesNoticias.texto}</td>
+                                                <td colspan="2" class="text-start">${temporalesNoticias.texto}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-start">
-                                                    <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=update&estado=inicial" class="btn btn-success">Editar</a>
-                                                    <a href="AdminController?pagina=noticia&noticia=${temporalesNoticias.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
+                                                    <form class="m-0 p-0" action="AdminController" method="POST">
+                                                        <button href="#" class="btn btn-success mb-3">Editar</button><br>
+                                                        <input type="hidden" name="pagina" value="noticia">
+                                                        <input type="hidden" name="noticia" value=${temporalesNoticias.nid}>
+                                                        <input type="hidden" name="action" value="update">
+                                                        <input type="hidden" name="estado" value="inicial">
+                                                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                                    </form>
+                                                </td>
+                                                <td class="text-start">
+                                                    <form class="m-0 p-0" action="AdminController" method="POST">
+                                                        <button href="#" class="btn btn-danger mb-3">Eliminar</button><br>
+                                                        <input type="hidden" name="pagina" value="noticia">
+                                                        <input type="hidden" name="noticia" value=${temporalesNoticias.nid}>
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </tbody>

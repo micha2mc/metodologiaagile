@@ -219,7 +219,7 @@ public class AdminController extends HttpServlet {
         /**/
     }
 
-    private void gestionNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void gestionNoticias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
@@ -288,28 +288,27 @@ public class AdminController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void crearNoticia(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
+    private void crearNoticia(final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException, SQLException {
 
-        String titulo = request.getParameter("titulo");
-        String texto = request.getParameter("texto");
-        if (titulo == null || titulo.isEmpty() || texto == null || texto.isEmpty()) {
-            response.getWriter().println("Error: Los campos 'título' y 'texto' son obligatorios.");
-            return;
-        }
-        String imagePath = FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
-        LocalDate fecha = LocalDate.now();
-        News newNoticia = News.builder()
-                .titulo(titulo)
-                .texto(texto)
-                .fecha(fecha)
-                .imagen(imagePath)
-                .build();
-        try {
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            String titulo = request.getParameter("titulo");
+            String texto = request.getParameter("texto");
+            if (titulo == null || titulo.isEmpty() || texto == null || texto.isEmpty()) {
+                response.getWriter().println("Error: Los campos 'título' y 'texto' son obligatorios.");
+                return;
+            }
+            String imagePath = FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
+            LocalDate fecha = LocalDate.now();
+            News newNoticia = News.builder()
+                    .titulo(titulo)
+                    .texto(texto)
+                    .fecha(fecha)
+                    .imagen(imagePath)
+                    .build();
             noticiaDAO.crearNoticia(newNoticia);
-        } catch (SQLException e) {
-            response.sendRedirect("view/common/nocreada.jsp");
+        } else {
+            request.getRequestDispatcher("/view/admin/newsForm.jsp").forward(request, response);
         }
-
     }
 
     private void crearCircuito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -329,7 +328,5 @@ public class AdminController extends HttpServlet {
         } else {
             request.getRequestDispatcher("/view/admin/circuitForm.jsp").forward(request, response);
         }
-
     }
-
 }
