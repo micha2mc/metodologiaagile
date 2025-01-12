@@ -207,7 +207,7 @@ public class AdminController extends HttpServlet {
                         request.getRequestDispatcher("/view/admin/votacionForm.jsp").forward(request, response);
                     }
                 }
-                case "eliminar" ->{
+                case "eliminar" -> {
                     String idVotacion = request.getParameter("idVotacion");
                     votingDAO.deleteVoting(Integer.parseInt(idVotacion));
                 }
@@ -313,19 +313,23 @@ public class AdminController extends HttpServlet {
     }
 
     private void crearCircuito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            String fileName = FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
+            Circuit circuit = Circuit.builder()
+                    .nombre(request.getParameter("nombre"))
+                    .ciudad(request.getParameter("ciudad"))
+                    .pais(request.getParameter("pais"))
+                    .trazadoImagen(fileName)
+                    .longitud(Integer.parseInt(request.getParameter("longitud")))
+                    .curvasLentas(Integer.parseInt(request.getParameter("curvaslentas")))
+                    .curvasMedias(Integer.parseInt(request.getParameter("curvasmedias")))
+                    .curvasRapidas(Integer.parseInt(request.getParameter("curvasrapidas")))
+                    .build();
+            circuitDAO.createCircuit(circuit);
+        } else {
+            request.getRequestDispatcher("/view/admin/circuitForm.jsp").forward(request, response);
+        }
 
-        String fileName = FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
-        Circuit circuit = Circuit.builder()
-                .nombre(request.getParameter("nombre"))
-                .ciudad(request.getParameter("ciudad"))
-                .pais(request.getParameter("pais"))
-                .trazadoImagen(fileName)
-                .longitud(Integer.parseInt(request.getParameter("longitud")))
-                .curvasLentas(Integer.parseInt(request.getParameter("curvaslentas")))
-                .curvasMedias(Integer.parseInt(request.getParameter("curvasmedias")))
-                .curvasRapidas(Integer.parseInt(request.getParameter("curvasrapidas")))
-                .build();
-        circuitDAO.createCircuit(circuit);
     }
 
 }

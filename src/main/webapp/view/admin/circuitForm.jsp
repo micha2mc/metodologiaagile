@@ -86,8 +86,20 @@
                                         Mant. Portal
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="../../AdminController?pagina=calendario">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Calendario</button><br>
+                                                <input type="hidden" name="pagina" value="calendario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Detalles Equipos</button><br>
+                                                <input type="hidden" name="pagina" value="">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -123,8 +135,10 @@
                     <h3>Creando Circuito</h3>
                 </div>
                 <div class="card-body">
-                    <form action="../../AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                    <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
                         <input type="hidden" name="pagina" value="circuito">
+                        <input type="hidden" name="estado" value="create">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">
                             <label for="nombre">Nombre</label>
                             <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Ingrese el título de la noticia">
