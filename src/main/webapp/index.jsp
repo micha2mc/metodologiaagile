@@ -213,7 +213,7 @@
                     <div class="col-md-12">
 
                         <c:forEach var="votacion" items="${listaVotacion}" varStatus="status">
-                            <div class="card">
+                            <div class="card mt-3">
                                 <div class="card-body">
                                     <p class="card-text">
                                         Fecha Límite: ${votacion.fechaLimite}<br>

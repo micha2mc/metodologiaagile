@@ -73,7 +73,7 @@ public class VotingDAO {
     }
 
     public List<Voting> getAllVotingWithPilot() throws SQLException {
-        Voting voting = null;
+        List<Voting> allVotings = new ArrayList<>();
         Map<Integer, Voting> votacionesMap = new HashMap<>();
         String query = """
                 SELECT
@@ -110,56 +110,45 @@ public class VotingDAO {
                 """;
         try (Connection connection = connectionDB.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
-             PreparedStatement preparedStatTeam = connection.prepareStatement(queryTeam);
              ResultSet rs = preparedStatement.executeQuery()) {
-            List<Pilot> pilotos = new ArrayList<>();
             while (rs.next()) {
 
                 int idVotacion = rs.getInt("votacion_nid");
-                voting = votacionesMap.computeIfAbsent(
-                        idVotacion,
-                        id -> {
-                            try {
-                                return Voting.builder()
-                                        .nid(id)
-                                        .titulo(rs.getString("titulo"))
-                                        .descripcion(rs.getString("descripcion"))
-                                        .fechaLimite(rs.getDate("fecha_limite").toLocalDate())
-                                        .build();
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                );
-
-                int idPiloto = rs.getInt("piloto_nid");
-
-                if (!rs.wasNull()) {
-                    Pilot pilot = Pilot.builder()
-                            .nid(idPiloto)
-                            .imagen(rs.getString("imagen"))
-                            .nombre(rs.getString("nombre"))
-                            .apellidos(rs.getString("apellidos"))
-                            .puntos(rs.getInt("puntos"))
+                Voting votacion = votacionesMap.get(idVotacion);
+                if (Objects.isNull(votacion)) {
+                    votacion = Voting.builder()
+                            .nid(idVotacion)
+                            .titulo(rs.getString("titulo"))
+                            .descripcion(rs.getString("descripcion"))
+                            .fechaLimite(rs.getDate("fecha_limite").toLocalDate())
+                            .pilots(new ArrayList<>())
                             .build();
+                    votacionesMap.put(idVotacion, votacion);
+                    allVotings.add(votacion);
+                }
+                try (PreparedStatement preparedStatTeam = connection.prepareStatement(queryTeam)) {
                     int idTeam = rs.getInt("nid_team");
                     preparedStatTeam.setInt(1, idTeam);
                     ResultSet resultSet = preparedStatTeam.executeQuery();
-                    Team team = null;
                     if (resultSet.next()) {
-                        team = Team.builder()
+                        Team team = Team.builder()
                                 .nombre(resultSet.getString("nombre"))
                                 .build();
+                        Pilot pilot = Pilot.builder()
+                                .nid(rs.getInt("piloto_nid"))
+                                .imagen(rs.getString("imagen"))
+                                .nombre(rs.getString("nombre"))
+                                .apellidos(rs.getString("apellidos"))
+                                .puntos(rs.getInt("puntos"))
+                                .team(team)
+                                .build();
+                        votacion.getPilots().add(pilot);
                     }
-                    pilot.setTeam(team);
-                    pilotos.add(pilot);
-                }
-                if (Objects.nonNull(voting)) {
-                    voting.setPilots(pilotos);
+
                 }
             }
         }
-        return new ArrayList<>(votacionesMap.values());
+        return allVotings;
     }
 
 
