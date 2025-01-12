@@ -14,35 +14,8 @@ USE `circuitsdb` ;
 -- -----------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`authorities`;
 CREATE TABLE `authorities` (
-    `nid` INT NOT NULL AUTO_INCREMENT,
-    `authority` VARCHAR(45) NOT NULL UNIQUE,
-    PRIMARY KEY (`nid`)
-) ENGINE = InnoDB;
-
-
--- ------------------------------------------------------------------
--- Table `circuitsdb`.`Users` => Administradores y resp. de equipo
--- Relacion de varios a uno con authorities
--- ------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`users`;
-CREATE TABLE `users` (
-	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`username` varchar(50) NOT NULL,
-	`email` varchar(50) NOT NULL,
-	`password` varchar(50) NOT NULL,
-	`valid` BOOLEAN DEFAULT FALSE,
-	`nid_auth` INT,
-	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
-) ENGINE = InnoDB;
-
--- ------------------------------------------------------------------
--- Table `circuitsdb`.`participantes` =>
--- ------------------------------------------------------------------
-DROP TABLE IF EXISTS `circuitsdb`.`participantes`;
-CREATE TABLE `participantes` (
-	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`username` varchar(50) NOT NULL,
-	`email` varchar(50) NOT NULL
+    `nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `authority` VARCHAR(45) NOT NULL UNIQUE
 ) ENGINE = InnoDB;
 
 
@@ -59,6 +32,37 @@ CREATE TABLE `equipo` (
 	`logo_imagen` varchar(255),
 	`twitter` varchar(100)
 ) ENGINE = InnoDB;
+
+
+-- ------------------------------------------------------------------
+-- Table `circuitsdb`.`Users` => Administradores y resp. de equipo
+-- Relacion de varios a uno con authorities
+-- Relacion de varios usuarios (responsables) a un equipo
+-- ------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`users`;
+CREATE TABLE `users` (
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`username` varchar(50) NOT NULL,
+	`email` varchar(50) NOT NULL,
+	`password` varchar(50) NOT NULL,
+	`valid` BOOLEAN DEFAULT FALSE,
+	`nid_auth` INT,
+	`nid_team` INT,
+    FOREIGN KEY (nid_team) REFERENCES equipo (nid),
+	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
+) ENGINE = InnoDB;
+
+-- ------------------------------------------------------------------
+-- Table `circuitsdb`.`participantes` =>
+-- ------------------------------------------------------------------
+DROP TABLE IF EXISTS `circuitsdb`.`participantes`;
+CREATE TABLE `participantes` (
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`username` varchar(50) NOT NULL,
+	`email` varchar(50) NOT NULL
+) ENGINE = InnoDB;
+
+
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`coche`

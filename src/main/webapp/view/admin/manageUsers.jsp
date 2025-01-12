@@ -62,7 +62,7 @@
                                 </div>
                             </li>
                         </ul>                    
-                                               
+
                     </div>
                 </div>
             </div>
@@ -90,10 +90,16 @@
         <div class="main">
 
             <div class="main1" style="overflow-x: hidden;">
-                <!--<div>
-                    <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                </div>-->
                 <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th class="text-center" scope="col">Acción</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Equipo</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <c:forEach var="temporalesUser" items="${listaUsuarios}">
                             <tr>
@@ -108,6 +114,8 @@
                                 </td>
 
                                 <td>${temporalesUser.authorities.authority}</td>
+
+                                <td>${temporalesUser.team.nombre}</td>
 
                             </tr>
                         </c:forEach>

@@ -102,6 +102,14 @@
                                 </c:forEach>
                             </select>
                         </div>
+                        <div class="form-group mb-3" id="additionalSelectContainer" style="display: none;">
+                            <label for="extraOption">Seleccione Equipo del Responsable:</label>
+                            <select id="extraOption" name="extraOption" class="form-control">
+                                <c:forEach var="equipo" items="${listaequipos}">
+                                    <option value="${equipo.nid}">${equipo.nombre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
                         <div class="buttons mb-3">
                             <button type = "submit" name="action" value="validar" class="btn btn-success">Validar</button>
                         </div>
@@ -110,6 +118,20 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('roleOption').addEventListener('change', function () {
+            // Obtener el valor seleccionado
+            const selectedValue = this.value;
+
+            // Mostrar u ocultar el segundo select basado en la selección
+            const additionalSelectContainer = document.getElementById('additionalSelectContainer');
+            if (selectedValue === '2') { // Cambia '1' por el valor relevante para tu caso
+                additionalSelectContainer.style.display = 'block'; // Mostrar el select
+            } else {
+                additionalSelectContainer.style.display = 'none'; // Ocultar el select
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>

@@ -79,7 +79,7 @@
         </div>
     </nav>
     <div class="container mt-1">
-        <h1 class="text-center mb-4">Listado de Pilotos</h1>
+        <h1 class="text-center mb-4">Listado de Coches</h1>
 
         <!-- Listado de productos -->
         <div class="row">

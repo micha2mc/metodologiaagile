@@ -2,6 +2,7 @@ package dao;
 
 import config.ConnectionDB;
 import model.Authorities;
+import model.Team;
 import model.User;
 
 import java.sql.Connection;
@@ -13,9 +14,19 @@ import java.util.List;
 
 public class UserDAO {
     private final String queryCommon = """
-                     SELECT u.nid AS nid_u, username, email, password, a.nid AS nid_a, authority, valid 
-                     FROM users u 
-                     LEFT JOIN authorities a ON u.nid_auth = a.nid
+                     SELECT 
+                        u.nid AS nid_u, username, email, password, a.nid AS nid_a, authority, valid,
+                        e.nid AS nid_e, nombre 
+                     FROM 
+                        users u 
+                     LEFT JOIN 
+                            authorities a 
+                        ON 
+                            u.nid_auth = a.nid
+                     LEFT JOIN 
+                            equipo e 
+                        ON 
+                            u.nid_team = e.nid
             """;
 
     ConnectionDB connectionDB = new ConnectionDB();
@@ -80,14 +91,15 @@ public class UserDAO {
         return listUser;
     }
 
-    public void validateUserForAdmin(final int nid, final int idAuthority) {
+    public void validateUserForAdmin(final int nid, final int idAuthority, int idTeam) {
         String queryUpdateUser = """
-                UPDATE circuitsdb.users SET valid = ?, nid_auth = ? WHERE nid = ?
+                UPDATE circuitsdb.users SET valid = ?, nid_auth = ?, nid_team = ? WHERE nid = ?
                 """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(queryUpdateUser)) {
             preparedStatement.setBoolean(1, Boolean.TRUE);
             preparedStatement.setInt(2, idAuthority);
-            preparedStatement.setInt(3, nid);
+            preparedStatement.setInt(3, idTeam);
+            preparedStatement.setInt(4, nid);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -119,6 +131,10 @@ public class UserDAO {
                 .nid(resultSet.getInt("nid_a"))
                 .authority(resultSet.getString("authority"))
                 .build();
+        Team team = Team.builder()
+                .nid(resultSet.getInt("nid_e"))
+                .nombre(resultSet.getString("nombre"))
+                .build();
         return User.builder()
                 .nid(resultSet.getInt("nid_u"))
                 .userName(resultSet.getString("username"))
@@ -126,6 +142,7 @@ public class UserDAO {
                 .password(resultSet.getString("password"))
                 .valid(resultSet.getBoolean("valid"))
                 .authorities(authorities)
+                .team(team)
                 .build();
     }
 

@@ -15,6 +15,7 @@ public class User {
     private String email;
     private String password;
     private Authorities authorities; //mmany to one
+    private Team team;
     private boolean valid;
 
 }

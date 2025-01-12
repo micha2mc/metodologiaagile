@@ -170,12 +170,15 @@ public class AdminController extends HttpServlet {
             String usuarioNid = request.getParameter("usuario");
             User user = userDAO.findById(Integer.parseInt(usuarioNid));
             List<Authorities> allRoles = authoritiesDAO.getAllRoles();
+            List<Team> teamList = teamDAO.getAllTeam();
             request.setAttribute("usuarioDB", user);
             request.setAttribute("roles", allRoles);
+            request.setAttribute("listaequipos", teamList);
             request.getRequestDispatcher("/view/admin/usersForm.jsp").forward(request, response);
         } else {
             userDAO.validateUserForAdmin(Integer.parseInt(request.getParameter("nid")),
-                    Integer.parseInt(request.getParameter("roleOption")));
+                    Integer.parseInt(request.getParameter("roleOption")),
+                    Integer.parseInt(request.getParameter("extraOption")));
         }
     }
 

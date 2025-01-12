@@ -60,7 +60,7 @@ public class TeamController extends HttpServlet {
             }
         }
         //request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
-        //request.getRequestDispatcher("view/team/manageCars.jsp").forward(request, response);
+        request.getRequestDispatcher("view/team/manageCars.jsp").forward(request, response);
     }
 
     private void eliminarCoche(HttpServletRequest request, HttpServletResponse response) {
