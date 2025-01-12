@@ -2,6 +2,7 @@ package controller;
 
 import dao.PilotDAO;
 import dao.TeamDAO;
+import dao.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,11 +11,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Pilot;
 import model.Team;
+import model.User;
 import org.apache.commons.lang3.StringUtils;
 import utils.FileSearcher;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 /**
@@ -38,13 +41,16 @@ public class TeamController extends HttpServlet {
     private static final String UPLOAD_DIR_TEAM = "img/equipo/";
     private final PilotDAO pilotDAO = new PilotDAO();
     private final TeamDAO teamDAO = new TeamDAO();
+    private final UserDAO userDAO = new UserDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
         request.setCharacterEncoding("UTF-8");
         String pagina = request.getParameter("pagina");
+        User usuarioconectado = userDAO.findById(Integer.valueOf(request.getParameter("idusuarioconectado")));
+        request.setAttribute("usuarioConectado", usuarioconectado);
         switch (pagina) {
-            case "pilotos" -> gestionPilotos(request, response);
+            case "pilotos" -> gestionPilotos(request, response, usuarioconectado);
             case "coches" -> gestionCoches(request, response);
             case "equipos" -> gestionEquipos(request, response);
         }
@@ -69,15 +75,16 @@ public class TeamController extends HttpServlet {
     private void crearCoche(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void gestionPilotos(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
+    private void gestionPilotos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, SQLException, IOException {
         String accion = request.getParameter("accion");
         if (StringUtils.isNotBlank(accion)) {
             switch (accion) {
-                case "create" -> crearPiloto(request, response);
+                case "create" -> crearPiloto(request, response, usuarioconectado);
                 case "delete" -> eliminarPiloto(request, response);
             }
         }
-        request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
+        List<Pilot> allPilotForTeam = pilotDAO.getAllPilotForTeam(usuarioconectado.getTeam().getNid());
+        request.setAttribute("listaPilotos", allPilotForTeam);
         request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
     }
 
@@ -85,7 +92,7 @@ public class TeamController extends HttpServlet {
         pilotDAO.deletePilot(Integer.parseInt(request.getParameter("nidPiloto")));
     }
 
-    private void crearPiloto(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void crearPiloto(HttpServletRequest request, HttpServletResponse response, final User usuarioconectado) throws SQLException, ServletException, IOException {
         if (StringUtils.isNotBlank(request.getParameter("estado"))) {
             String apellidos = request.getParameter("apellidos");
             Pilot pilot = Pilot.builder()
@@ -100,7 +107,7 @@ public class TeamController extends HttpServlet {
             int nidEquipo = Integer.parseInt(request.getParameter("teamOption"));
             pilotDAO.createPilot(pilot, nidEquipo);
         } else {
-            request.setAttribute("listaEquipos", teamDAO.getAllTeam());
+            request.setAttribute("equipo", teamDAO.findById(usuarioconectado.getTeam().getNid()));
             request.getRequestDispatcher("view/team/pilotForm.jsp").forward(request, response);
         }
 

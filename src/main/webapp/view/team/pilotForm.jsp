@@ -103,6 +103,8 @@
 
                     <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="pagina" value="pilotos">
+                        <input type="hidden" name="teamOption" value="${equipo.nid}">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
 
                         <input type="hidden" name="estado" value="create">
                         <div class="form-group mb-3">
@@ -129,14 +131,10 @@
                             <label class="form-label" for="pais">País</label>
                             <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese el país del piloto">
                         </div>
-                        
+
                         <div class="form-group mb-3">
-                            <label for="category">Seleccione Equipo:</label>
-                            <select id="teamOption" name="teamOption" class="form-control" required>
-                                <c:forEach var="equipo" items="${listaEquipos}">
-                                    <option value="${equipo.nid}">${equipo.nombre}</option>
-                                </c:forEach>
-                            </select>
+                            <label for="equipo">Equipo:</label>
+                            <input type="text" class="form-control" id="equipo" name="equipo" value="${equipo.nombre}" readonly="true">
                         </div>
 
                         <div class="form-group mb-3">

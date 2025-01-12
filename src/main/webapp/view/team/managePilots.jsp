@@ -43,19 +43,44 @@
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mant. Respo.
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="TeamController?pagina=pilotos">Mant. Pilotos</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
+                                    <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
+                                        <li class="m-0 p-0">
+                                            <form action="TeamController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Pilotos</button><br>
+                                                <input type="hidden" name="pagina" value="pilotos">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li class="m-0 p-0">
+                                            <form action="TeamController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Coches</button><br>
+                                                <input type="hidden" name="pagina" value="coches">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li class="m-0 p-0">
+                                            <form action="TeamController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Equipos</button><br>
+                                                <input type="hidden" name="pagina" value="equipos">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li class="m-0 p-0">
+                                            <form action="TeamController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Herram. Simulación</button><br>
+                                                <input type="hidden" name="pagina" value="simulacion">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
                             <div>
                                 <form action="TeamController" method="POST">
-                                    <button href="#" class="btn btn-primary mb-3">Añadir Piloto</button><br>
+                                    <button href="#" class="btn btn-primary mb-3">Añadir Piloto en ${usuarioConectado.team.nombre}</button><br>
                                     <input type="hidden" name="pagina" value="pilotos"><!-- comment -->
                                     <input type="hidden" name="accion" value="create">
+                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>
                             </div>
                         </ul>
@@ -83,7 +108,7 @@
         </div>
     </nav>
     <div class="container mt-1">
-        <h1 class="text-center mb-4">Listado de Pilotos</h1>
+        <h1 class="text-center mb-4">Listado de Pilotos de ${usuarioConectado.team.nombre}</h1>
 
         <!-- Listado de productos -->
         <div class="row">

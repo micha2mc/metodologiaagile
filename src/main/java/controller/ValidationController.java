@@ -90,6 +90,7 @@ public class ValidationController extends HttpServlet {
                 request.setAttribute("usuarioConectado", user);
                 request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
+                request.setAttribute("usuarioConectado", user);
                 request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
                 request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
             }
