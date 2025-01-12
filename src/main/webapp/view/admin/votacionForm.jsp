@@ -44,10 +44,34 @@
                                         Mant. Admin.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=noticia">Mant. Noticias</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=votacion">Mant. Votación</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=usuario">Mant. Usuarios</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=circuito">Mant. Circuitos</a></li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Noticias</button><br>
+                                                <input type="hidden" name="pagina" value="noticia">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Votación</button><br>
+                                                <input type="hidden" name="pagina" value="votacion">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Usuarios</button><br>
+                                                <input type="hidden" name="pagina" value="usuario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Circuitos</button><br>
+                                                <input type="hidden" name="pagina" value="circuito">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -57,8 +81,20 @@
                                         Mant. Portal
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="#">Detalles Equipos</a></li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Calendario</button><br>
+                                                <input type="hidden" name="pagina" value="calendario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Detalles Equipos</button><br>
+                                                <input type="hidden" name="pagina" value="">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

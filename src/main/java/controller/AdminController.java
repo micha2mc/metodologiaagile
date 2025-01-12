@@ -55,6 +55,8 @@ public class AdminController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String pagina = request.getParameter("pagina");
+        User usuarioconectado = userDAO.findById(Integer.valueOf(request.getParameter("idusuarioconectado")));
+        request.setAttribute("usuarioConectado", usuarioconectado);
 
         if ("noticia".equalsIgnoreCase(pagina)) {
             gestionNoticias(request, response);
