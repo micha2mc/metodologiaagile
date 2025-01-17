@@ -92,6 +92,7 @@
                                     <button name="accion" value="Salir" href="#" class="btn btn-primary mb-3">Nueva Entrada Calend.</button><br>
                                     <input type="hidden" name="pagina" value="calendario"><!-- comment -->
                                     <input type="hidden" name="action" value="create">
+                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>
 
                             </div>

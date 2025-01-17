@@ -87,14 +87,14 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
-                                            <form class="m-0 p-0" action="../../AdminController" method="POST">
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Calendario</button><br>
                                                 <input type="hidden" name="pagina" value="calendario">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                             </form>
                                         </li>
                                         <li>
-                                            <form class="m-0 p-0" action="../../AdminController" method="POST">
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
                                                 <button href="#" class="dropdown-item m-0 p-2">Detalles Equipos</button><br>
                                                 <input type="hidden" name="pagina" value="">
                                                 <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>

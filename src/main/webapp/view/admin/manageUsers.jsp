@@ -131,10 +131,25 @@
                                 <td>${temporalesUser.email}</td>
                                 <td class="text-start">
                                     <c:if test="${!temporalesUser.valid}">
-                                        <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=validar&estado=inicial" class="btn btn-success">Validar</a>
+                                        <form class="m-0 p-0" action="AdminController" method="POST">
+                                            <button href="#" class="btn btn-success">Validar</button><br>
+                                            <input type="hidden" name="pagina" value="usuarios">
+                                            <input type="hidden" name="usuario" value=${temporalesUser.nid}>
+                                            <input type="hidden" name="action" value="validar">
+                                            <input type="hidden" name="estado" value="inicial">
+                                            <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                        </form>
                                     </c:if>
+                                </td>
+                                <td class="text-start">
 
-                                    <a href="AdminController?pagina=usuarios&usuario=${temporalesUser.nid}&action=delete" class="text-light ms-3 btn btn-danger">Eliminar</a>
+                                    <form class="m-0 p-0" action="AdminController" method="POST">
+                                        <button href="#" class="text-light ms-3 btn btn-danger">Eliminar</button><br>
+                                        <input type="hidden" name="pagina" value="usuarios">
+                                        <input type="hidden" name="usuario" value=${temporalesUser.nid}>
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                    </form>
                                 </td>
 
                                 <td>${temporalesUser.authorities.authority}</td>
