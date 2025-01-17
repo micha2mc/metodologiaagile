@@ -99,8 +99,20 @@
                                         Mant. Portal
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
-                                        <li><a class="dropdown-item" href="AdminController?pagina=equipo">Detalles Equipos</a></li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Calendario</button><br>
+                                                <input type="hidden" name="pagina" value="calendario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Detalles Equipos</button><br>
+                                                <input type="hidden" name="pagina" value="equipo">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -130,7 +142,7 @@
     </nav>
 
     <div class="container">
-        <h1 class="text-center my-1">Equipos y Pilotos F1 - Temporada 2024</h1>
+        <h1 class="text-center my-1">Equipos y Pilotos F1</h1>
         <div class="row team-section">
             <c:forEach var="team" items="${listaEquipos}">
                 <div class="col-md-6 col-lg-4">
