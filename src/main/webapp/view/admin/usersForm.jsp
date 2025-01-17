@@ -73,9 +73,17 @@
                                     <li><a class="btn btn-outline-ligth text-center" href="#">Mant. Portal</a></li>
                                 </ul>
                             </li>
-                            <div>
-                                <a href="view/admin/newsForm.jsp" class="btn btn-primary mb-3">Añadir Noticia</a><br>
-                            </div>
+                            <li class="nav-item me-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Portal
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="AdminController?pagina=calendario">Calendario</a></li>
+                                        <li><a class="dropdown-item" href="AdminController?pagina=equipo">Detalles Equipos</a></li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -110,6 +118,7 @@
                     <form action="AdminController" method="POST"> 
                         <input type="hidden" name="pagina" value="usuarios">
                         <input type="hidden" name="nid" value="${usuarioDB.nid}">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">
                             <label for="userName">Nombre</label>
                             <input class="form-control" type="text" id="userName" name="userName" value="${usuarioDB.userName}" readonly>

@@ -97,6 +97,7 @@
                                     <button href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
                                     <input type="hidden" name="pagina" value="equipos"><!-- comment -->
                                     <input type="hidden" name="action" value="create">
+                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>
                             </div>
                         </ul>
@@ -125,30 +126,28 @@
     </nav>
 
     <div class="container">
-        <h1 class="text-center my-1">Equipos y Pilotos F1 - Temporada 2024</h1>
+        <h1 class="text-center my-1">Zona de Mantenimiento del Equipo ${team.nombre}</h1>
         <div class="row team-section">
-            <c:forEach var="team" items="${listaEquipos}">
-                <div class="col-md-6 col-lg-4">
-                    <div class="team-card p-3">
-                        <div class="d-flex align-items-center">
-                            <img src="${team.logoImage}" alt="${team.nombre}" class="team-logo me-3">
-                            <h3 class="mb-0">${team.nombre}</h3>
-                        </div>
-                        <hr>
-                        <div class="drivers">
-                            <c:forEach var="driver" items="${team.pilot}">
-                                <div class="d-flex align-items-center my-2">
-                                    <img src="${driver.imagen}" alt="${driver.nombre}" class="driver-img me-3">
-                                    <div>
-                                        <p class="driver-name mb-0">${driver.nombre}</p>
-                                        <p class="text-muted mb-0">${driver.pais}</p>
-                                    </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="team-card p-3">
+                    <div class="d-flex align-items-center">
+                        <img src="${team.logoImage}" alt="${team.nombre}" class="team-logo me-3">
+                        <h3 class="mb-0">${team.nombre}</h3>
+                    </div>
+                    <hr>
+                    <div class="drivers">
+                        <c:forEach var="driver" items="${team.pilot}">
+                            <div class="d-flex align-items-center my-2">
+                                <img src="${driver.imagen}" alt="${driver.nombre}" class="driver-img me-3">
+                                <div>
+                                    <p class="driver-name mb-0">${driver.nombre}</p>
+                                    <p class="text-muted mb-0">${driver.pais}</p>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
-            </c:forEach>
+            </div>
         </div>
     </div>
 

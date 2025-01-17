@@ -85,6 +85,7 @@
                     <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
                         <input type="hidden" name="pagina" value="equipos">
                         <input type="hidden" name="estado" value="creando">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">
                             <label for="nombre">Nombre:</label>
                             <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre del equipo">

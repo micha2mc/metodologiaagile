@@ -134,6 +134,7 @@
                         <input type="hidden" name="pagina" value="votacion">
                         <input type="hidden" name="action" value="create"><!-- comment -->
                         <input type="hidden" name="estado" value="create">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">
                             <label for="titulo">Título</label>
                             <input class="form-control" type="text" id="titulo" name="titulo" placeholder="Ingrese el título de la votación" required>

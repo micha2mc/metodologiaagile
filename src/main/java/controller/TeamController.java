@@ -52,7 +52,7 @@ public class TeamController extends HttpServlet {
         switch (pagina) {
             case "pilotos" -> gestionPilotos(request, response, usuarioconectado);
             case "coches" -> gestionCoches(request, response);
-            case "equipos" -> gestionEquipos(request, response);
+            case "equipos" -> gestionEquipos(request, response, usuarioconectado);
         }
 
     }
@@ -98,7 +98,7 @@ public class TeamController extends HttpServlet {
             Pilot pilot = Pilot.builder()
                     .nombre(request.getParameter("nombre"))
                     .apellidos(apellidos)
-                    .siglas(apellidos.substring(0, 3).toUpperCase())
+                    .siglas(apellidos.trim().substring(0, 3).toUpperCase())
                     .dorsal(Integer.parseInt(request.getParameter("dorsal")))
                     .imagen(FileSearcher.obtainFileName(request, UPLOAD_DIR_PILOT))
                     .pais(request.getParameter("pais"))
@@ -114,7 +114,7 @@ public class TeamController extends HttpServlet {
     }
 
 
-    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
@@ -124,7 +124,7 @@ public class TeamController extends HttpServlet {
                 default -> throw new RuntimeException("Error");
             }
         }
-        request.setAttribute("listaEquipos", teamDAO.getAllTeam());
+        request.setAttribute("team", teamDAO.getTeam(usuarioconectado.getTeam().getNid()));
         request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
     }
 
