@@ -27,18 +27,19 @@ public class CarDAO {
     public void createdCar(Car car, final int idTeam) {
         String add_Car = """
                 INSERT INTO circuitsdb.coche
-                (nombre, codigo, ers_curvas_lentas, ers_curvas_medias, ers_curvas_rapidas, consumo, nid_team)
-                VALUES(?, ?, ?, ?, ?, ?, ?)
+                (nombre, imagen, codigo, ers_curvas_lentas, ers_curvas_medias, ers_curvas_rapidas, consumo, nid_team)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         try (Connection connection = connectionBD.ConnectionDB();
              PreparedStatement statement = connection.prepareStatement(add_Car)) {
             statement.setString(1, car.getNombre());
-            statement.setString(2, car.getCodigo());
-            statement.setInt(3, car.getErs_curvas_lentas());
-            statement.setInt(4, car.getErs_curvas_medias());
-            statement.setInt(5, car.getErs_curvas_rapidas());
-            statement.setInt(6, car.getConsumo());
-            statement.setInt(7, idTeam);
+            statement.setString(2, car.getImagen());
+            statement.setString(3, car.getCodigo());
+            statement.setInt(4, car.getErs_curvas_lentas());
+            statement.setInt(5, car.getErs_curvas_medias());
+            statement.setInt(6, car.getErs_curvas_rapidas());
+            statement.setInt(7, car.getConsumo());
+            statement.setInt(8, idTeam);
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -61,7 +62,7 @@ public class CarDAO {
         try (Connection connection = connectionBD.ConnectionDB();
              PreparedStatement preparedStatement = connection.prepareStatement(get_ALL_Cars)) {
             preparedStatement.setInt(1, idTeam);
-            ResultSet resultSet = preparedStatement.executeQuery(get_ALL_Cars);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Car car = Car.builder()

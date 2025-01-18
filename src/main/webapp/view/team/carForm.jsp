@@ -106,13 +106,13 @@
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header text-center bg-danger text-white">
-                    <h3>Añadiendo Piloto</h3>
+                    <h3>Añadiendo Nuevo coche a ${teamNombre}</h3>
                 </div>
                 <div class="card-body">
 
                     <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
-                        <input type="hidden" name="pagina" value="pilotos">
-                        <input type="hidden" name="teamOption" value="${equipo.nid}">
+                        <input type="hidden" name="pagina" value="coches">
+                        <input type="hidden" name="estado" value="create">
                         <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
 
                         <input type="hidden" name="estado" value="create">
@@ -122,33 +122,32 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="form-label" for="apellidos">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese el apellidos">
+                            <label class="form-label" for="codigo">Código</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código del coche">
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="form-label" for="dorsal">Dorsal</label>
-                            <input type="number" class="form-control" id="dorsal" name="dorsal" placeholder="Ingrese el dorsal">
+                            <label class="form-label" for="erscurvalenta">ERS-CurvaLenta</label>
+                            <input type="number" class="form-control" id="erscurvalenta" name="erscurvalenta" placeholder="Ingrese ERS-Curva Lenta">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="erscurvamedia">ERS-CurvaMedia</label>
+                            <input type="number" class="form-control" id="erscurvamedia" name="erscurvamedia" placeholder="Ingrese ERS-Curva Media">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="erscurvarapida">ERS-CurvaRápida</label>
+                            <input type="number" class="form-control" id="erscurvarapida" name="erscurvarapida" placeholder="Ingrese ERS-Curva Rápida">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="consumo">Consumo</label>
+                            <input type="number" class="form-control" id="consumo" name="consumo" placeholder="Ingrese Consumo">
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="foto">Imagen</label>
                             <input class="form-control" type="file" id="foto" name="foto">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="pais">País</label>
-                            <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese el país del piloto">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="equipo">Equipo:</label>
-                            <input type="text" class="form-control" id="equipo" name="equipo" value="${equipo.nombre}" readonly="true">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="twitter">Twitter</label>
-                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Ingrese el twiter del piloto">
                         </div>
 
                         <div class="buttons">

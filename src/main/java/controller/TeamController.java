@@ -41,6 +41,7 @@ public class TeamController extends HttpServlet {
 
     private static final String UPLOAD_DIR_PILOT = "img/pilotos/";
     private static final String UPLOAD_DIR_TEAM = "img/equipo/";
+    private static final String UPLOAD_DIR_COCHES = "img/coches/";
     private final PilotDAO pilotDAO = new PilotDAO();
     private final TeamDAO teamDAO = new TeamDAO();
     private final UserDAO userDAO = new UserDAO();
@@ -79,7 +80,15 @@ public class TeamController extends HttpServlet {
 
     private void crearCoche(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
         if (StringUtils.isNotBlank(request.getParameter("estado"))) {
-            Car car = Car.builder().build();
+            Car car = Car.builder()
+                    .nombre(request.getParameter("nombre"))
+                    .imagen(FileSearcher.obtainFileName(request, UPLOAD_DIR_COCHES))
+                    .codigo(request.getParameter("codigo"))
+                    .ers_curvas_lentas(Integer.parseInt(request.getParameter("erscurvalenta")))
+                    .ers_curvas_medias(Integer.parseInt(request.getParameter("erscurvamedia")))
+                    .ers_curvas_rapidas(Integer.parseInt(request.getParameter("erscurvarapida")))
+                    .consumo(Integer.parseInt(request.getParameter("consumo")))
+                    .build();
             carDAO.createdCar(car, usuarioconectado.getTeam().getNid());
         } else {
             //request.setAttribute("equipo", teamDAO.findById(usuarioconectado.getTeam().getNid()));

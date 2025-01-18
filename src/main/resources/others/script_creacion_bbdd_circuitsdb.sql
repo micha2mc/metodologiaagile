@@ -80,7 +80,7 @@ CREATE TABLE `coche` (
 	`ers_curvas_medias` INT,
 	`ers_curvas_rapidas` INT,
 	`consumo` INT,
-	`nid_team` INT UNIQUE,
+	`nid_team` INT,
 	FOREIGN KEY (nid_team) REFERENCES equipo (nid) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
@@ -179,7 +179,7 @@ CREATE TABLE `circuitos` (
 
 
 
-INSERT INTO circuitsdb.equipo (nombre, logo_imagen, twitter) VALUES('McLaren', 'img/equipo/McLaren_Racing_logo.png', '@McLaren');
+INSERT INTO circuitsdb.equipo (nombre, logo_imagen, twitter) VALUES('McLaren', 'img/equipo/mclaren.png', '@McLaren');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
