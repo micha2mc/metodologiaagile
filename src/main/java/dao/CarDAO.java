@@ -6,8 +6,12 @@ package dao;
 
 import config.ConnectionDB;
 import model.Car;
+import model.Team;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,20 +52,25 @@ public class CarDAO {
 
     }
 
-    public List<Car> getAllCarsByTeam(final int idTeam) {
+    public List<Car> getAllCarsByTeam(final int idTeam, final boolean perfil) {
         String get_ALL_Cars = """
                 SELECT 
                     * 
                 FROM 
                     `circuitsdb`.`coche`
+                """;
+        String clause = """
                 WHERE
                     nid_team = ?
                 """;
         List<Car> carList = new ArrayList<>();
 
         try (Connection connection = connectionBD.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(get_ALL_Cars)) {
-            preparedStatement.setInt(1, idTeam);
+             PreparedStatement preparedStatement = connection.prepareStatement(perfil ? get_ALL_Cars.concat(clause) : get_ALL_Cars)) {
+            if (perfil) {
+                preparedStatement.setInt(1, idTeam);
+            }
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -74,6 +83,9 @@ public class CarDAO {
                         .ers_curvas_medias(resultSet.getInt("ers_curvas_medias"))
                         .ers_curvas_rapidas(resultSet.getInt("ers_curvas_rapidas"))
                         .consumo(resultSet.getInt("consumo"))
+                        .team(Team.builder()
+                                .nid(resultSet.getInt("nid_team"))
+                                .build())
                         .build();
                 carList.add(car);
             }

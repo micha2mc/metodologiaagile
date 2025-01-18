@@ -69,7 +69,7 @@ public class TeamController extends HttpServlet {
                 case "delete" -> eliminarCoche(request, response);
             }
         }
-        List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid());
+        List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid(), Boolean.TRUE);
         request.setAttribute("team", usuarioconectado.getTeam().getNombre());
         request.setAttribute("listCars", allCarsByTeam);
         request.getRequestDispatcher("view/team/manageCars.jsp").forward(request, response);
@@ -145,7 +145,7 @@ public class TeamController extends HttpServlet {
                 default -> throw new RuntimeException("Error");
             }
         }
-        request.setAttribute("team", teamDAO.getTeam(usuarioconectado.getTeam().getNid()));
+        request.setAttribute("team", teamDAO.getTeamByIdAndPilots(usuarioconectado.getTeam().getNid()));
         request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
     }
 

@@ -48,6 +48,7 @@ public class AdminController extends HttpServlet {
     private final TeamDAO teamDAO = new TeamDAO();
     private final PilotDAO pilotDAO = new PilotDAO();
     private final VotingDAO votingDAO = new VotingDAO();
+    private final CarDAO carDAO = new CarDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -67,14 +68,20 @@ public class AdminController extends HttpServlet {
         } else if ("calendario".equalsIgnoreCase(pagina)) {
             gestionCalendario(request, response);
         } else if ("equipo".equalsIgnoreCase(pagina)) {
-            gestionEquipos(request, response);
+            gestionEquipos(request, response, usuarioconectado);
         } else {
             gestionUsuarios(request, response);
         }
     }
 
-    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("listaEquipos", teamDAO.getAllTeam());
+    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
+        List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid(), Boolean.FALSE);
+        for (Car car : allCarsByTeam) {
+            Team teamByIdAndPilots = teamDAO.getTeamByIdAndPilots(car.getTeam().getNid());
+            car.setTeam(teamByIdAndPilots);
+        }
+
+        request.setAttribute("listCars", allCarsByTeam);
         request.getRequestDispatcher("/view/admin/manageTeamAdmin.jsp").forward(request, response);
     }
 

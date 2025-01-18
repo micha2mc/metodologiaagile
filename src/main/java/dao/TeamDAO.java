@@ -75,8 +75,7 @@ public class TeamDAO {
         return listTeam;
     }
 
-    public Team getTeam(final int idTeam) {
-        List<Team> listTeam = new ArrayList<>();
+    public Team getTeamByIdAndPilots(final int idTeam) {
 
         String query = """
                 SELECT 

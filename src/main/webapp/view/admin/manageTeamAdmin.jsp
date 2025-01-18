@@ -141,34 +141,82 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h1 class="text-center my-1">Equipos y Pilotos F1</h1>
-        <div class="row team-section">
-            <c:forEach var="team" items="${listaEquipos}">
-                <div class="col-md-6 col-lg-4">
-                    <div class="team-card p-3">
-                        <div class="d-flex align-items-center">
-                            <img src="${team.logoImage}" alt="${team.nombre}" class="team-logo me-3">
-                            <h3 class="mb-0">${team.nombre}</h3>
-                        </div>
-                        <hr>
-                        <div class="drivers">
-                            <c:forEach var="driver" items="${team.pilot}">
-                                <div class="d-flex align-items-center my-2">
-                                    <img src="${driver.imagen}" alt="${driver.nombre}" class="driver-img me-3">
-                                    <div>
-                                        <p class="driver-name mb-0">${driver.nombre}</p>
-                                        <p class="text-muted mb-0">${driver.pais}</p>
-                                    </div>
-                                </div>
-                            </c:forEach>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Información de equipos</h1>
+        <div class="row">
+            <c:forEach var="car" items="${listCars}">
+                <div class="col-md-12 team-card">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0"><img style=" width: 270px; height: 50px;" src="${car.team.logoImage}" alt="${car.team.nombre}" class="team-logo img-fluid me-3"> ${car.team.nombre}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="${car.imagen}" class="img-fluid rounded" alt="${team.nombre}">
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted">Datos del coche</h6>
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Código</th>
+                                            <th>ERS-CurvaLenta</th>
+                                            <th>ERS-CurvaMedia</th>
+                                            <th>ERS-CurvaRápida</th>
+                                            <th>Consumo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${car.nombre}</td>
+                                            <td>${car.codigo}</td>
+                                            <td class="text-center">${car.ers_curvas_lentas}</td>
+                                            <td class="text-center">${car.ers_curvas_medias}</td>
+                                            <td class="text-center">${car.ers_curvas_rapidas}</td>
+                                            <td class="text-center">${car.consumo}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <hr>
+                    <c:forEach var="pilot" items="${car.team.pilot}">
+                        <div class="d-flex align-items-center my-2">
+                            <img src="${pilot.imagen}" alt="${pilot.nombre}" class="driver-img me-3">
+                            <div>
+                                <p class="driver-name mb-0">${pilot.nombre}</p>
+                                <p class="text-muted mb-0">${pilot.pais}</p>
+                            </div>
+                            <div class="col-md-8 mt-4">
+                                <h6 class="text-muted">Datos del piloto</h6>
+                                <table class="table table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-muted">Nombre Completo</th>
+                                            <th class="text-muted">Sigla</th>
+                                            <th class="text-muted">Dorsal</th>
+                                            <th class="text-muted">twitter</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>${pilot.nombre} ${pilot.nombre}</td>
+                                            <td>${pilot.siglas}</td>
+                                            <td>${pilot.dorsal}</td>
+                                            <td>${pilot.twitter}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                    </c:forEach>
                 </div>
             </c:forEach>
         </div>
-    </div>
-
+    </div>                
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

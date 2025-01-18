@@ -159,10 +159,10 @@
                                                 <tr>
                                                     <td>${team.nombre}</td>
                                                     <td>${team.codigo}</td>
-                                                    <td class="text-end">${team.ers_curvas_lentas}</td>
-                                                    <td class="text-end">${team.ers_curvas_medias}</td>
-                                                    <td class="text-end">${team.ers_curvas_rapidas}</td>
-                                                    <td class="text-end">${team.consumo}</td>
+                                                    <td class="text-center">${team.ers_curvas_lentas}</td>
+                                                    <td class="text-center">${team.ers_curvas_medias}</td>
+                                                    <td class="text-center">${team.ers_curvas_rapidas}</td>
+                                                    <td class="text-center">${team.consumo}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
