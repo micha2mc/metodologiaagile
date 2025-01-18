@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CarDAO;
 import dao.PilotDAO;
 import dao.TeamDAO;
 import dao.UserDAO;
@@ -9,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Car;
 import model.Pilot;
 import model.Team;
 import model.User;
@@ -42,6 +44,7 @@ public class TeamController extends HttpServlet {
     private final PilotDAO pilotDAO = new PilotDAO();
     private final TeamDAO teamDAO = new TeamDAO();
     private final UserDAO userDAO = new UserDAO();
+    private final CarDAO carDAO = new CarDAO();
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
@@ -51,28 +54,37 @@ public class TeamController extends HttpServlet {
         request.setAttribute("usuarioConectado", usuarioconectado);
         switch (pagina) {
             case "pilotos" -> gestionPilotos(request, response, usuarioconectado);
-            case "coches" -> gestionCoches(request, response);
+            case "coches" -> gestionCoches(request, response, usuarioconectado);
             case "equipos" -> gestionEquipos(request, response, usuarioconectado);
         }
 
     }
 
-    private void gestionCoches(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    private void gestionCoches(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
         String accion = request.getParameter("accion");
         if (StringUtils.isNotBlank(accion)) {
             switch (accion) {
-                case "create" -> crearCoche(request, response);
+                case "create" -> crearCoche(request, response, usuarioconectado);
                 case "delete" -> eliminarCoche(request, response);
             }
         }
-        //request.setAttribute("listaPilotos", pilotDAO.getAllPilot());
+        List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid());
+        request.setAttribute("team", usuarioconectado.getTeam().getNombre());
+        request.setAttribute("listCars", allCarsByTeam);
         request.getRequestDispatcher("view/team/manageCars.jsp").forward(request, response);
     }
 
     private void eliminarCoche(HttpServletRequest request, HttpServletResponse response) {
     }
 
-    private void crearCoche(HttpServletRequest request, HttpServletResponse response) {
+    private void crearCoche(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            Car car = Car.builder().build();
+            carDAO.createdCar(car, usuarioconectado.getTeam().getNid());
+        } else {
+            //request.setAttribute("equipo", teamDAO.findById(usuarioconectado.getTeam().getNid()));
+            request.getRequestDispatcher("view/team/carForm.jsp").forward(request, response);
+        }
     }
 
     private void gestionPilotos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, SQLException, IOException {

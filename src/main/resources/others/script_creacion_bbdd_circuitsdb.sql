@@ -59,7 +59,9 @@ DROP TABLE IF EXISTS `circuitsdb`.`participantes`;
 CREATE TABLE `participantes` (
 	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`username` varchar(50) NOT NULL,
-	`email` varchar(50) NOT NULL
+	`email` varchar(50) NOT NULL,
+	`corresponsal` BOOLEAN DEFAULT FALSE,
+	`id_team` INT
 ) ENGINE = InnoDB;
 
 
@@ -72,13 +74,14 @@ DROP TABLE IF EXISTS `circuitsdb`.`coche`;
 CREATE TABLE `coche` (
 	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
+	`imagen` varchar(255),
 	`codigo` varchar(10),
 	`ers_curvas_lentas` INT,
 	`ers_curvas_medias` INT,
 	`ers_curvas_rapidas` INT,
 	`consumo` INT,
-	`nid_team` INT,
-	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
+	`nid_team` INT UNIQUE,
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- ---------------------------------------------------------------------------------------------------------------
