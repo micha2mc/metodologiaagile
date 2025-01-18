@@ -66,17 +66,19 @@ CREATE TABLE `participantes` (
 
 -- -------------------------------------------------------------------------------------
 -- Table `circuitsdb`.`coche`
+-- Relacion de uno a uno entre coche y equipo.
 -- -------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS `circuitsdb`.`coche`;
 CREATE TABLE `coche` (
-	`nid` INT NOT NULL AUTO_INCREMENT,
+	`nid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nombre` varchar(50) NOT NULL,
 	`codigo` varchar(10),
 	`ers_curvas_lentas` INT,
 	`ers_curvas_medias` INT,
 	`ers_curvas_rapidas` INT,
 	`consumo` INT,
-	PRIMARY KEY (`nid`)
+	`nid_team` INT,
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
 ) ENGINE = InnoDB;
 
 -- ---------------------------------------------------------------------------------------------------------------
@@ -110,7 +112,7 @@ CREATE TABLE `piloto` (
 	`pais` varchar(50) NOT NULL,
 	`twitter` varchar(100),
 	`nid_team` INT,
-	FOREIGN KEY (nid_team) REFERENCES equipo (nid)
+	FOREIGN KEY (nid_team) REFERENCES equipo (nid) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 
@@ -174,12 +176,12 @@ CREATE TABLE `circuitos` (
 
 
 
-
+INSERT INTO circuitsdb.equipo (nombre, logo_imagen, twitter) VALUES('McLaren', 'img/equipo/McLaren_Racing_logo.png', '@McLaren');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
 INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth) VALUES ('Admin', 'admin@gmail.com', '12345', TRUE, 1);
-INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth) VALUES ('Team', 'team@gmail.com', '12345', TRUE, 2);
+INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth, nid_team) VALUES('Team', 'team@gmail.com', '12345', TRUE, 2, 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

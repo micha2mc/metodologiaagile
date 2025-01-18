@@ -90,7 +90,7 @@
         </nav>
 
         <div class="container">
-            <h1 class="text-center my-1">Equipos y Pilotos F1 - Temporada 2024</h1>
+            <h1 class="text-center my-1">Equipos y Pilotos F1</h1>
             <div class="row team-section">
                 <c:forEach var="team" items="${listaEquipos}">
                     <div class="col-md-6 col-lg-4">
