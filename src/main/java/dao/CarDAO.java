@@ -146,7 +146,8 @@ public class CarDAO {
 
     public boolean carDeleteById(int id) throws SQLException {
 
-        try (Connection connection = connectionBD.ConnectionDB(); PreparedStatement statement = connection.prepareStatement(delet_Car_By_Id)) {
+        try (Connection connection = connectionBD.ConnectionDB();
+             PreparedStatement statement = connection.prepareStatement(delet_Car_By_Id)) {
 
             statement.setInt(1, id);
 

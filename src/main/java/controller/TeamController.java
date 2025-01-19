@@ -136,13 +136,18 @@ public class TeamController extends HttpServlet {
             switch (action) {
                 case "create" -> crearEquipo(request, response);
                 case "corresponsales" -> gestionCorresponsales(request, response, usuarioconectado);
-                //case "delete" -> eliminarCircuito(request);
+                case "delete" -> eliminarCorresponsal(request);
                 default -> throw new RuntimeException("Error");
             }
         }
         request.setAttribute("listaCorresponsallles", participanteDAO.getCorresponsalesByTeam(usuarioconectado.getTeam().getNid()));
         request.setAttribute("team", teamDAO.getTeamByIdAndPilots(usuarioconectado.getTeam().getNid()));
         request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
+    }
+
+    private void eliminarCorresponsal(final HttpServletRequest request) {
+        String idCorresponsal = request.getParameter("idCorresponsal");
+        participanteDAO.delete(Integer.valueOf(idCorresponsal));
     }
 
     private void gestionCorresponsales(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {

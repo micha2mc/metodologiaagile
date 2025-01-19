@@ -169,11 +169,19 @@
                                 <tbody>
                                     <tr>
                                         <c:forEach var="corresponsal" items="${listaCorresponsallles}">
-                                            
+                                            <td>${corresponsal.userName}</td>
+                                            <td>${corresponsal.email}</td>
+                                            <td>
+                                                <form action="TeamController" method="POST">
+                                                    <button href="#" class="btn btn-danger mb-3">Eliminar</button><br>
+                                                    <input type="hidden" name="pagina" value="equipos">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="idCorresponsal" value=${corresponsal.nid}>
+                                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                                </form>
+                                            </td> 
                                         </c:forEach>
-                                        <td>${corresponsal.userName}</td>
-                                        <td>${corresponsal.email}</td>
-                                        <td class="text-center">${car.ers_curvas_lentas}</td>
+
                                     </tr>
                                 </tbody>
                             </table>
