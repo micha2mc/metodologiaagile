@@ -71,6 +71,7 @@ public class TeamController extends HttpServlet {
     }
 
     private void eliminarCoche(HttpServletRequest request, HttpServletResponse response) {
+        carDAO.delete(Integer.parseInt(request.getParameter("idcar")));
     }
 
     private void crearCoche(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
@@ -86,7 +87,6 @@ public class TeamController extends HttpServlet {
                     .build();
             carDAO.createdCar(car, usuarioconectado.getTeam().getNid());
         } else {
-            //request.setAttribute("equipo", teamDAO.findById(usuarioconectado.getTeam().getNid()));
             request.getRequestDispatcher("view/team/carForm.jsp").forward(request, response);
         }
     }

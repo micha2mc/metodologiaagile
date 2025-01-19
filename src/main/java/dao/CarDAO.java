@@ -159,4 +159,20 @@ public class CarDAO {
         }
     }
 
+    public void delete(int nidCar) {
+        String query = """
+                DELETE FROM circuitsdb.coche
+                WHERE nid=?;
+                """;
+
+        try (Connection connection = connectionBD.ConnectionDB();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, nidCar);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -134,7 +134,7 @@
                 <c:forEach var="team" items="${listCars}">
                     <div class="col-md-12 team-card">
                         <div class="card">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-danger text-white">
                                 <h5 class="mb-0">${team.nombre} ${team.codigo}</h5>
                             </div>
                             <div class="card-body">
@@ -166,6 +166,15 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div>
+                                        <form action="TeamController" method="POST">
+                                            <button href="#" class="btn btn-danger mb-3">Eliminar</button><br>
+                                            <input type="hidden" name="pagina" value="equipos">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="idCorresponsal" value=${corresponsal.nid}>
+                                            <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
