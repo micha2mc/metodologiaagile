@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ParticipanteDAO {
     ConnectionDB connectionDB = new ConnectionDB();
@@ -54,5 +55,9 @@ public class ParticipanteDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Participante> getCorresponsalesByTeam(final int nid) {
+        return null;
     }
 }

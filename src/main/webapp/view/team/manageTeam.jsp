@@ -94,9 +94,9 @@
                             </li>
                             <div>
                                 <form action="TeamController" method="POST">
-                                    <button href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
+                                    <button href="#" class="btn btn-primary mb-3">Añadir Corresponsales</button><br>
                                     <input type="hidden" name="pagina" value="equipos"><!-- comment -->
-                                    <input type="hidden" name="action" value="create">
+                                    <input type="hidden" name="action" value="corresponsales">
                                     <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>
                             </div>
@@ -128,7 +128,7 @@
     <div class="container">
         <h1 class="text-center my-1">Zona de Mantenimiento del Equipo ${team.nombre}</h1>
         <div class="row team-section">
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-12 col-lg-4">
                 <div class="team-card p-3">
                     <div class="d-flex align-items-center">
                         <img src="${team.logoImage}" alt="${team.nombre}" class="team-logo me-3">
@@ -147,6 +147,43 @@
                         </c:forEach>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 team-card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><img style=" width: 270px; height: 50px;" src="${team.logoImage}" alt="${team.nombre}" class="team-logo img-fluid me-3"> Corresponsales de ${team.nombre}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h6 class="text-muted">Datos de los corresponsales</h6>
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre y apellidos</th>
+                                        <th>Código</th>
+                                        <th>ERS-CurvaLenta</th>
+                                        <th>ERS-CurvaMedia</th>
+                                        <th>ERS-CurvaRápida</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>${car.nombre}</td>
+                                        <td>${car.codigo}</td>
+                                        <td class="text-center">${car.ers_curvas_lentas}</td>
+                                        <td class="text-center">${car.ers_curvas_medias}</td>
+                                        <td class="text-center">${car.ers_curvas_rapidas}</td>
+                                        <td class="text-center">${car.consumo}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

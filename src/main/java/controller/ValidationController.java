@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
+import utils.Utiles;
 
 /**
  * @author micha
@@ -40,6 +41,7 @@ public class ValidationController extends HttpServlet {
         } else if (accion.equalsIgnoreCase("registrar")) {
             registrarUsuarios(request, response);
         } else {
+            request.setAttribute("listaVotacion", Utiles.ordenarPilotosPuntuacion());
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }

@@ -3,6 +3,7 @@
     Created on : 6 ene 2025, 12:28:56
     Author     : micha
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,23 +72,55 @@
                     <div class="col-md-6">
                         <div class="card shadow-lg">
                             <div class="card-header text-center bg-danger text-white">
-                                <label>Introduce los datos para votar</label>
+                                <c:choose>
+                                    <c:when test="${corresponsales}">
+                                        <label>Introduce los datos para el corresponsal</label>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <label>Introduce los datos para votar</label>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                             <div class="card-body">
-                                <form action="PublicController" method="POST">
-                                    <input type="hidden" name="pagina" value="votacion">
-                                    <input type="hidden" name="idvotacion" value="${votacionSeleccinada}">
-                                    
-                                    <div class="form-group mb-3">
-                                        <input class="form-control" type="text" name="txtname" placeholder="Introduce nombre" value="" required>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <input class="form-control" type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
-                                    </div>
-                                    <div class="d-grid">
-                                        <button type="submit" name="action" value="conectar" class="btn btn-danger btn-block">ENTRA</button>
-                                    </div>
-                                </form>
+
+                                <c:choose>
+                                    <c:when test="${corresponsales}">
+                                        <form action="TeamController" method="POST">
+                                            <input type="hidden" name="pagina" value="equipos">
+                                            <input type="hidden" name="estado" value="estado">
+                                            <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>  
+                                        </c:when>
+                                        <c:otherwise>
+                                            <form action="PublicController" method="POST">
+                                                <input type="hidden" name="pagina" value="votacion">
+                                                <input type="hidden" name="idvotacion" value="${votacionSeleccinada}">
+                                            </c:otherwise>
+                                        </c:choose>
+
+
+
+                                        <div class="form-group mb-3">
+                                            <input class="form-control" type="text" name="txtname" placeholder="Introduce nombre" value="" required>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <input class="form-control" type="text" name="txtemail" placeholder="Correo electrónico" value="" required>
+                                        </div>
+                                        <div class="d-grid">
+
+                                            <c:choose>
+                                                <c:when test="${corresponsales}">
+                                                    <button type="submit" name="action" value="corresponsales" class="btn btn-danger btn-block">Guardar</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button type="submit" name="action" value="conectar" class="btn btn-danger btn-block">Registrar</button>
+                                                </c:otherwise>
+                                            </c:choose>
+
+
+
+                                        </div>
+                                    </form>
                             </div>
                         </div>
                     </div>
