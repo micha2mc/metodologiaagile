@@ -131,16 +131,16 @@
         <div class="container mt-4">
             <h1 class="text-center mb-4">Coches de ${team}</h1>
             <div class="row">
-                <c:forEach var="team" items="${listCars}">
+                <c:forEach var="car" items="${listCars}">
                     <div class="col-md-12 team-card">
                         <div class="card">
                             <div class="card-header bg-danger text-white">
-                                <h5 class="mb-0">${team.nombre} ${team.codigo}</h5>
+                                <h5 class="mb-0">${car.nombre} ${car.codigo}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <img src="${team.imagen}" class="img-fluid rounded" alt="${team.nombre}">
+                                        <img src="${car.imagen}" class="img-fluid rounded" alt="${car.nombre}">
                                     </div>
                                     <div class="col-md-8">
                                         <h6 class="text-muted">Datos del coche</h6>
@@ -157,12 +157,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>${team.nombre}</td>
-                                                    <td>${team.codigo}</td>
-                                                    <td class="text-center">${team.ers_curvas_lentas}</td>
-                                                    <td class="text-center">${team.ers_curvas_medias}</td>
-                                                    <td class="text-center">${team.ers_curvas_rapidas}</td>
-                                                    <td class="text-center">${team.consumo}</td>
+                                                    <td>${car.nombre}</td>
+                                                    <td>${car.codigo}</td>
+                                                    <td class="text-center">${car.ers_curvas_lentas}</td>
+                                                    <td class="text-center">${car.ers_curvas_medias}</td>
+                                                    <td class="text-center">${car.ers_curvas_rapidas}</td>
+                                                    <td class="text-center">${car.consumo}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -170,9 +170,9 @@
                                     <div>
                                         <form action="TeamController" method="POST">
                                             <button href="#" class="btn btn-danger mb-3">Eliminar</button><br>
-                                            <input type="hidden" name="pagina" value="equipos">
-                                            <input type="hidden" name="action" value="delete">
-                                            <input type="hidden" name="idCorresponsal" value=${corresponsal.nid}>
+                                            <input type="hidden" name="pagina" value="coches">
+                                            <input type="hidden" name="accion" value="delete">
+                                            <input type="hidden" name="idcar" value=${car.nid}>
                                             <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                         </form>
                                     </div>
