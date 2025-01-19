@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Nuevo Circuito</title>
+        <title>Nuevo Equipo</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -22,8 +22,9 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-danger">
+<nav class="navbar navbar-expand-lg bg-danger">
             <div class="container d-flex justify-content-between align-items-center">
+
                 <img src="https://media.formula1.com/image/upload/f_auto,c_limit,w_195,q_auto/etc/designs/fom-website/images/f1_logo"
                      alt="F1 Logo">
 
@@ -40,16 +41,71 @@
                                 <div class="dropdown">
 
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Mant. Respo.
+                                        Mant. Admin.
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="TeamController?pagina=pilotos">Mant. Pilotos</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=coches">Mant. Coches</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=equipos">Mant. Equipos</a></li>
-                                        <li><a class="dropdown-item" href="TeamController?pagina=simulacion">Herram. Simulación</a></li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Noticias</button><br>
+                                                <input type="hidden" name="pagina" value="noticia">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Votación</button><br>
+                                                <input type="hidden" name="pagina" value="votacion">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Usuarios</button><br>
+                                                <input type="hidden" name="pagina" value="usuario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Mant. Circuitos</button><br>
+                                                <input type="hidden" name="pagina" value="circuito">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
+                            <li class="nav-item me-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Mant. Portal
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Calendario</button><br>
+                                                <input type="hidden" name="pagina" value="calendario">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form class="m-0 p-0" action="AdminController" method="POST">
+                                                <button href="#" class="dropdown-item m-0 p-2">Detalles Equipos</button><br>
+                                                <input type="hidden" name="pagina" value="equipo">
+                                                <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div>
+                                <form action="TeamController" method="POST">
+                                    <button href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
+                                    <input type="hidden" name="pagina" value="equipo"><!-- comment -->
+                                    <input type="hidden" name="action" value="create">
+                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                </form>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -82,8 +138,8 @@
                     <h3>Añadiendo Equipo</h3>
                 </div>
                 <div class="card-body">
-                    <form action="TeamController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
-                        <input type="hidden" name="pagina" value="equipos">
+                    <form action="AdminController" method="POST" accept-charset="UTF-8" enctype="multipart/form-data"> 
+                        <input type="hidden" name="pagina" value="equipo">
                         <input type="hidden" name="estado" value="creando">
                         <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">

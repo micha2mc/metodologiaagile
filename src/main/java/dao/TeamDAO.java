@@ -3,6 +3,7 @@ package dao;
 import config.ConnectionDB;
 import model.Pilot;
 import model.Team;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -226,5 +227,24 @@ public class TeamDAO {
                 .logoImage(resultSet.getString("logo_imagen"))
                 .twitter(resultSet.getString("twitter"))
                 .build();
+    }
+
+    public Team findByName(String nombre) {
+        String query = """
+                SELECT *
+                FROM circuitsdb.equipo
+                WHERE nombre like ?
+                """;
+        try (Connection connection = connectionDB.ConnectionDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, StringUtils.join("%", nombre, "%"));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return getTeam(resultSet);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

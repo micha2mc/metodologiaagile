@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -29,8 +30,7 @@ import java.util.stream.Collectors;
  * Puede ver los detalles de cada equipo, con el fin de obtener datos de grafismo para el equipo de producción que retransmite la carrera.
  */
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10,      // 10MB
         maxRequestSize = 1024 * 1024 * 50   // 50MB
 )
@@ -38,6 +38,7 @@ public class AdminController extends HttpServlet {
 
     private static final String UPLOAD_DIR_CIRCUIT = "img/circuitos/";
     private static final String UPLOAD_DIR_NEWS = "img/noticias/";
+    private static final String UPLOAD_DIR_TEAM = "img/equipo/";
 
 
     private final NewsDAO noticiaDAO = new NewsDAO();
@@ -51,8 +52,7 @@ public class AdminController extends HttpServlet {
     private final CarDAO carDAO = new CarDAO();
 
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         request.setCharacterEncoding("UTF-8");
 
         String pagina = request.getParameter("pagina");
@@ -75,6 +75,17 @@ public class AdminController extends HttpServlet {
     }
 
     private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (StringUtils.isNotBlank(action)) {
+            switch (action) {
+                case "create" -> crearEquipo(request, response);
+                //case "update" -> actualizarCircuito(request, response);
+                //case "delete" -> eliminarCircuito(request);
+                default -> throw new RuntimeException("Error");
+            }
+        }
+
+
         List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid(), Boolean.FALSE);
         for (Car car : allCarsByTeam) {
             Team teamByIdAndPilots = teamDAO.getTeamByIdAndPilots(car.getTeam().getNid());
@@ -83,6 +94,25 @@ public class AdminController extends HttpServlet {
 
         request.setAttribute("listCars", allCarsByTeam);
         request.getRequestDispatcher("/view/admin/manageTeamAdmin.jsp").forward(request, response);
+
+    }
+
+
+    private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
+            String nombre = request.getParameter("nombre");
+            if (Objects.isNull(teamDAO.findByName(nombre))) {
+                Team team = Team.builder()
+                        .nombre(nombre)
+                        .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
+                        .twitter(request.getParameter("twitter")).build();
+                teamDAO.createTeam(team);
+            }
+        } else {
+            request.getRequestDispatcher("/view/team/teamForm.jsp").forward(request, response);
+
+        }
     }
 
 
@@ -107,12 +137,7 @@ public class AdminController extends HttpServlet {
             Circuit circuit = circuitDAO.getCircuitById(Integer.parseInt(circuito));
             LocalDate fechaForm = LocalDate.parse(request.getParameter("fecha"));
             String status = Utiles.getStatusCalendar(fechaForm);
-            Calendar calendar = Calendar.builder()
-                    .fecha(fechaForm)
-                    .nombre(circuit.getNombre())
-                    .ubicacion(circuit.getCiudad())
-                    .estado(status)
-                    .build();
+            Calendar calendar = Calendar.builder().fecha(fechaForm).nombre(circuit.getNombre()).ubicacion(circuit.getCiudad()).estado(status).build();
             calendarDAO.createCalendar(calendar);
 
         } else {
@@ -185,9 +210,7 @@ public class AdminController extends HttpServlet {
             request.setAttribute("listaequipos", teamList);
             request.getRequestDispatcher("/view/admin/usersForm.jsp").forward(request, response);
         } else {
-            userDAO.validateUserForAdmin(Integer.parseInt(request.getParameter("nid")),
-                    Integer.parseInt(request.getParameter("roleOption")),
-                    Integer.parseInt(request.getParameter("extraOption")));
+            userDAO.validateUserForAdmin(Integer.parseInt(request.getParameter("nid")), Integer.parseInt(request.getParameter("roleOption")), Integer.parseInt(request.getParameter("extraOption")));
         }
     }
 
@@ -198,14 +221,9 @@ public class AdminController extends HttpServlet {
                 case "create" -> {
                     if (StringUtils.isNotBlank(request.getParameter("estado"))) {
                         String[] pilotosSeleccionados = request.getParameterValues("pilotosOption");
-                        List<Integer> listIdPilotos = Arrays.stream(pilotosSeleccionados)
-                                .map(Integer::parseInt) // Convierte cada elemento a Integer
+                        List<Integer> listIdPilotos = Arrays.stream(pilotosSeleccionados).map(Integer::parseInt) // Convierte cada elemento a Integer
                                 .collect(Collectors.toList());
-                        Voting voting = Voting.builder()
-                                .titulo(request.getParameter("titulo"))
-                                .descripcion(request.getParameter("descripcion"))
-                                .fechaLimite(LocalDate.parse(request.getParameter("fecha")))
-                                .build();
+                        Voting voting = Voting.builder().titulo(request.getParameter("titulo")).descripcion(request.getParameter("descripcion")).fechaLimite(LocalDate.parse(request.getParameter("fecha"))).build();
                         votingDAO.createVoting(voting, listIdPilotos);
                         request.setAttribute("listaPilotos", pilotosSeleccionados);
                     } else {
@@ -269,8 +287,7 @@ public class AdminController extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (SQLException e) {
@@ -280,8 +297,7 @@ public class AdminController extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (SQLException e) {
@@ -306,12 +322,7 @@ public class AdminController extends HttpServlet {
             }
             String imagePath = FileSearcher.obtainFileName(request, UPLOAD_DIR_NEWS);
             LocalDate fecha = LocalDate.now();
-            News newNoticia = News.builder()
-                    .titulo(titulo)
-                    .texto(texto)
-                    .fecha(fecha)
-                    .imagen(imagePath)
-                    .build();
+            News newNoticia = News.builder().titulo(titulo).texto(texto).fecha(fecha).imagen(imagePath).build();
             noticiaDAO.crearNoticia(newNoticia);
         } else {
             request.getRequestDispatcher("/view/admin/newsForm.jsp").forward(request, response);
@@ -321,16 +332,7 @@ public class AdminController extends HttpServlet {
     private void crearCircuito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (StringUtils.isNotBlank(request.getParameter("estado"))) {
             String fileName = FileSearcher.obtainFileName(request, UPLOAD_DIR_CIRCUIT);
-            Circuit circuit = Circuit.builder()
-                    .nombre(request.getParameter("nombre"))
-                    .ciudad(request.getParameter("ciudad"))
-                    .pais(request.getParameter("pais"))
-                    .trazadoImagen(fileName)
-                    .longitud(Integer.parseInt(request.getParameter("longitud")))
-                    .curvasLentas(Integer.parseInt(request.getParameter("curvaslentas")))
-                    .curvasMedias(Integer.parseInt(request.getParameter("curvasmedias")))
-                    .curvasRapidas(Integer.parseInt(request.getParameter("curvasrapidas")))
-                    .build();
+            Circuit circuit = Circuit.builder().nombre(request.getParameter("nombre")).ciudad(request.getParameter("ciudad")).pais(request.getParameter("pais")).trazadoImagen(fileName).longitud(Integer.parseInt(request.getParameter("longitud"))).curvasLentas(Integer.parseInt(request.getParameter("curvaslentas"))).curvasMedias(Integer.parseInt(request.getParameter("curvasmedias"))).curvasRapidas(Integer.parseInt(request.getParameter("curvasrapidas"))).build();
             circuitDAO.createCircuit(circuit);
         } else {
             request.getRequestDispatcher("/view/admin/circuitForm.jsp").forward(request, response);

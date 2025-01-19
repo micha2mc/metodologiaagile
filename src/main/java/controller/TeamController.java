@@ -34,7 +34,6 @@ public class TeamController extends HttpServlet {
 
 
     private static final String UPLOAD_DIR_PILOT = "img/pilotos/";
-    private static final String UPLOAD_DIR_TEAM = "img/equipo/";
     private static final String UPLOAD_DIR_COCHES = "img/coches/";
     private final PilotDAO pilotDAO = new PilotDAO();
     private final TeamDAO teamDAO = new TeamDAO();
@@ -134,7 +133,6 @@ public class TeamController extends HttpServlet {
         String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
-                case "create" -> crearEquipo(request, response);
                 case "corresponsales" -> gestionCorresponsales(request, response, usuarioconectado);
                 case "delete" -> eliminarCorresponsal(request);
                 default -> throw new RuntimeException("Error");
@@ -167,21 +165,6 @@ public class TeamController extends HttpServlet {
 
     }
 
-    private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
-            Team team = Team.builder()
-                    .nombre(request.getParameter("nombre"))
-                    .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
-                    .twitter(request.getParameter("twitter"))
-                    .build();
-            teamDAO.createTeam(team);
-        } else {
-            request.getRequestDispatcher("/view/team/teamForm.jsp").forward(request, response);
-
-        }
-
-    }
 
 
     @Override
