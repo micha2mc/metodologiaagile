@@ -73,6 +73,8 @@ public class PublicController extends HttpServlet {
                         Participante partic = Participante.builder()
                                 .userName(request.getParameter("txtname"))
                                 .email(request.getParameter("txtemail"))
+                                .corresponsal(Boolean.FALSE)
+                                .id_team(0)
                                 .build();
                         String idVotacion = request.getParameter("idvotacion");
                         participanteDAO.createParticipante(partic);  

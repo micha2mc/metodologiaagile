@@ -13,4 +13,6 @@ public class Participante {
     private int nid;
     private String userName;
     private String email;
+    private boolean corresponsal;
+    private int id_team;
 }

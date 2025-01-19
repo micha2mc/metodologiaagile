@@ -7,10 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Car;
-import model.Pilot;
-import model.Team;
-import model.User;
+import model.*;
 import org.apache.commons.lang3.StringUtils;
 import utils.FileSearcher;
 
@@ -143,18 +140,26 @@ public class TeamController extends HttpServlet {
                 default -> throw new RuntimeException("Error");
             }
         }
+        request.setAttribute("listaCorresponsallles", participanteDAO.getCorresponsalesByTeam(usuarioconectado.getTeam().getNid()));
         request.setAttribute("team", teamDAO.getTeamByIdAndPilots(usuarioconectado.getTeam().getNid()));
         request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
     }
 
     private void gestionCorresponsales(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
         if (StringUtils.isNotBlank(request.getParameter("estado"))) {
-            request.setAttribute("listaCorresponsallles", participanteDAO.getCorresponsalesByTeam(usuarioconectado.getTeam().getNid()));
-            request.setAttribute("team", teamDAO.getTeamByIdAndPilots(usuarioconectado.getTeam().getNid()));
-            request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
+
+            Participante participante = Participante.builder()
+                    .userName(request.getParameter("txtname"))
+                    .email(request.getParameter("txtemail"))
+                    .corresponsal(Boolean.TRUE)
+                    .id_team(usuarioconectado.getTeam().getNid())
+                    .build();
+            participanteDAO.createParticipante(participante);
+        } else {
+            request.setAttribute("corresponsales", Boolean.TRUE);
+            request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
         }
-        request.setAttribute("corresponsales", Boolean.TRUE);
-        request.getRequestDispatcher("/view/public/votingLogin.jsp").forward(request, response);
+
     }
 
     private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

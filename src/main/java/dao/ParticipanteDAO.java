@@ -41,8 +41,8 @@ public class ParticipanteDAO {
     public void createParticipante(final Participante partic) {
         String query = """
                 INSERT INTO circuitsdb.participantes
-                (username, email)
-                VALUES(?, ?);
+                (username, email, corresponsal, id_team)
+                VALUES(?, ?, ?, ?);
                 """;
 
         try (Connection connection = connectionDB.ConnectionDB();
@@ -50,6 +50,8 @@ public class ParticipanteDAO {
 
             statement.setString(1, partic.getUserName());
             statement.setString(2, partic.getEmail());
+            statement.setBoolean(3, partic.isCorresponsal());
+            statement.setInt(4, partic.getId_team());
             statement.execute();
 
         } catch (SQLException e) {

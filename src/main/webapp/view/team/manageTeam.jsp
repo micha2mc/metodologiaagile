@@ -161,22 +161,19 @@
                             <table class="table table-sm table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nombre y apellidos</th>
-                                        <th>Código</th>
-                                        <th>ERS-CurvaLenta</th>
-                                        <th>ERS-CurvaMedia</th>
-                                        <th>ERS-CurvaRápida</th>
+                                        <th>Corresponsal</th>
+                                        <th>Email</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>${car.nombre}</td>
-                                        <td>${car.codigo}</td>
+                                        <c:forEach var="corresponsal" items="${listaCorresponsallles}">
+                                            
+                                        </c:forEach>
+                                        <td>${corresponsal.userName}</td>
+                                        <td>${corresponsal.email}</td>
                                         <td class="text-center">${car.ers_curvas_lentas}</td>
-                                        <td class="text-center">${car.ers_curvas_medias}</td>
-                                        <td class="text-center">${car.ers_curvas_rapidas}</td>
-                                        <td class="text-center">${car.consumo}</td>
                                     </tr>
                                 </tbody>
                             </table>

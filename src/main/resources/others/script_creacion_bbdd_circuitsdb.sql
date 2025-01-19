@@ -61,7 +61,7 @@ CREATE TABLE `participantes` (
 	`username` varchar(50) NOT NULL,
 	`email` varchar(50) NOT NULL,
 	`corresponsal` BOOLEAN DEFAULT FALSE,
-	`id_team` INT
+	`id_team` INT DEFAULT 0
 ) ENGINE = InnoDB;
 
 
