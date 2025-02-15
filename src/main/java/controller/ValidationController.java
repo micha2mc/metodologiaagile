@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import model.News;
 import model.User;
+import org.apache.commons.lang3.StringUtils;
 import utils.RolEnum;
 
 import java.io.IOException;
@@ -62,7 +63,6 @@ public class ValidationController extends HttpServlet {
 
     }
 
-
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -93,8 +93,12 @@ public class ValidationController extends HttpServlet {
                 request.getRequestDispatcher("view/admin/manageNews.jsp").forward(request, response);
             } else {
                 request.setAttribute("usuarioConectado", user);
-                request.setAttribute("listaPilotos", pilotDAO.getAllPilotForTeam(user.getTeam().getNid()));
-                request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
+                if (StringUtils.isBlank(user.getTeam().getNombre())) {
+                    request.getRequestDispatcher("view/team/teamForm.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("listaPilotos", pilotDAO.getAllPilotForTeam(user.getTeam().getNid()));
+                    request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
+                }
             }
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);

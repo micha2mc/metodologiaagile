@@ -5,10 +5,7 @@ import model.Pilot;
 import model.Team;
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class TeamDAO {
@@ -131,7 +128,10 @@ public class TeamDAO {
                     pilotList.add(pilot);
                 }
             }
-            team.setPilot(pilotList);
+            if (Objects.nonNull(team)) {
+                team.setPilot(pilotList);
+
+            }
             return team;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -159,7 +159,7 @@ public class TeamDAO {
     }
 
     //Create Team
-    public void createTeam(final Team team) {
+    public int createTeam(final Team team) {
 
         String query = """
                 INSERT INTO circuitsdb.equipo
@@ -168,14 +168,28 @@ public class TeamDAO {
                 """;
 
         try (Connection connection = connectionDB.ConnectionDB();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, team.getNombre());
             preparedStatement.setString(2, team.getLogoImage());
             preparedStatement.setString(3, team.getTwitter());
-            preparedStatement.execute();
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                        /*return Team.builder()
+                                .nid(generatedId)
+                                .nombre(team.getNombre())
+                                .logoImage(team.getLogoImage())
+                                .twitter(team.getTwitter())
+                                .build();*/
+                    }
+                }
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return 0;
 
     }
 

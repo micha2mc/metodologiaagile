@@ -116,14 +116,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <div>
-                                <form action="AdminController" method="POST">
-                                    <button href="#" class="btn btn-primary mb-3">Añadir Equipo</button><br>
-                                    <input type="hidden" name="pagina" value="equipo"><!-- comment -->
-                                    <input type="hidden" name="action" value="create">
-                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
-                                </form>
-                            </div>
+                         
                         </ul>
                     </div>
                 </div>

@@ -77,6 +77,25 @@ public class UserDAO {
         }
     }
 
+
+    public void createUserResponsable(final User user, final int nid_auth, final int nid_team) {
+        String query = """
+                INSERT INTO circuitsdb.users
+                (username, email, password, nid_auth, nid_team)
+                VALUES(?, ?, ?, ?, ?);
+                """;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, nid_auth);
+            preparedStatement.setInt(5, nid_team);
+            preparedStatement.execute();
+        } catch (Exception e) {
+        }
+    }
+
     public List<User> getAllUsers() {
         List<User> listUser = new ArrayList<>();
 
@@ -91,15 +110,28 @@ public class UserDAO {
         return listUser;
     }
 
-    public void validateUserForAdmin(final int nid, final int idAuthority, int idTeam) {
+    public void updateUserWithTeam(final int nid, final int idTeam) {
         String queryUpdateUser = """
-                UPDATE circuitsdb.users SET valid = ?, nid_auth = ?, nid_team = ? WHERE nid = ?
+                UPDATE circuitsdb.users SET nid_team = ? WHERE nid = ?
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(queryUpdateUser)) {
+            preparedStatement.setInt(1, idTeam);
+            preparedStatement.setInt(2, nid);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void validateUserForAdmin(final int nid, final int idAuthority) {
+        String queryUpdateUser = """
+                UPDATE circuitsdb.users SET valid = ?, nid_auth = ? WHERE nid = ?
                 """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(queryUpdateUser)) {
             preparedStatement.setBoolean(1, Boolean.TRUE);
             preparedStatement.setInt(2, idAuthority);
-            preparedStatement.setInt(3, idTeam);
-            preparedStatement.setInt(4, nid);
+            //preparedStatement.setInt(3, idTeam);
+            preparedStatement.setInt(3, nid);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);

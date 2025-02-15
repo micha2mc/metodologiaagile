@@ -156,14 +156,14 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div class="form-group mb-3" id="additionalSelectContainer" style="display: none;">
+                        <!--<div class="form-group mb-3" id="additionalSelectContainer" style="display: none;">
                             <label for="extraOption">Seleccione Equipo del Responsable:</label>
                             <select id="extraOption" name="extraOption" class="form-control">
                                 <c:forEach var="equipo" items="${listaequipos}">
                                     <option value="${equipo.nid}">${equipo.nombre}</option>
                                 </c:forEach>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="buttons mb-3">
                             <button type = "submit" name="action" value="validar" class="btn btn-success">Validar</button>
                         </div>

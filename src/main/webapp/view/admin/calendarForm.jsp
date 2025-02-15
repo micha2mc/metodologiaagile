@@ -139,6 +139,7 @@
                         <input type="hidden" name="pagina" value="calendario">
                         <input type="hidden" name="action" value="create"><!-- comment -->
                         <input type="hidden" name="estado" value="create">
+                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                         <div class="form-group mb-3">
                             <label for="fecha">Fecha</label>
                             <input class="form-control" type="date" id="fecha" name="fecha" placeholder="Ingrese la fecha de la carrera" required>

@@ -131,7 +131,7 @@
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Email</th>
-                            <th class="text-center" scope="col">Acción</th>
+                            <th class="text-center" scope="col" colspan="2">Acción</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Equipo</th>
                         </tr>
@@ -154,14 +154,15 @@
                                     </c:if>
                                 </td>
                                 <td class="text-start">
-
-                                    <form class="m-0 p-0" action="AdminController" method="POST">
-                                        <button href="#" class="text-light ms-3 btn btn-danger">Eliminar</button><br>
-                                        <input type="hidden" name="pagina" value="usuarios">
-                                        <input type="hidden" name="usuario" value=${temporalesUser.nid}>
-                                        <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
-                                    </form>
+                                    <c:if test="${usuarioConectado.getEmail()!=temporalesUser.email}">
+                                        <form class="m-0 p-0" action="AdminController" method="POST">
+                                            <button href="#" class="text-light ms-3 btn btn-danger">Eliminar</button><br>
+                                            <input type="hidden" name="pagina" value="usuarios">
+                                            <input type="hidden" name="usuario" value=${temporalesUser.nid}>
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                        </form>
+                                    </c:if>
                                 </td>
 
                                 <td>${temporalesUser.authorities.authority}</td>

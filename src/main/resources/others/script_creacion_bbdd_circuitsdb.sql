@@ -179,12 +179,10 @@ CREATE TABLE `circuitos` (
 
 
 
-INSERT INTO circuitsdb.equipo (nombre, logo_imagen, twitter) VALUES('McLaren', 'img/equipo/mclaren.png', '@McLaren');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO circuitsdb.authorities (authority) VALUES ('ROLE_RESPON');
 
 INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth) VALUES ('Admin', 'admin@gmail.com', '12345', TRUE, 1);
-INSERT INTO `circuitsdb`.`users` (username, email, password, valid, nid_auth, nid_team) VALUES('Team', 'team@gmail.com', '12345', TRUE, 2, 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

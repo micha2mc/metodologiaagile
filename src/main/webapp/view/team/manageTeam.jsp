@@ -95,7 +95,7 @@
                             <div>
                                 <form action="TeamController" method="POST">
                                     <button href="#" class="btn btn-primary mb-3">Añadir Corresponsales</button><br>
-                                    <input type="hidden" name="pagina" value="equipos"><!-- comment -->
+                                    <input type="hidden" name="pagina" value="equipos">
                                     <input type="hidden" name="action" value="corresponsales">
                                     <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>

@@ -38,7 +38,6 @@ public class AdminController extends HttpServlet {
 
     private static final String UPLOAD_DIR_CIRCUIT = "img/circuitos/";
     private static final String UPLOAD_DIR_NEWS = "img/noticias/";
-    private static final String UPLOAD_DIR_TEAM = "img/equipo/";
 
 
     private final NewsDAO noticiaDAO = new NewsDAO();
@@ -75,16 +74,6 @@ public class AdminController extends HttpServlet {
     }
 
     private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (StringUtils.isNotBlank(action)) {
-            switch (action) {
-                case "create" -> crearEquipo(request, response);
-                //case "update" -> actualizarCircuito(request, response);
-                //case "delete" -> eliminarCircuito(request);
-                default -> throw new RuntimeException("Error");
-            }
-        }
-
 
         List<Car> allCarsByTeam = carDAO.getAllCarsByTeam(usuarioconectado.getTeam().getNid(), Boolean.FALSE);
         for (Car car : allCarsByTeam) {
@@ -95,24 +84,6 @@ public class AdminController extends HttpServlet {
         request.setAttribute("listCars", allCarsByTeam);
         request.getRequestDispatcher("/view/admin/manageTeamAdmin.jsp").forward(request, response);
 
-    }
-
-
-    private void crearEquipo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if (StringUtils.isNotBlank(request.getParameter("estado"))) {
-            String nombre = request.getParameter("nombre");
-            if (Objects.isNull(teamDAO.findByName(nombre))) {
-                Team team = Team.builder()
-                        .nombre(nombre)
-                        .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
-                        .twitter(request.getParameter("twitter")).build();
-                teamDAO.createTeam(team);
-            }
-        } else {
-            request.getRequestDispatcher("/view/team/teamForm.jsp").forward(request, response);
-
-        }
     }
 
 
@@ -203,14 +174,15 @@ public class AdminController extends HttpServlet {
         if (StringUtils.isNotBlank(request.getParameter("estado"))) {
             String usuarioNid = request.getParameter("usuario");
             User user = userDAO.findById(Integer.parseInt(usuarioNid));
+            user.setTeam(null);
             List<Authorities> allRoles = authoritiesDAO.getAllRoles();
-            List<Team> teamList = teamDAO.getAllTeam();
+            //List<Team> teamList = teamDAO.getAllTeam();
             request.setAttribute("usuarioDB", user);
             request.setAttribute("roles", allRoles);
-            request.setAttribute("listaequipos", teamList);
+            //request.setAttribute("listaequipos", teamList);
             request.getRequestDispatcher("/view/admin/usersForm.jsp").forward(request, response);
         } else {
-            userDAO.validateUserForAdmin(Integer.parseInt(request.getParameter("nid")), Integer.parseInt(request.getParameter("roleOption")), Integer.parseInt(request.getParameter("extraOption")));
+            userDAO.validateUserForAdmin(Integer.parseInt(request.getParameter("nid")), Integer.parseInt(request.getParameter("roleOption")));
         }
     }
 
