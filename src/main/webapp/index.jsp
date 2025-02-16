@@ -193,7 +193,8 @@
                                 </div>
                             </div>
                             <c:if test="${status.index % 3 == 2}">
-                            </div><div class="row">
+                            </div>
+                            <div class="row">
                             </c:if>
                         </c:if>
                     </c:forEach>

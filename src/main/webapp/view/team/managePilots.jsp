@@ -29,7 +29,7 @@
                      alt="F1 Logo">
 
                 <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                    <div class="flex-fill">
+                    <div class="flex-fill"  style="display: flex; align-items: center;">
                         <ul class="nav navbar-nav">
                             <li class="nav-item me-3">
                                 <a class="nav-link" href="Controller">Inicio</a>
@@ -77,19 +77,22 @@
                             </li>
                             <div>
                                 <form action="TeamController" method="POST">
-                                    <button href="#" class="btn btn-primary mb-3">Añadir Piloto en ${usuarioConectado.team.nombre}</button><br>
+                                    <button href="#" class="btn btn-primary mb-3">Add Pilot ${nombre}</button><br>
                                     <input type="hidden" name="pagina" value="pilotos"><!-- comment -->
                                     <input type="hidden" name="accion" value="create">
                                     <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                 </form>
                             </div>
                             <div>
-                                <form action="TeamController" method="POST">
-                                    <button href="#" class="btn btn-primary mb-3">Añadir Responsable</button><br>
-                                    <input type="hidden" name="pagina" value="respon">
-                                    <input type="hidden" name="action" value="create">
-                                    <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
-                                </form>
+                                <c:if test="${!isCreated}">
+                                    <form action="TeamController" method="POST">
+                                        <button href="#" class="btn btn-primary mb-3">Añadir Responsable</button><br>
+                                        <input type="hidden" name="pagina" value="respon">
+                                        <input type="hidden" name="action" value="create">
+                                        <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
+                                    </form> 
+                                </c:if>
+
                             </div>
                         </ul>
                     </div>
@@ -116,7 +119,7 @@
         </div>
     </nav>
     <div class="container mt-1">
-        <h1 class="text-center mb-4">Listado de Pilotos de ${usuarioConectado.team.nombre}</h1>
+        <h1 class="text-center mb-4">Listado de Pilotos de ${nombre}</h1>
 
         <!-- Listado de productos -->
         <div class="row">
@@ -145,6 +148,54 @@
                 </div>
             </c:forEach>
         </div>
+        <section class="bg-light">
+            <div class="container py-12">
+                <div class="row text-center py-3">
+                    <div class="col-lg-6 m-auto">
+                        <h4 class="h4">Listado de Responsables de ${nombre}</h4>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>email</th>
+                                <th>¿Responsable Añadido?</th>
+                                <th>¿Validado?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="user" items="${listaUsuarios}" varStatus="status">
+                                <tr>
+                                    <td>${user.userName}</td>
+                                    <td>${user.email}</td>
+                                    <c:choose>
+                                        <c:when test="${user.respon}">
+                                            <td>SI</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>NO</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${user.valid}">
+                                            <td>SI</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>NO</td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

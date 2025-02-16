@@ -14,12 +14,12 @@ import model.News;
 import model.User;
 import org.apache.commons.lang3.StringUtils;
 import utils.RolEnum;
+import utils.Utiles;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
-import utils.Utiles;
 
 /**
  * @author micha
@@ -96,7 +96,10 @@ public class ValidationController extends HttpServlet {
                 if (StringUtils.isBlank(user.getTeam().getNombre())) {
                     request.getRequestDispatcher("view/team/teamForm.jsp").forward(request, response);
                 } else {
+                    request.setAttribute("nombre", user.getTeam().getNombre());
+                    request.setAttribute("listaUsuarios", userDAO.getAllUsersByIdTeam(user.getTeam().getNid()));
                     request.setAttribute("listaPilotos", pilotDAO.getAllPilotForTeam(user.getTeam().getNid()));
+                    request.setAttribute("isCreated", user.isRespon());
                     request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
                 }
             }

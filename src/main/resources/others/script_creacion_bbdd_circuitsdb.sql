@@ -48,6 +48,7 @@ CREATE TABLE `users` (
 	`valid` BOOLEAN DEFAULT FALSE,
 	`nid_auth` INT,
 	`nid_team` INT,
+	`respon` BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (nid_team) REFERENCES equipo (nid),
 	FOREIGN KEY (nid_auth) REFERENCES authorities (nid)
 ) ENGINE = InnoDB;

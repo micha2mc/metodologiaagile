@@ -15,7 +15,7 @@ import java.util.List;
 public class UserDAO {
     private final String queryCommon = """
                      SELECT 
-                        u.nid AS nid_u, username, email, password, a.nid AS nid_a, authority, valid,
+                        u.nid AS nid_u, username, email, password, a.nid AS nid_a, authority, valid, respon,
                         e.nid AS nid_e, nombre 
                      FROM 
                         users u 
@@ -123,6 +123,20 @@ public class UserDAO {
         }
     }
 
+    public boolean updateUserResponsable(final int nid) {
+        String queryUpdateUser = """
+                UPDATE circuitsdb.users SET respon = ? WHERE nid = ?
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(queryUpdateUser)) {
+            preparedStatement.setBoolean(1, Boolean.TRUE);
+            preparedStatement.setInt(2, nid);
+            preparedStatement.executeUpdate();
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
+    }
+
     public void validateUserForAdmin(final int nid, final int idAuthority) {
         String queryUpdateUser = """
                 UPDATE circuitsdb.users SET valid = ?, nid_auth = ? WHERE nid = ?
@@ -175,6 +189,7 @@ public class UserDAO {
                 .valid(resultSet.getBoolean("valid"))
                 .authorities(authorities)
                 .team(team)
+                .respon(resultSet.getBoolean("respon"))
                 .build();
     }
 
@@ -186,6 +201,30 @@ public class UserDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(queryUser)) {
             preparedStatement.setInt(1, nid);
             preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<User> getAllUsersByIdTeam(final int nid) {
+        List<User> results = new ArrayList<>();
+        String query = """
+                 SELECT * FROM circuitsdb.users
+                 WHERE nid_team = ?
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, nid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                results.add(User.builder()
+                        .nid(resultSet.getInt("nid"))
+                        .userName(resultSet.getString("username"))
+                        .email(resultSet.getString("email"))
+                        .respon(resultSet.getBoolean("respon"))
+                        .valid(resultSet.getBoolean("valid"))
+                        .build());
+            }
+            return results;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

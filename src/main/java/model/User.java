@@ -17,5 +17,6 @@ public class User {
     private Authorities authorities; //mmany to one
     private Team team;
     private boolean valid;
+    private boolean respon;
 
 }

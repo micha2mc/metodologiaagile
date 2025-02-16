@@ -49,6 +49,7 @@ public class TeamController extends HttpServlet {
         String pagina = request.getParameter("pagina");
         User usuarioconectado = userDAO.findById(Integer.valueOf(request.getParameter("idusuarioconectado")));
         request.setAttribute("usuarioConectado", usuarioconectado);
+        request.setAttribute("nombre", usuarioconectado.getTeam().getNombre());
         switch (pagina) {
             case "pilotos" -> gestionPilotos(request, response, usuarioconectado);
             case "coches" -> gestionCoches(request, response, usuarioconectado);
@@ -71,11 +72,18 @@ public class TeamController extends HttpServlet {
                     .build();
 
             userDAO.createUserResponsable(user, 2, usuarioconectado.getTeam().getNid());
-            List<Pilot> allPilotForTeam = pilotDAO.getAllPilotForTeam(usuarioconectado.getTeam().getNid());
-            request.setAttribute("listaPilotos", allPilotForTeam);
-            request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
+            request.setAttribute("isCreated", userDAO.updateUserResponsable(usuarioconectado.getNid()));
+            forwardManegePilots(request, response, usuarioconectado);
         }
 
+    }
+
+    private void forwardManegePilots(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
+        List<Pilot> allPilotForTeam = pilotDAO.getAllPilotForTeam(usuarioconectado.getTeam().getNid());
+        List<User> allUsersByTeam = userDAO.getAllUsersByIdTeam(usuarioconectado.getTeam().getNid());
+        request.setAttribute("listaPilotos", allPilotForTeam);
+        request.setAttribute("listaUsuarios", allUsersByTeam);
+        request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
     }
 
     private void gestionCoches(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws SQLException, ServletException, IOException {
@@ -121,9 +129,8 @@ public class TeamController extends HttpServlet {
                 case "delete" -> eliminarPiloto(request, response);
             }
         }
-        List<Pilot> allPilotForTeam = pilotDAO.getAllPilotForTeam(usuarioconectado.getTeam().getNid());
-        request.setAttribute("listaPilotos", allPilotForTeam);
-        request.getRequestDispatcher("view/team/managePilots.jsp").forward(request, response);
+        request.setAttribute("isCreated", usuarioconectado.isRespon());
+        forwardManegePilots(request, response, usuarioconectado);
     }
 
     private void eliminarPiloto(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -152,11 +159,11 @@ public class TeamController extends HttpServlet {
     }
 
 
-    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException {
+    private void gestionEquipos(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException, SQLException {
         String action = request.getParameter("action");
         if (StringUtils.isNotBlank(action)) {
             switch (action) {
-                case "create" -> crearEquipo(request, usuarioconectado.getNid());
+                case "create" -> crearEquipo(request, response, usuarioconectado);
                 case "corresponsales" -> gestionCorresponsales(request, response, usuarioconectado);
                 case "delete" -> eliminarCorresponsal(request);
                 default -> throw new RuntimeException("Error");
@@ -174,7 +181,7 @@ public class TeamController extends HttpServlet {
         request.getRequestDispatcher("/view/team/manageTeam.jsp").forward(request, response);
     }
 
-    private void crearEquipo(HttpServletRequest request, int nid) throws ServletException, IOException {
+    private void crearEquipo(HttpServletRequest request, HttpServletResponse response, User usuarioconectado) throws ServletException, IOException, SQLException {
 
         String nombre = request.getParameter("nombre");
         Team teamByName = teamDAO.findByName(nombre);
@@ -184,10 +191,12 @@ public class TeamController extends HttpServlet {
                     .logoImage(FileSearcher.obtainFileName(request, UPLOAD_DIR_TEAM))
                     .twitter(request.getParameter("twitter")).build();
             int idTeam = teamDAO.createTeam(team);
-            userDAO.updateUserWithTeam(nid, idTeam);
+            userDAO.updateUserWithTeam(usuarioconectado.getNid(), idTeam);
         } else {
-            userDAO.updateUserWithTeam(nid, teamByName.getNid());
+            userDAO.updateUserWithTeam(usuarioconectado.getNid(), teamByName.getNid());
         }
+        request.setAttribute("nombre", nombre);
+        forwardManegePilots(request, response, usuarioconectado);
     }
 
     private void eliminarCorresponsal(final HttpServletRequest request) {

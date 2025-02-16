@@ -106,7 +106,7 @@
         <div class="col-md-6">
             <div class="card shadow-lg">
                 <div class="card-header text-center bg-danger text-white">
-                    <h3>Añadiendo Nuevo coche a ${teamNombre}</h3>
+                    <h3>Añadiendo Nuevo coche a ${usuarioConectado.team.nombre}</h3>
                 </div>
                 <div class="card-body">
 

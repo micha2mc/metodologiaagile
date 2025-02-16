@@ -167,8 +167,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach var="corresponsal" items="${listaCorresponsallles}">
+
+                                    <c:forEach var="corresponsal" items="${listaCorresponsallles}">
+                                        <tr>
                                             <td>${corresponsal.userName}</td>
                                             <td>${corresponsal.email}</td>
                                             <td>
@@ -180,9 +181,10 @@
                                                     <input type="hidden" name="idusuarioconectado" value=${usuarioConectado.nid}>
                                                 </form>
                                             </td> 
-                                        </c:forEach>
+                                        </tr>
+                                    </c:forEach>
 
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
